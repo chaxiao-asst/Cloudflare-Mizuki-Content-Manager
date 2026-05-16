@@ -15,8 +15,8 @@ export function createAboutRouter(githubClient: GitHubClient) {
 
   router.put('/api/about', async (request) => {
     try {
-      const body = await request.json();
-      const content = body.content || '';
+      const body = await request.json() as Record<string, unknown>;
+      const content = (body.content as string) || '';
       const file = await githubClient.getFile('src/content/spec/about.md').catch(() => null);
       if (file) {
         await githubClient.updateFile('src/content/spec/about.md', content, 'Update about content', file.sha);

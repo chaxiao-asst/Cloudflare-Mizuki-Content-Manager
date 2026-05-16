@@ -82,7 +82,7 @@ export function createConfigRouter(githubClient: GitHubClient) {
       if (typeof parseResult === 'object' && parseResult !== null) {
         if ('error' in parseResult) {
           console.error('Config parse error:', parseResult.error);
-          console.error('JSON string that failed:', (parseResult as { jsonStr: string }).jsonStr);
+          console.error('JSON string that failed:', (parseResult as Record<string, unknown>).jsonStr);
           return Response.json({
             success: false,
             message: '解析配置文件时出错: ' + (parseResult as { error: string }).error
@@ -138,9 +138,9 @@ export function createConfigRouter(githubClient: GitHubClient) {
       content = conditionalUpdate(content, file.content, 'fullscreenWallpaperConfig', fullscreenWallpaper as Record<string, unknown> | undefined, 'FullscreenWallpaperConfig', true);
 
       if (navBarLinks) {
-        let linksArray = navBarLinks;
+        let linksArray: unknown = navBarLinks;
         if (typeof navBarLinks === 'object' && navBarLinks !== null && !Array.isArray(navBarLinks) && 'links' in navBarLinks) {
-          linksArray = (navBarLinks as Record<string, unknown>).links;
+          linksArray = (navBarLinks as Record<string, unknown>).links as unknown;
         }
         content = updateTsVariable(content, 'navBarConfig', { links: linksArray }, 'NavBarConfig');
       }

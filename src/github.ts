@@ -122,7 +122,7 @@ export class GitHubClient {
 
   async listFiles(path: string): Promise<Array<{ name: string; path: string; type: string }>> {
     const response = await this.request("GET", `/contents/${this.encPath(path)}`);
-    const files = response as Array<{ name: string; path: string; type: string }>;
+    const files = response as unknown as Array<{ name: string; path: string; type: string }>;
     files.forEach(file => {
       file.name = decodeURIComponent(file.name);
       file.path = decodeURIComponent(file.path);

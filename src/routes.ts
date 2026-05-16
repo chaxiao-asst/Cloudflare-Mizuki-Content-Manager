@@ -21,7 +21,7 @@ interface RouteDef {
 function registerRoutes(router: ReturnType<typeof Router>, routes: RouteDef[]): void {
   for (const { method, path, handler } of routes) {
     const m = method.toLowerCase() as 'get' | 'post' | 'put' | 'delete' | 'all';
-    router[m](path, (...args: unknown[]) => handler(...args));
+    (router[m] as (...args: unknown[]) => unknown)(path, (...args: unknown[]) => handler(...args));
   }
 }
 
