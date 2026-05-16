@@ -597,11 +597,11 @@ async function fetchPostGlobalConfig() {
 
 function applyPostGlobalConfig() {
   var cfg = window.postGlobalConfig;
-  if (cfg.licenseConfig && !cfg.licenseConfig.enable) {
+  if (cfg.licenseConfig && cfg.licenseConfig.enable === false) {
     var licenseSection = document.getElementById('postLicenseSection');
     if (licenseSection) licenseSection.style.display = 'none';
   }
-  if (cfg.shareConfig && !cfg.shareConfig.enable) {
+  if (cfg.shareConfig && cfg.shareConfig.enable === false) {
     var shareSection = document.getElementById('postShareSection');
     if (shareSection) shareSection.style.display = 'none';
   }
