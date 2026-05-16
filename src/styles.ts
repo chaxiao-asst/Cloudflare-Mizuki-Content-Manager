@@ -238,7 +238,18 @@ tr:hover td{background:oklch(0.97 0.005 var(--hue))}
 .config-item input,.config-item select,.config-item textarea{width:100%;padding:9px 13px;border:1.5px solid var(--card-border);border-radius:var(--radius-sm);font-size:0.88rem;background:var(--card-bg);color:var(--text-primary);transition:all 0.2s;font-family:inherit}
 .config-item input:focus,.config-item select:focus,.config-item textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-bg)}
 .config-item .boolean-switch{display:flex;align-items:center;gap:10px}
-.config-item .boolean-switch input[type="checkbox"]{width:18px;height:18px;accent-color:var(--primary)}
+.config-item .boolean-switch input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:44px;height:24px;background:#ccc;border-radius:12px;position:relative;cursor:pointer;transition:background 0.3s;flex-shrink:0;padding:0;border:none}
+.config-item .boolean-switch input[type="checkbox"]::before{content:'';position:absolute;width:20px;height:20px;border-radius:50%;top:2px;left:2px;background:white;transition:transform 0.3s;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.config-item .boolean-switch input[type="checkbox"]:checked{background:var(--primary)}
+.config-item .boolean-switch input[type="checkbox"]:checked::before{transform:translateX(20px)}
+.config-item .boolean-switch label{display:inline;margin-bottom:0;font-size:0.84rem;text-transform:none;letter-spacing:normal;cursor:pointer;font-weight:400}
+
+.boolean-switch{position:relative;display:inline-flex;align-items:center;gap:10px}
+.boolean-switch input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:44px;height:24px;background:#ccc;border-radius:12px;position:relative;cursor:pointer;transition:background 0.3s;flex-shrink:0;padding:0;border:none;margin:0}
+.boolean-switch input[type="checkbox"]::before{content:'';position:absolute;width:20px;height:20px;border-radius:50%;top:2px;left:2px;background:white;transition:transform 0.3s;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.boolean-switch input[type="checkbox"]:checked{background:var(--primary)}
+.boolean-switch input[type="checkbox"]:checked::before{transform:translateX(20px)}
+.boolean-switch .slider{display:none}
 
 .feature-pages-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
 .feature-page-item{display:flex;align-items:center;gap:8px;padding:10px 12px;background:oklch(0.97 0.005 var(--hue));border-radius:var(--radius-sm);border:1px solid var(--card-border);transition:all 0.15s}

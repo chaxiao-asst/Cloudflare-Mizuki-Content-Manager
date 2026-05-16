@@ -157,11 +157,8 @@ export function createConfigRouter(githubClient: GitHubClient) {
         ['announcementConfig', 'announcementConfig', 'AnnouncementConfig', false],
         ['musicPlayerConfig', 'musicPlayerConfig', 'MusicPlayerConfig', false],
         ['sakuraConfig', 'sakuraConfig', 'SakuraConfig', false],
-        ['pioConfig', 'pioConfig', 'PioConfig', false],
         ['umamiConfig', 'umamiConfig', 'UmamiConfig', false],
         ['expressiveCodeConfig', 'expressiveCodeConfig', 'Record<string, unknown>', false],
-        ['shareConfig', 'shareConfig', 'ShareConfig', false],
-        ['licenseConfig', 'licenseConfig', 'LicenseConfig', false],
         ['toc', 'toc', 'TocConfig', false],
         ['commentConfig', 'commentConfig', 'CommentConfig', false],
       ];
@@ -171,6 +168,16 @@ export function createConfigRouter(githubClient: GitHubClient) {
         if (val) {
           content = conditionalUpdate(content, file.content, varName!, val, typeName, false);
         }
+      }
+
+      if (pioConfig) {
+        content = updateTsVariable(content, 'pioConfig', pioConfig, 'PioConfig');
+      }
+      if (shareConfig) {
+        content = updateTsVariable(content, 'shareConfig', shareConfig, 'ShareConfig');
+      }
+      if (licenseConfig) {
+        content = updateTsVariable(content, 'licenseConfig', licenseConfig, 'LicenseConfig');
       }
 
       if (showLastModified !== undefined) {
