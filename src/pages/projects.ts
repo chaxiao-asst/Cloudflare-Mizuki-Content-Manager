@@ -43,7 +43,7 @@ export const projectsPage = `
         <div class="form-group"><label>标签</label><input type="text" name="tags" id="projectTags" placeholder="tag1, tag2"></div>
       </div>
       <div class="form-group"><label>描述</label><textarea name="description" id="projectDescription" placeholder="项目详细描述..."></textarea></div>
-      <div class="form-group"><label><input type="checkbox" name="featured" id="projectFeatured"> 置顶项目</label></div>
+      <div class="form-group"><div class="boolean-switch"><input type="checkbox" name="featured" id="projectFeatured"><label for="projectFeatured">置顶项目</label></div></div>
       <button type="submit" class="btn btn-primary">保存项目</button>
       <button type="button" class="btn btn-success" onclick="clearProjectForm(); closeProjectModal()">取消</button>
     </form>

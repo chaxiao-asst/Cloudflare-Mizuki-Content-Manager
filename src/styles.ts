@@ -58,7 +58,6 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:180px;back
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-bg)}
 .form-group textarea{resize:vertical;min-height:80px;font-family:inherit}
 .form-group input[type="color"]{width:48px;height:36px;padding:3px 4px;cursor:pointer}
-.form-group input[type="checkbox"]{width:auto;margin-right:6px;accent-color:var(--primary)}
 
 .btn{padding:10px 20px;border:none;border-radius:var(--radius);font-size:0.9rem;cursor:pointer;font-weight:600;transition:all 0.2s cubic-bezier(0.25,0.46,0.45,0.94);display:inline-flex;align-items:center;gap:6px;letter-spacing:-0.01em}
 .btn:hover{transform:translateY(-1px)}

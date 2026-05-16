@@ -38,7 +38,7 @@ export const timelinePage = `
       </div>
       <div class="form-group"><label>描述</label><textarea name="description" id="timelineDescription" placeholder="事件详细描述..."></textarea></div>
       <div class="form-group"><label>相关链接（JSON格式）</label><textarea name="links" id="timelineLinks" placeholder='[{"name":"链接名称","url":"https://...","type":"website"}]'></textarea></div>
-      <div class="form-group"><label><input type="checkbox" name="featured" id="timelineFeatured"> 置顶</label></div>
+      <div class="form-group"><div class="boolean-switch"><input type="checkbox" name="featured" id="timelineFeatured"><label for="timelineFeatured">置顶</label></div></div>
       <button type="submit" class="btn btn-primary">保存时间线</button>
       <button type="button" class="btn btn-success" onclick="clearTimelineForm(); closeTimelineModal()">取消</button>
     </form>

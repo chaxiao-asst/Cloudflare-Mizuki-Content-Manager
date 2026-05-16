@@ -481,14 +481,14 @@ function getModalContent(id) {
 
   if (id === 'featurePages') {
     return \`<div class="config-section"><div class="feature-pages-grid">
-      <div class="feature-page-item"><input type="checkbox" id="modal-fp-anime"\${config.featurePages?.anime ? ' checked' : ''}><label for="modal-fp-anime">番剧页面</label></div>
-      <div class="feature-page-item"><input type="checkbox" id="modal-fp-diary"\${config.featurePages?.diary ? ' checked' : ''}><label for="modal-fp-diary">日记页面</label></div>
-      <div class="feature-page-item"><input type="checkbox" id="modal-fp-friends"\${config.featurePages?.friends ? ' checked' : ''}><label for="modal-fp-friends">友链页面</label></div>
-      <div class="feature-page-item"><input type="checkbox" id="modal-fp-projects"\${config.featurePages?.projects ? ' checked' : ''}><label for="modal-fp-projects">项目页面</label></div>
-      <div class="feature-page-item"><input type="checkbox" id="modal-fp-skills"\${config.featurePages?.skills ? ' checked' : ''}><label for="modal-fp-skills">技能页面</label></div>
-      <div class="feature-page-item"><input type="checkbox" id="modal-fp-timeline"\${config.featurePages?.timeline ? ' checked' : ''}><label for="modal-fp-timeline">时间线页面</label></div>
-      <div class="feature-page-item"><input type="checkbox" id="modal-fp-albums"\${config.featurePages?.albums ? ' checked' : ''}><label for="modal-fp-albums">相册页面</label></div>
-      <div class="feature-page-item"><input type="checkbox" id="modal-fp-devices"\${config.featurePages?.devices ? ' checked' : ''}><label for="modal-fp-devices">设备页面</label></div>
+      <div class="feature-page-item"><div class="boolean-switch"><input type="checkbox" id="modal-fp-anime"\${config.featurePages?.anime ? ' checked' : ''}><label for="modal-fp-anime">番剧页面</label></div></div>
+      <div class="feature-page-item"><div class="boolean-switch"><input type="checkbox" id="modal-fp-diary"\${config.featurePages?.diary ? ' checked' : ''}><label for="modal-fp-diary">日记页面</label></div></div>
+      <div class="feature-page-item"><div class="boolean-switch"><input type="checkbox" id="modal-fp-friends"\${config.featurePages?.friends ? ' checked' : ''}><label for="modal-fp-friends">友链页面</label></div></div>
+      <div class="feature-page-item"><div class="boolean-switch"><input type="checkbox" id="modal-fp-projects"\${config.featurePages?.projects ? ' checked' : ''}><label for="modal-fp-projects">项目页面</label></div></div>
+      <div class="feature-page-item"><div class="boolean-switch"><input type="checkbox" id="modal-fp-skills"\${config.featurePages?.skills ? ' checked' : ''}><label for="modal-fp-skills">技能页面</label></div></div>
+      <div class="feature-page-item"><div class="boolean-switch"><input type="checkbox" id="modal-fp-timeline"\${config.featurePages?.timeline ? ' checked' : ''}><label for="modal-fp-timeline">时间线页面</label></div></div>
+      <div class="feature-page-item"><div class="boolean-switch"><input type="checkbox" id="modal-fp-albums"\${config.featurePages?.albums ? ' checked' : ''}><label for="modal-fp-albums">相册页面</label></div></div>
+      <div class="feature-page-item"><div class="boolean-switch"><input type="checkbox" id="modal-fp-devices"\${config.featurePages?.devices ? ' checked' : ''}><label for="modal-fp-devices">设备页面</label></div></div>
     </div></div>\`;
   }
 

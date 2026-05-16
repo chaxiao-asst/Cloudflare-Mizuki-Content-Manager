@@ -57,22 +57,22 @@ export const postsPage = `
           <p style="font-size:0.75rem;color:#888;margin-top:6px;">文件夹方案：文章名即文件夹，内含 index.md + 图片资源 | 单文件方案：{name}.md，适合无图片文章</p>
         </div>
         <div class="form-group"><label>描述</label><textarea name="description" id="postDescription" placeholder="文章简要描述..."></textarea></div>
-        <div class="form-group" style="display:flex;gap:24px;flex-wrap:wrap;">
-          <label><input type="checkbox" name="pinned" id="postPinned"> 📌 置顶</label>
-          <label><input type="checkbox" name="draft" id="postDraft"> 📝 草稿</label>
-          <label><input type="checkbox" name="comment" id="postComment" checked> 💬 启用评论</label>
+        <div class="form-group">
+          <div class="boolean-switch"><input type="checkbox" name="pinned" id="postPinned"><label for="postPinned">📌 置顶</label></div>
+          <div class="boolean-switch"><input type="checkbox" name="draft" id="postDraft"><label for="postDraft">📝 草稿</label></div>
+          <div class="boolean-switch"><input type="checkbox" name="comment" id="postComment" checked><label for="postComment">💬 启用评论</label></div>
         </div>
       </div>
       <div class="tab-panel" id="tab-advanced">
         <h3 style="margin-bottom:15px;color:#555;">加密设置</h3>
         <div class="form-grid">
-          <div class="form-group"><label><input type="checkbox" name="encrypted" id="postEncrypted" onchange="toggleEncryptFields()"> 🔒 启用客户端加密</label></div>
+          <div class="form-group"><div class="boolean-switch"><input type="checkbox" name="encrypted" id="postEncrypted" onchange="toggleEncryptFields()"><label for="postEncrypted">🔒 启用客户端加密</label></div></div>
           <div class="form-group" id="encryptPasswordGroup" style="display:none;"><label>加密密码</label><input type="text" name="password" id="postPassword" placeholder="设置访问密码"></div>
           <div class="form-group" id="encryptHintGroup" style="display:none;"><label>密码提示</label><input type="text" name="passwordHint" id="postPasswordHint" placeholder="提示访问者密码"></div>
         </div>
         <div id="postLicenseSection">
         <h3 style="margin:15px 0;color:#555;">版权与来源</h3>
-        <div class="form-group"><label><input type="checkbox" name="showLicense" id="postShowLicense" onchange="toggleLicenseFields()"> 📋 启用版权信息</label></div>
+        <div class="form-group"><div class="boolean-switch"><input type="checkbox" name="showLicense" id="postShowLicense" onchange="toggleLicenseFields()"><label for="postShowLicense">📋 启用版权信息</label></div></div>
         <div id="licenseFields" style="display:none;">
           <div class="form-grid">
             <div class="form-group"><label>许可证</label><input type="text" name="licenseName" id="postLicenseName" placeholder="CC BY-NC-SA 4.0 / MIT / Unlicensed"></div>
@@ -83,7 +83,7 @@ export const postsPage = `
         </div>
         <div id="postShareSection">
         <h3 style="margin:15px 0;color:#555;">分享设置</h3>
-        <div class="form-group"><label><input type="checkbox" name="showShare" id="postShowShare"> 📤 启用文章分享</label></div>
+        <div class="form-group"><div class="boolean-switch"><input type="checkbox" name="showShare" id="postShowShare"><label for="postShowShare">📤 启用文章分享</label></div></div>
         </div>
         <h3 style="margin:15px 0;color:#555;">其他</h3>
         <div class="form-grid">

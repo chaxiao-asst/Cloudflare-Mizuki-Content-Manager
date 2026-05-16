@@ -51,9 +51,7 @@ export const albumsPage = `
         <div class="form-group"><label>标签</label><input type="text" name="tags" id="albumTags" placeholder="用逗号分隔，如: 旅行, 京都, 夏天"></div>
         <div class="form-group"><label>相册描述</label><textarea name="description" id="albumDescription" placeholder="相册描述..." rows="2"></textarea></div>
         <div class="form-group">
-          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-            <input type="checkbox" name="hidden" id="albumHidden"> 隐藏相册（不在前台列表显示）
-          </label>
+          <div class="boolean-switch"><input type="checkbox" name="hidden" id="albumHidden"><label for="albumHidden">隐藏相册（不在前台列表显示）</label></div>
         </div>
       </div>
       <div class="tab-panel" id="tab-album-photos">
