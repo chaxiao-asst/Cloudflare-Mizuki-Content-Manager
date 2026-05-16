@@ -35,6 +35,8 @@ function normalizePostMeta(meta: Record<string, unknown>): Record<string, unknow
     password: meta.password || '',
     passwordHint: meta.passwordHint || '',
     comment: meta.comment !== undefined ? meta.comment : true,
+    share: meta.share !== undefined ? meta.share : false,
+    shareLink: meta.shareLink || '',
     alias: meta.alias || '',
     priority: meta.priority !== undefined ? meta.priority : undefined,
     ...meta

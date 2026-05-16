@@ -58,9 +58,11 @@ export const postsPage = `
         </div>
         <div class="form-group"><label>描述</label><textarea name="description" id="postDescription" placeholder="文章简要描述..."></textarea></div>
         <div class="form-group">
-          <div class="boolean-switch"><input type="checkbox" name="pinned" id="postPinned"><label for="postPinned">📌 置顶</label></div>
-          <div class="boolean-switch"><input type="checkbox" name="draft" id="postDraft"><label for="postDraft">📝 草稿</label></div>
-          <div class="boolean-switch"><input type="checkbox" name="comment" id="postComment" checked><label for="postComment">💬 启用评论</label></div>
+          <div class="feature-pages-grid">
+            <div class="feature-page-item"><div class="boolean-switch"><input type="checkbox" name="pinned" id="postPinned"><label for="postPinned">📌 置顶</label></div></div>
+            <div class="feature-page-item"><div class="boolean-switch"><input type="checkbox" name="draft" id="postDraft"><label for="postDraft">📝 草稿</label></div></div>
+            <div class="feature-page-item"><div class="boolean-switch"><input type="checkbox" name="comment" id="postComment" checked><label for="postComment">💬 启用评论</label></div></div>
+          </div>
         </div>
       </div>
       <div class="tab-panel" id="tab-advanced">
@@ -72,7 +74,7 @@ export const postsPage = `
         </div>
         <div id="postLicenseSection">
         <h3 style="margin:15px 0;color:#555;">版权与来源</h3>
-        <div class="form-group"><div class="boolean-switch"><input type="checkbox" name="showLicense" id="postShowLicense" onchange="toggleLicenseFields()"><label for="postShowLicense">📋 启用版权信息</label></div></div>
+        <div class="form-group"><div class="boolean-switch"><input type="checkbox" name="showLicense" id="postShowLicense" onchange="toggleLicenseFields()"><label for="postShowLicense">📋 自定义版权信息</label></div></div>
         <div id="licenseFields" style="display:none;">
           <div class="form-grid">
             <div class="form-group"><label>许可证</label><input type="text" name="licenseName" id="postLicenseName" placeholder="CC BY-NC-SA 4.0 / MIT / Unlicensed"></div>
@@ -83,7 +85,12 @@ export const postsPage = `
         </div>
         <div id="postShareSection">
         <h3 style="margin:15px 0;color:#555;">分享设置</h3>
-        <div class="form-group"><div class="boolean-switch"><input type="checkbox" name="showShare" id="postShowShare"><label for="postShowShare">📤 启用文章分享</label></div></div>
+        <div class="form-group"><div class="boolean-switch"><input type="checkbox" name="showShare" id="postShowShare" onchange="toggleShareFields()"><label for="postShowShare">📤 自定义文章分享</label></div></div>
+        <div id="shareFields" style="display:none;">
+          <div class="form-grid">
+            <div class="form-group"><label>分享链接</label><input type="url" name="shareLink" id="postShareLink" placeholder="https://example.com/share/..."></div>
+          </div>
+        </div>
         </div>
         <h3 style="margin:15px 0;color:#555;">其他</h3>
         <div class="form-grid">
@@ -314,6 +321,11 @@ function toggleLicenseFields() {
   document.getElementById('licenseFields').style.display = checked ? 'block' : 'none';
 }
 
+function toggleShareFields() {
+  var checked = document.getElementById('postShowShare').checked;
+  document.getElementById('shareFields').style.display = checked ? 'block' : 'none';
+}
+
 async function loadPosts() {
   var res = await api('GET', '/api/posts');
   window.postsData = res.data || [];
@@ -458,6 +470,11 @@ document.getElementById('postForm').addEventListener('submit', async function(e)
     meta.sourceLink = '';
   }
   meta.share = document.getElementById('postShowShare').checked;
+  if (meta.share) {
+    meta.shareLink = document.getElementById('postShareLink').value || '';
+  } else {
+    meta.shareLink = '';
+  }
   var content = document.getElementById('postContent').value;
   var existing = document.getElementById('postName').value;
   if (existing) {
@@ -495,6 +512,7 @@ function clearPostForm() {
   document.getElementById('postSourceLink').value = '';
   document.getElementById('postShowLicense').checked = false;
   document.getElementById('postShowShare').checked = false;
+  document.getElementById('postShareLink').value = '';
   var schemeToggle = document.getElementById('postSchemeToggle');
   if (schemeToggle) schemeToggle.checked = false;
   document.getElementById('postAlias').value = '';
@@ -502,6 +520,7 @@ function clearPostForm() {
   document.getElementById('postContent').value = '';
   toggleEncryptFields();
   toggleLicenseFields();
+  toggleShareFields();
 }
 
 async function editPost(name) {
@@ -534,11 +553,13 @@ async function editPost(name) {
   var hasLicense = !!(data.meta?.licenseName || data.meta?.licenseUrl || data.meta?.sourceLink);
   document.getElementById('postShowLicense').checked = hasLicense;
   document.getElementById('postShowShare').checked = data.meta?.share === true;
+  document.getElementById('postShareLink').value = data.meta?.shareLink || '';
   document.getElementById('postAlias').value = data.meta?.alias || '';
   document.getElementById('postPriority').value = data.meta?.priority !== undefined ? data.meta.priority : '';
   document.getElementById('postContent').value = data.content || '';
   toggleEncryptFields();
   toggleLicenseFields();
+  toggleShareFields();
   document.getElementById('postSchemeRow').style.display = 'none';
   document.getElementById('postModal').classList.add('active');
   switchTab('basic');
