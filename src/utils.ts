@@ -333,6 +333,13 @@ export function updateTsVariable(
   const bracketExpr = findBracketExpr(content, startIndex);
 
   if (!bracketExpr) {
+    const afterDecl = content.substring(startIndex);
+    const simpleMatch = afterDecl.match(/^(-?\d+(?:\.\d+)?|true|false)\s*;/);
+    if (simpleMatch) {
+      const after = afterDecl.substring(simpleMatch[0].length);
+      const newValue = generateTsObject(data, 0);
+      return content.substring(0, varMatch.index!) + content.substring(varMatch.index!, startIndex) + newValue + ';' + after;
+    }
     return content + (content.endsWith('\n') ? '' : '\n') + generateTsContent(varName, data, interfaceType) + '\n';
   }
 
