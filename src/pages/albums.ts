@@ -151,9 +151,9 @@ window.lightboxIndex = 0;
 window.editingPhotoIndex = -1;
 
 function switchAlbumTab(name) {
-  document.querySelectorAll('#albumForm .tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('#albumModal .tab-btn').forEach(function(b) { b.classList.remove('active'); });
   document.querySelectorAll('#albumForm .tab-panel').forEach(function(p) { p.classList.remove('active'); });
-  document.querySelector('#albumForm .tab-btn[data-tab="' + name + '"]').classList.add('active');
+  document.querySelector('#albumModal .tab-btn[data-tab="' + name + '"]').classList.add('active');
   document.getElementById('tab-album-' + name).classList.add('active');
 }
 

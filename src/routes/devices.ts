@@ -10,6 +10,9 @@ export function createDevicesRouter(githubClient: GitHubClient) {
     try {
       const file = await githubClient.getFile('src/data/devices.ts');
       const parseResult = parseTsVariable(file.content, 'devicesData');
+      if (parseResult && typeof parseResult === 'object' && 'error' in parseResult) {
+        return Response.json({ success: false, message: String(parseResult.error) }, { status: 500 });
+      }
       const data = parseResult && typeof parseResult === 'object' && !Array.isArray(parseResult) ? parseResult : {};
       return Response.json({ success: true, data });
     } catch (error) {
