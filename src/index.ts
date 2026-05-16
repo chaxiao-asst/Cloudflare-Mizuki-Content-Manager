@@ -157,6 +157,6 @@ export default {
     const path = url.pathname.slice(1).split('?')[0].split('/')[0] || '';
     const pageContent = PAGE_MAP[path] || PAGE_MAP[''];
     const html = HEADER + pageContent + FOOTER;
-    return new Response(html, { headers: { 'Content-Type': 'text/html' } });
+    return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
   }
 };

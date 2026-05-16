@@ -1,19 +1,18 @@
 function utf8ToBase64(str: string): string {
-  const bytes = new TextEncoder().encode(str);
-  let binary = '';
-  for (let i = 0; i < bytes.length; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return btoa(binary);
+  return btoa(
+    encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, p1) =>
+      String.fromCharCode(parseInt(p1, 16))
+    )
+  );
 }
 
 function base64ToUtf8(str: string): string {
-  const binary = atob(str);
-  const bytes = new Uint8Array(binary.length);
-  for (let i = 0; i < binary.length; i++) {
-    bytes[i] = binary.charCodeAt(i);
-  }
-  return new TextDecoder().decode(bytes);
+  return decodeURIComponent(
+    atob(str)
+      .split('')
+      .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+      .join('')
+  );
 }
 
 export interface GitHubConfig {
