@@ -96,6 +96,12 @@ function closeDeviceModal() {
   document.getElementById('deviceModal').classList.remove('active');
 }
 
+document.getElementById('deviceModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('deviceModal')) {
+    closeDeviceModal();
+  }
+});
+
 document.getElementById('deviceForm').addEventListener('submit', async e => {
   e.preventDefault();
   const data = {
@@ -113,7 +119,7 @@ document.getElementById('deviceForm').addEventListener('submit', async e => {
   const oldName = document.getElementById('deviceOldName').value;
   
   if (oldCategory && oldName) {
-    await api('PUT', '/api/devices/' + encodeURIComponent(oldCategory) + '/' + encodeURIComponent(oldName), data);
+    await api('PUT', '/api/devices', { oldCategory: oldCategory, oldName: oldName, category: data.category, device: data.device });
   } else {
     await api('POST', '/api/devices', data);
   }
@@ -157,7 +163,7 @@ async function editDevice(category, name) {
 
 async function deleteDevice(category, name) {
   showConfirmModal('确定要删除设备 "' + name + '" 吗？', async function() {
-    await api('DELETE', '/api/devices/' + encodeURIComponent(category) + '/' + encodeURIComponent(name));
+    await api('DELETE', '/api/devices', { category: category, name: name });
     showMsg('删除成功', 'success');
     loadDevices();
   });

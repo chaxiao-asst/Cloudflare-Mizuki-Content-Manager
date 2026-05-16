@@ -94,6 +94,15 @@ export function createConfigRouter(githubClient: GitHubClient) {
         for (const [key, value] of Object.entries(sections)) {
           result[key] = value;
         }
+
+        const siteConfigData = parseResult as Record<string, unknown>;
+        const optionalKeys = ['pioConfig', 'shareConfig', 'licenseConfig'];
+        for (const key of optionalKeys) {
+          if (!result[key] && siteConfigData[key]) {
+            result[key] = siteConfigData[key];
+          }
+        }
+
         return Response.json({ success: true, data: result });
       }
 
@@ -123,6 +132,10 @@ export function createConfigRouter(githubClient: GitHubClient) {
       }
       const ms = mergedSiteConfig as Record<string, unknown>;
       if (!('diaryApiUrl' in ms)) ms.diaryApiUrl = '';
+
+      if (pioConfig) ms.pioConfig = pioConfig;
+      if (shareConfig) ms.shareConfig = shareConfig;
+      if (licenseConfig) ms.licenseConfig = licenseConfig;
 
       let content = updateTsVariable(file.content, 'siteConfig', mergedSiteConfig, 'SiteConfig');
 

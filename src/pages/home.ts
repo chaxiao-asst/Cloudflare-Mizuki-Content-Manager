@@ -684,14 +684,14 @@ function getModalContent(id) {
     const componentTypes = ['profile', 'announcement', 'categories', 'tags', 'site-stats', 'calendar', 'card-toc', 'music-sidebar'];
     const componentNames = { profile: '个人资料', announcement: '公告', categories: '分类', tags: '标签', 'site-stats': '站点统计', calendar: '日历', 'card-toc': '卡片目录', 'music-sidebar': '音乐播放器' };
 
-    const leftItems = (sl.components.left || []).map((c, idx) => '<div class="sidebar-component-item" draggable="true" data-sidebar="left" data-type="' + c + '" data-index="' + idx + '" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)"><span class="drag-handle">⋮⋮</span><span>' + (componentNames[c] || c) + '</span><button type="button" class="btn-danger btn-sm" onclick="removeSidebarComponent(&quot;' + c + '&quot;, &quot;left&quot;)">移除</button></div>').join('');
-    const rightItems = (sl.components.right || []).map((c, idx) => '<div class="sidebar-component-item" draggable="true" data-sidebar="right" data-type="' + c + '" data-index="' + idx + '" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)"><span class="drag-handle">⋮⋮</span><span>' + (componentNames[c] || c) + '</span><button type="button" class="btn-danger btn-sm" onclick="removeSidebarComponent(&quot;' + c + '&quot;, &quot;right&quot;)">移除</button></div>').join('');
-    const drawerItems = (sl.components.drawer || []).map((c, idx) => '<div class="sidebar-component-item" draggable="true" data-sidebar="drawer" data-type="' + c + '" data-index="' + idx + '" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)"><span class="drag-handle">⋮⋮</span><span>' + (componentNames[c] || c) + '</span><button type="button" class="btn-danger btn-sm" onclick="removeSidebarComponent(&quot;' + c + '&quot;, &quot;drawer&quot;)">移除</button></div>').join('');
+    const leftItems = (sl.components.left || []).map((c, idx) => '<div class="sidebar-component-item" draggable="true" data-sidebar="left" data-type="' + c + '" data-index="' + idx + '" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event)" ondragenter="handleDragEnter(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)"><span class="drag-handle">⋮⋮</span><span>' + (componentNames[c] || c) + '</span><button type="button" class="btn-danger btn-sm" onclick="removeSidebarComponent(&quot;' + c + '&quot;, &quot;left&quot;)">移除</button></div>').join('');
+    const rightItems = (sl.components.right || []).map((c, idx) => '<div class="sidebar-component-item" draggable="true" data-sidebar="right" data-type="' + c + '" data-index="' + idx + '" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event)" ondragenter="handleDragEnter(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)"><span class="drag-handle">⋮⋮</span><span>' + (componentNames[c] || c) + '</span><button type="button" class="btn-danger btn-sm" onclick="removeSidebarComponent(&quot;' + c + '&quot;, &quot;right&quot;)">移除</button></div>').join('');
+    const drawerItems = (sl.components.drawer || []).map((c, idx) => '<div class="sidebar-component-item" draggable="true" data-sidebar="drawer" data-type="' + c + '" data-index="' + idx + '" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event)" ondragenter="handleDragEnter(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)"><span class="drag-handle">⋮⋮</span><span>' + (componentNames[c] || c) + '</span><button type="button" class="btn-danger btn-sm" onclick="removeSidebarComponent(&quot;' + c + '&quot;, &quot;drawer&quot;)">移除</button></div>').join('');
 
     return \`<div class="config-section">
       <h4>左侧栏组件</h4>
       <p style="font-size:12px;margin-bottom:12px;">拖拽排序，控制在左侧栏显示的组件</p>
-      <div id="sidebar-left-container" class="sidebar-components-container">\${leftItems || '<div class="empty-state">暂无组件</div>'}</div>
+      <div id="sidebar-left-container" class="sidebar-components-container" ondragover="handleContainerDragOver(event)" ondrop="handleContainerDrop(event)">\${leftItems || '<div class="empty-state">暂无组件</div>'}</div>
       <div style="margin-top:12px;">
         <select id="modal-sidebar-add-left" style="width:100%;padding:10px;border-radius:8px;margin-bottom:8px;">
           <option value="">选择要添加的组件...</option>
@@ -703,7 +703,7 @@ function getModalContent(id) {
     <div class="config-section" style="margin-top:20px;">
       <h4>右侧栏组件</h4>
       <p style="font-size:12px;margin-bottom:12px;">拖拽排序，控制在右侧栏显示的组件</p>
-      <div id="sidebar-right-container" class="sidebar-components-container">\${rightItems || '<div class="empty-state">暂无组件</div>'}</div>
+      <div id="sidebar-right-container" class="sidebar-components-container" ondragover="handleContainerDragOver(event)" ondrop="handleContainerDrop(event)">\${rightItems || '<div class="empty-state">暂无组件</div>'}</div>
       <div style="margin-top:12px;">
         <select id="modal-sidebar-add-right" style="width:100%;padding:10px;border-radius:8px;margin-bottom:8px;">
           <option value="">选择要添加的组件...</option>
@@ -715,7 +715,7 @@ function getModalContent(id) {
     <div class="config-section" style="margin-top:20px;">
       <h4>抽屉模式组件（移动端）</h4>
       <p style="font-size:12px;margin-bottom:12px;">控制在移动端抽屉菜单中显示的组件</p>
-      <div id="sidebar-drawer-container" class="sidebar-components-container">\${drawerItems || '<div class="empty-state">暂无组件</div>'}</div>
+      <div id="sidebar-drawer-container" class="sidebar-components-container" ondragover="handleContainerDragOver(event)" ondrop="handleContainerDrop(event)">\${drawerItems || '<div class="empty-state">暂无组件</div>'}</div>
       <div style="margin-top:12px;">
         <select id="modal-sidebar-add-drawer" style="width:100%;padding:10px;border-radius:8px;margin-bottom:8px;">
           <option value="">选择要添加的组件...</option>
@@ -1885,10 +1885,14 @@ function addSidebarComponent(sidebar) {
   item.setAttribute('ondragstart', 'handleDragStart(event)');
   item.setAttribute('ondragend', 'handleDragEnd(event)');
   item.setAttribute('ondragover', 'handleDragOver(event)');
+  item.setAttribute('ondragenter', 'handleDragEnter(event)');
+  item.setAttribute('ondragleave', 'handleDragLeave(event)');
   item.setAttribute('ondrop', 'handleDrop(event)');
   item.addEventListener('dragstart', handleDragStart);
   item.addEventListener('dragend', handleDragEnd);
   item.addEventListener('dragover', handleDragOver);
+  item.addEventListener('dragenter', handleDragEnter);
+  item.addEventListener('dragleave', handleDragLeave);
   item.addEventListener('drop', handleDrop);
   item.innerHTML = '<span class="drag-handle">⋮⋮</span><span>' + (componentNames[type] || type) + '</span><button type="button" class="btn-danger btn-sm" onclick="removeSidebarComponent(&quot;' + type + '&quot;, &quot;' + sidebar + '&quot;)">移除</button>';
   container.appendChild(item);
@@ -1915,19 +1919,17 @@ function removeSidebarComponent(type, sidebar) {
   }
 }
 
-let draggedItem = null;
+let sidebarDragItem = null;
 
 function handleDragStart(event) {
-  draggedItem = event.target;
-  draggedItem.style.opacity = '0.5';
-  draggedItem.classList.add('dragging');
+  sidebarDragItem = event.currentTarget;
+  sidebarDragItem.classList.add('dragging');
   event.dataTransfer.effectAllowed = 'move';
 }
 
 function handleDragEnd(event) {
-  draggedItem.style.opacity = '1';
-  draggedItem.classList.remove('dragging');
-  draggedItem = null;
+  sidebarDragItem.classList.remove('dragging');
+  sidebarDragItem = null;
   document.querySelectorAll('.sidebar-component-item').forEach(item => {
     item.classList.remove('drag-over');
   });
@@ -1936,51 +1938,103 @@ function handleDragEnd(event) {
 function handleDragOver(event) {
   event.preventDefault();
   event.dataTransfer.dropEffect = 'move';
-  const target = event.target.closest('.sidebar-component-item');
-  if (target && target !== draggedItem) {
+}
+
+function handleDragEnter(event) {
+  event.preventDefault();
+  const target = event.currentTarget;
+  if (target && target !== sidebarDragItem) {
     target.classList.add('drag-over');
   }
 }
 
+function handleDragLeave(event) {
+  event.currentTarget.classList.remove('drag-over');
+}
+
 function handleDrop(event) {
   event.preventDefault();
-  const target = event.target.closest('.sidebar-component-item');
-  const targetContainer = event.target.closest('.sidebar-components-container');
-  
-  if (target && draggedItem && targetContainer) {
-    const draggedSidebar = draggedItem.dataset.sidebar;
-    const targetSidebar = target.dataset.sidebar;
-    const draggedType = draggedItem.dataset.type;
-    
-    if (draggedSidebar !== targetSidebar) {
-      const draggedContainer = document.getElementById('sidebar-' + draggedSidebar + '-container');
-      draggedItem.remove();
-      
-      const draggedSelect = document.getElementById('modal-sidebar-add-' + draggedSidebar);
-      const optionToRemove = draggedSelect.querySelector('option[value="' + draggedType + '"]');
-      if (optionToRemove) {
-        optionToRemove.remove();
-      }
-      
-      const targetSelect = document.getElementById('modal-sidebar-add-' + targetSidebar);
-      const componentNames = { profile: '个人资料', announcement: '公告', categories: '分类', tags: '标签', 'site-stats': '站点统计', calendar: '日历', 'card-toc': '卡片目录', 'music-sidebar': '音乐播放器' };
-      const option = document.createElement('option');
-      option.value = draggedType;
-      option.textContent = componentNames[draggedType] || draggedType;
-      targetSelect.appendChild(option);
-      
-      if (draggedContainer.querySelectorAll('.sidebar-component-item').length === 0) {
-        draggedContainer.innerHTML = '<div class="empty-state">暂无组件</div>';
-      }
+  event.stopPropagation();
+  const targetItem = event.currentTarget;
+  targetItem.classList.remove('drag-over');
+
+  if (!sidebarDragItem || sidebarDragItem === targetItem) return;
+
+  const draggedSidebar = sidebarDragItem.dataset.sidebar;
+  const targetSidebar = targetItem.dataset.sidebar;
+  const draggedType = sidebarDragItem.dataset.type;
+  const targetContainer = targetItem.parentElement;
+
+  if (draggedSidebar !== targetSidebar) {
+    sidebarDragItem.remove();
+
+    const draggedContainer = document.getElementById('sidebar-' + draggedSidebar + '-container');
+    const draggedSelect = document.getElementById('modal-sidebar-add-' + draggedSidebar);
+    const optionToRemove = draggedSelect.querySelector('option[value="' + draggedType + '"]');
+    if (optionToRemove) {
+      optionToRemove.remove();
     }
-    
-    targetContainer.insertBefore(draggedItem, target);
-    
-    if (targetContainer.querySelector('.empty-state')) {
-      targetContainer.querySelector('.empty-state').remove();
+
+    const targetSelect = document.getElementById('modal-sidebar-add-' + targetSidebar);
+    const componentNames = { profile: '个人资料', announcement: '公告', categories: '分类', tags: '标签', 'site-stats': '站点统计', calendar: '日历', 'card-toc': '卡片目录', 'music-sidebar': '音乐播放器' };
+    const option = document.createElement('option');
+    option.value = draggedType;
+    option.textContent = componentNames[draggedType] || draggedType;
+    targetSelect.appendChild(option);
+
+    sidebarDragItem.dataset.sidebar = targetSidebar;
+
+    if (draggedContainer.querySelectorAll('.sidebar-component-item').length === 0) {
+      draggedContainer.innerHTML = '<div class="empty-state">暂无组件</div>';
     }
   }
-  
+
+  targetContainer.insertBefore(sidebarDragItem, targetItem);
+
+  const emptyState = targetContainer.querySelector('.empty-state');
+  if (emptyState) {
+    emptyState.remove();
+  }
+}
+
+function handleContainerDragOver(event) {
+  event.preventDefault();
+  event.dataTransfer.dropEffect = 'move';
+}
+
+function handleContainerDrop(event) {
+  event.preventDefault();
+  if (!sidebarDragItem) return;
+  const container = event.currentTarget;
+  const sidebarName = container.id.replace('sidebar-', '').replace('-container', '');
+  const draggedSidebar = sidebarDragItem.dataset.sidebar;
+  const draggedType = sidebarDragItem.dataset.type;
+
+  if (draggedSidebar !== sidebarName) {
+    sidebarDragItem.remove();
+    const draggedContainer = document.getElementById('sidebar-' + draggedSidebar + '-container');
+    const draggedSelect = document.getElementById('modal-sidebar-add-' + draggedSidebar);
+    const optionToRemove = draggedSelect.querySelector('option[value="' + draggedType + '"]');
+    if (optionToRemove) optionToRemove.remove();
+
+    const targetSelect = document.getElementById('modal-sidebar-add-' + sidebarName);
+    const componentNames = { profile: '个人资料', announcement: '公告', categories: '分类', tags: '标签', 'site-stats': '站点统计', calendar: '日历', 'card-toc': '卡片目录', 'music-sidebar': '音乐播放器' };
+    const option = document.createElement('option');
+    option.value = draggedType;
+    option.textContent = componentNames[draggedType] || draggedType;
+    targetSelect.appendChild(option);
+
+    sidebarDragItem.dataset.sidebar = sidebarName;
+
+    if (draggedContainer.querySelectorAll('.sidebar-component-item').length === 0) {
+      draggedContainer.innerHTML = '<div class="empty-state">暂无组件</div>';
+    }
+  }
+
+  container.appendChild(sidebarDragItem);
+  const emptyState = container.querySelector('.empty-state');
+  if (emptyState) emptyState.remove();
+
   document.querySelectorAll('.sidebar-component-item').forEach(item => {
     item.classList.remove('drag-over');
   });

@@ -339,4 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('.nav-link[data-page="anime"]')?.classList.add('active');
   loadAnime();
 });
+
+document.getElementById('animeModal').addEventListener('click', e => { if (e.target === document.getElementById('animeModal')) { closeAnimeModal(); } });
+document.getElementById('animeDetailModal').addEventListener('click', e => { if (e.target === document.getElementById('animeDetailModal')) { closeAnimeDetailModal(); } });
 </script>`;

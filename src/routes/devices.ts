@@ -40,11 +40,9 @@ export function createDevicesRouter(githubClient: GitHubClient) {
     }
   });
 
-  router.put('/api/devices/:oldCategory/:oldName', async (request) => {
+  router.put('/api/devices', async (request) => {
     try {
-      const oldCategory = request.params?.oldCategory || '';
-      const oldName = decodeURIComponent(request.params?.oldName || '');
-      const { category, device } = await request.json<{ category: string; device: { name: string; image: string; specs: string; description: string; link: string } }>();
+      const { oldCategory, oldName, category, device } = await request.json<{ oldCategory: string; oldName: string; category: string; device: { name: string; image: string; specs: string; description: string; link: string } }>();
 
       const file = await githubClient.getFile('src/data/devices.ts');
       const data = parseTsVariable(file.content, 'devicesData') as DeviceCategory || {};
@@ -77,10 +75,9 @@ export function createDevicesRouter(githubClient: GitHubClient) {
     }
   });
 
-  router.delete('/api/devices/:category/:name', async (request) => {
+  router.delete('/api/devices', async (request) => {
     try {
-      const category = request.params?.category || '';
-      const name = decodeURIComponent(request.params?.name || '');
+      const { category, name } = await request.json<{ category: string; name: string }>();
       const file = await githubClient.getFile('src/data/devices.ts');
       const data = parseTsVariable(file.content, 'devicesData') as DeviceCategory || {};
 

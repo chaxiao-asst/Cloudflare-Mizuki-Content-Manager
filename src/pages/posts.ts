@@ -49,8 +49,12 @@ export const postsPage = `
         </div>
         <div id="postSchemeRow" style="margin:10px 0 15px;padding:10px;background:#f8f9fa;border-radius:6px;">
           <label style="font-weight:600;display:block;margin-bottom:8px;">📂 存储方案</label>
-          <label style="margin-right:20px;cursor:pointer;"><input type="radio" name="postScheme" value="folder" checked> 📁 文件夹方案 — 文章名即文件夹，内含 index.md + 图片资源</label>
-          <label style="cursor:pointer;"><input type="radio" name="postScheme" value="single"> 📄 单文件方案 — {name}.md，适合无图片的简单文章</label>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:0.85rem;">📁 文件夹方案</span>
+            <label class="boolean-switch" style="margin:0 8px;"><input type="checkbox" id="postSchemeToggle" checked><span class="slider"></span></label>
+            <span style="font-size:0.85rem;">📄 单文件方案</span>
+          </div>
+          <p style="font-size:0.75rem;color:#888;margin-top:6px;">文件夹方案：文章名即文件夹，内含 index.md + 图片资源 | 单文件方案：{name}.md，适合无图片文章</p>
         </div>
         <div class="form-group"><label>描述</label><textarea name="description" id="postDescription" placeholder="文章简要描述..."></textarea></div>
         <div class="form-group" style="display:flex;gap:24px;flex-wrap:wrap;">
@@ -66,6 +70,7 @@ export const postsPage = `
           <div class="form-group" id="encryptPasswordGroup" style="display:none;"><label>加密密码</label><input type="text" name="password" id="postPassword" placeholder="设置访问密码"></div>
           <div class="form-group" id="encryptHintGroup" style="display:none;"><label>密码提示</label><input type="text" name="passwordHint" id="postPasswordHint" placeholder="提示访问者密码"></div>
         </div>
+        <div id="postLicenseSection">
         <h3 style="margin:15px 0;color:#555;">版权与来源</h3>
         <div class="form-group"><label><input type="checkbox" name="showLicense" id="postShowLicense" onchange="toggleLicenseFields()"> 📋 启用版权信息</label></div>
         <div id="licenseFields" style="display:none;">
@@ -75,8 +80,11 @@ export const postsPage = `
             <div class="form-group"><label>源码链接</label><input type="text" name="sourceLink" id="postSourceLink" placeholder="https://github.com/..."></div>
           </div>
         </div>
+        </div>
+        <div id="postShareSection">
         <h3 style="margin:15px 0;color:#555;">分享设置</h3>
         <div class="form-group"><label><input type="checkbox" name="showShare" id="postShowShare"> 📤 启用文章分享</label></div>
+        </div>
         <h3 style="margin:15px 0;color:#555;">其他</h3>
         <div class="form-grid">
           <div class="form-group"><label>别名</label><input type="text" name="alias" id="postAlias" placeholder="文章别名路径"></div>
@@ -455,7 +463,7 @@ document.getElementById('postForm').addEventListener('submit', async function(e)
   if (existing) {
     await api('PUT', '/api/posts/' + existing, { meta: meta, content: content });
   } else {
-    var scheme = document.querySelector('input[name="postScheme"]:checked')?.value || 'folder';
+    var scheme = document.getElementById('postSchemeToggle').checked ? 'single' : 'folder';
     await api('POST', '/api/posts', { name: name, meta: meta, content: content, scheme: scheme });
   }
   showMsg('✅ 文章保存成功', 'success');
@@ -487,8 +495,8 @@ function clearPostForm() {
   document.getElementById('postSourceLink').value = '';
   document.getElementById('postShowLicense').checked = false;
   document.getElementById('postShowShare').checked = false;
-  var folderRadio = document.querySelector('input[name="postScheme"][value="folder"]');
-  if (folderRadio) folderRadio.checked = true;
+  var schemeToggle = document.getElementById('postSchemeToggle');
+  if (schemeToggle) schemeToggle.checked = false;
   document.getElementById('postAlias').value = '';
   document.getElementById('postPriority').value = '';
   document.getElementById('postContent').value = '';
@@ -544,12 +552,37 @@ async function deletePost(name) {
   });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
   tabBtns = document.querySelectorAll('.tab-btn');
   tabPanels = document.querySelectorAll('.tab-panel');
   helpBtns = document.querySelectorAll('.help-nav .btn');
   helpSections = document.querySelectorAll('.help-section');
   document.querySelector('.nav-link[data-page="posts"]')?.classList.add('active');
+  await fetchPostGlobalConfig();
+  applyPostGlobalConfig();
   loadPosts();
+  document.getElementById('postModal').addEventListener('click', function(e) { if (e.target === document.getElementById('postModal')) { closePostModal(); } });
+  document.getElementById('helpModal').addEventListener('click', function(e) { if (e.target === document.getElementById('helpModal')) { closeHelpModal(); } });
 });
+
+window.postGlobalConfig = { shareConfig: {}, licenseConfig: {} };
+
+async function fetchPostGlobalConfig() {
+  try {
+    var res = await api('GET', '/api/config');
+    window.postGlobalConfig = res.data || {};
+  } catch(e) {}
+}
+
+function applyPostGlobalConfig() {
+  var cfg = window.postGlobalConfig;
+  if (cfg.licenseConfig && !cfg.licenseConfig.enable) {
+    var licenseSection = document.getElementById('postLicenseSection');
+    if (licenseSection) licenseSection.style.display = 'none';
+  }
+  if (cfg.shareConfig && !cfg.shareConfig.enable) {
+    var shareSection = document.getElementById('postShareSection');
+    if (shareSection) shareSection.style.display = 'none';
+  }
+}
 </script>`;
