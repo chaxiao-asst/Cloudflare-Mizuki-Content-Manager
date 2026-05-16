@@ -133,10 +133,6 @@ export function createConfigRouter(githubClient: GitHubClient) {
       const ms = mergedSiteConfig as Record<string, unknown>;
       if (!('diaryApiUrl' in ms)) ms.diaryApiUrl = '';
 
-      if (pioConfig) ms.pioConfig = pioConfig;
-      if (shareConfig) ms.shareConfig = shareConfig;
-      if (licenseConfig) ms.licenseConfig = licenseConfig;
-
       let content = updateTsVariable(file.content, 'siteConfig', mergedSiteConfig, 'SiteConfig');
 
       content = conditionalUpdate(content, file.content, 'fullscreenWallpaperConfig', fullscreenWallpaper as Record<string, unknown> | undefined, 'FullscreenWallpaperConfig', true);
