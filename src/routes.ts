@@ -61,8 +61,8 @@ export function createRouter(githubClient: GitHubClient, contentClient?: GitHubC
   registerRoutes(router, [
     { method: 'GET', path: '/api/devices', handler: (...args) => devicesRouter.handle(...args as Parameters<typeof devicesRouter.handle>) },
     { method: 'POST', path: '/api/devices', handler: (...args) => devicesRouter.handle(...args as Parameters<typeof devicesRouter.handle>) },
-    { method: 'PUT', path: '/api/devices/:oldCategory/:oldName', handler: (...args) => devicesRouter.handle(...args as Parameters<typeof devicesRouter.handle>) },
-    { method: 'DELETE', path: '/api/devices/:category/:name', handler: (...args) => devicesRouter.handle(...args as Parameters<typeof devicesRouter.handle>) },
+    { method: 'PUT', path: '/api/devices', handler: (...args) => devicesRouter.handle(...args as Parameters<typeof devicesRouter.handle>) },
+    { method: 'DELETE', path: '/api/devices', handler: (...args) => devicesRouter.handle(...args as Parameters<typeof devicesRouter.handle>) },
   ]);
 
   registerRoutes(router, [
