@@ -1254,6 +1254,8 @@ function applyModalChanges() {
     currentConfig.timeZone = parseInt(document.getElementById('modal-basic-timeZone').value);
     currentConfig.themeColor = { hue: parseInt(document.getElementById('modal-basic-themeHue').value), fixed: document.getElementById('modal-basic-themeFixed').checked };
     if (currentConfig.diaryApiUrl === undefined) currentConfig.diaryApiUrl = '';
+    currentConfig.navbarTitle = { mode: document.getElementById('modal-navbar-mode').value, text: document.getElementById('modal-navbar-text').value, icon: document.getElementById('modal-navbar-icon').value, logo: document.getElementById('modal-navbar-logo').value };
+    currentConfig.footer = { enable: document.getElementById('modal-footer-enable').checked, customHtml: document.getElementById('modal-footer-customHtml').value };
   }
   if (id === 'navbar') {
     currentConfig.navbarTitle = { mode: document.getElementById('modal-navbar-mode').value, text: document.getElementById('modal-navbar-text').value, icon: document.getElementById('modal-navbar-icon').value, logo: document.getElementById('modal-navbar-logo').value };
@@ -1852,9 +1854,18 @@ function addSidebarComponent(sidebar) {
 
   const item = document.createElement('div');
   item.className = 'sidebar-component-item';
+  item.setAttribute('draggable', 'true');
   item.setAttribute('data-sidebar', sidebar);
   item.setAttribute('data-type', type);
-  item.innerHTML = '<span>' + (componentNames[type] || type) + '</span><button type="button" class="btn-danger btn-sm" onclick="removeSidebarComponent(&quot;' + type + '&quot;, &quot;' + sidebar + '&quot;)">移除</button>';
+  item.setAttribute('ondragstart', 'handleDragStart(event)');
+  item.setAttribute('ondragend', 'handleDragEnd(event)');
+  item.setAttribute('ondragover', 'handleDragOver(event)');
+  item.setAttribute('ondrop', 'handleDrop(event)');
+  item.addEventListener('dragstart', handleDragStart);
+  item.addEventListener('dragend', handleDragEnd);
+  item.addEventListener('dragover', handleDragOver);
+  item.addEventListener('drop', handleDrop);
+  item.innerHTML = '<span class="drag-handle">⋮⋮</span><span>' + (componentNames[type] || type) + '</span><button type="button" class="btn-danger btn-sm" onclick="removeSidebarComponent(&quot;' + type + '&quot;, &quot;' + sidebar + '&quot;)">移除</button>';
   container.appendChild(item);
 
   select.querySelector('option[value="' + type + '"]').remove();

@@ -34,9 +34,9 @@ async function saveAboutContent() {
   const content = document.getElementById('aboutContent').value;
   const res = await api('PUT', '/api/about', { content });
   if (res.success) {
-    alert('保存成功');
+    showMsg('保存成功', 'success');
   } else {
-    alert('保存失败: ' + res.message);
+    showMsg('保存失败: ' + res.message);
   }
 }
 

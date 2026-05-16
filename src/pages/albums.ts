@@ -20,46 +20,56 @@ export const albumsPage = `
 </div>
 
 <div class="modal" id="albumModal">
-  <div class="modal-content modal-large">
+  <div class="modal-content" style="min-width:750px;max-width:900px;">
     <div class="modal-header">
       <h2 id="albumModalTitle">新建</h2>
       <button class="close-btn" onclick="closeAlbumModal()">&times;</button>
     </div>
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchAlbumTab('basic')">基础信息</button>
+      <button class="tab-btn" onclick="switchAlbumTab('photos')">图片列表</button>
+    </div>
     <form id="albumForm" class="form-group">
       <input type="hidden" name="oldName" id="albumOldName">
-      <div class="form-grid">
-        <div class="form-group"><label>相册名称 *</label><input type="text" name="name" id="albumName" required></div>
-        <div class="form-group"><label>相册标题</label><input type="text" name="title" id="albumTitle" placeholder="显示标题，不填则使用名称"></div>
-        <div class="form-group"><label>模式</label><select name="mode" id="albumMode" onchange="onModeChange()">
-          <option value="">本地模式</option>
-          <option value="external">外链模式</option>
-        </select></div>
-        <div class="form-group"><label>布局方式</label><select name="layout" id="albumLayout">
-          <option value="grid">网格 (Grid)</option>
-          <option value="masonry">瀑布流 (Masonry)</option>
-        </select></div>
-        <div class="form-group"><label>列数</label><input type="number" name="columns" id="albumColumns" min="1" max="6" value="3" placeholder="默认3"></div>
-        <div class="form-group"><label>创建日期</label><input type="date" name="date" id="albumDate"></div>
-        <div class="form-group"><label>拍摄地点</label><input type="text" name="location" id="albumLocation" placeholder="如: 日本京都"></div>
-        <div class="form-group"><label>相册封面</label><input type="text" name="cover" id="albumCover" placeholder="图片URL或相对路径"></div>
+      <div class="tab-panel active" id="tab-album-basic">
+        <div class="form-grid">
+          <div class="form-group"><label>相册名称 *</label><input type="text" name="name" id="albumName" required></div>
+          <div class="form-group"><label>相册标题</label><input type="text" name="title" id="albumTitle" placeholder="显示标题，不填则使用名称"></div>
+          <div class="form-group"><label>模式</label><select name="mode" id="albumMode" onchange="onModeChange()">
+            <option value="">本地模式</option>
+            <option value="external">外链模式</option>
+          </select></div>
+          <div class="form-group"><label>布局方式</label><select name="layout" id="albumLayout">
+            <option value="grid">网格 (Grid)</option>
+            <option value="masonry">瀑布流 (Masonry)</option>
+          </select></div>
+          <div class="form-group"><label>列数</label><input type="number" name="columns" id="albumColumns" min="1" max="6" value="3" placeholder="默认3"></div>
+          <div class="form-group"><label>创建日期</label><input type="date" name="date" id="albumDate"></div>
+          <div class="form-group"><label>拍摄地点</label><input type="text" name="location" id="albumLocation" placeholder="如: 日本京都"></div>
+          <div class="form-group"><label>相册封面</label><input type="text" name="cover" id="albumCover" placeholder="图片URL或相对路径"></div>
+        </div>
+        <div class="form-group"><label>标签</label><input type="text" name="tags" id="albumTags" placeholder="用逗号分隔，如: 旅行, 京都, 夏天"></div>
+        <div class="form-group"><label>相册描述</label><textarea name="description" id="albumDescription" placeholder="相册描述..." rows="2"></textarea></div>
+        <div class="form-group">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+            <input type="checkbox" name="hidden" id="albumHidden"> 隐藏相册（不在前台列表显示）
+          </label>
+        </div>
       </div>
-      <div class="form-group"><label>标签</label><input type="text" name="tags" id="albumTags" placeholder="用逗号分隔，如: 旅行, 京都, 夏天"></div>
-      <div class="form-group"><label>相册描述</label><textarea name="description" id="albumDescription" placeholder="相册描述..." rows="2"></textarea></div>
-      <div class="form-group">
-        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-          <input type="checkbox" name="hidden" id="albumHidden"> 隐藏相册（不在前台列表显示）
-        </label>
-      </div>
-      <div class="form-group" id="photosSection">
-        <label>图片列表</label>
-        <div id="photoListContainer"></div>
-        <div style="margin-top:10px;display:flex;gap:10px;">
+      <div class="tab-panel" id="tab-album-photos">
+        <div style="display:flex;gap:10px;margin-bottom:15px;">
           <button type="button" class="btn btn-sm btn-primary" onclick="addPhotoRow()">+ 添加图片</button>
           <button type="button" class="btn btn-sm btn-info" onclick="openBatchAddModal()">批量添加</button>
         </div>
+        <div class="form-group">
+          <label>图片列表</label>
+          <div id="photoListContainer"></div>
+        </div>
       </div>
-      <button type="submit" class="btn btn-primary">保存相册</button>
-      <button type="button" class="btn btn-success" onclick="clearAlbumForm(); closeAlbumModal()">取消</button>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px;">
+        <button type="button" class="btn btn-success" onclick="clearAlbumForm(); closeAlbumModal()">取消</button>
+        <button type="submit" class="btn btn-primary">💾 保存相册</button>
+      </div>
     </form>
   </div>
 </div>
@@ -139,6 +149,13 @@ window.albumsData = [];
 window.lightboxPhotos = [];
 window.lightboxIndex = 0;
 window.editingPhotoIndex = -1;
+
+function switchAlbumTab(name) {
+  document.querySelectorAll('#albumForm .tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('#albumForm .tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelector('#albumForm .tab-btn[onclick="switchAlbumTab(\\'' + name + '\\')"]').classList.add('active');
+  document.getElementById('tab-album-' + name).classList.add('active');
+}
 
 async function loadAlbums() {
   const res = await api('GET', '/api/albums');
@@ -522,6 +539,7 @@ document.getElementById('photoEditForm').addEventListener('submit', function(e) 
 function openAlbumModal() {
   document.getElementById('albumModalTitle').textContent = '新建';
   clearAlbumForm();
+  switchAlbumTab('basic');
   document.getElementById('albumModal').classList.add('active');
 }
 
@@ -553,16 +571,18 @@ document.getElementById('albumForm').addEventListener('submit', async function(e
     }
   });
 
-  var oldName = document.getElementById('albumOldName').value;
-  if (oldName) {
-    await api('PUT', '/api/albums/' + encodeURIComponent(oldName), info);
-  } else {
-    await api('POST', '/api/albums', { name: document.getElementById('albumName').value, info: info });
-  }
-  showMsg('保存成功', 'success');
-  loadAlbums();
-  clearAlbumForm();
-  closeAlbumModal();
+  try {
+    var oldName = document.getElementById('albumOldName').value;
+    if (oldName) {
+      await api('PUT', '/api/albums/' + encodeURIComponent(oldName), info);
+    } else {
+      await api('POST', '/api/albums', { name: document.getElementById('albumName').value, info: info });
+    }
+    showMsg('保存成功', 'success');
+    loadAlbums();
+    clearAlbumForm();
+    closeAlbumModal();
+  } catch(e) {}
 });
 
 function clearAlbumForm() {
@@ -611,6 +631,7 @@ async function editAlbum(name) {
     });
   }
 
+  switchAlbumTab('basic');
   document.getElementById('albumModal').classList.add('active');
 }
 

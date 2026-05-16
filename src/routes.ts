@@ -31,11 +31,11 @@ export function createRouter(githubClient: GitHubClient, contentClient?: GitHubC
 
   const diaryRouter = createDiaryRouter(client);
   const friendsRouter = createFriendsRouter(client);
-  const projectsRouter = createProjectsRouter(client);
-  const skillsRouter = createSkillsRouter(client);
-  const timelineRouter = createTimelineRouter(client);
-  const devicesRouter = createDevicesRouter(client);
-  const animeRouter = createAnimeRouter(client, githubClient);
+  const projectsRouter = createProjectsRouter(githubClient);
+  const skillsRouter = createSkillsRouter(githubClient);
+  const timelineRouter = createTimelineRouter(githubClient);
+  const devicesRouter = createDevicesRouter(githubClient);
+  const animeRouter = createAnimeRouter(githubClient, githubClient);
   const postsRouter = createPostsRouter(client);
   const albumsRouter = createAlbumsRouter(client);
   const aboutRouter = createAboutRouter(client);
