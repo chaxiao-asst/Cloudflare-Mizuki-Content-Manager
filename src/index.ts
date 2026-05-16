@@ -34,6 +34,7 @@ const HEADER = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mizuki Content Manager</title>
+<link id="favicon-link" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%237c3aed'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Arial,sans-serif' font-size='18' font-weight='bold' fill='white'%3EM%3C/text%3E%3C/svg%3E">
 <style>${SHARED_CSS}</style>
 </head>
 <body>
@@ -114,6 +115,18 @@ function confirmCancel() {
 document.getElementById('confirmModal').addEventListener('click', function(e) {
   if (e.target === document.getElementById('confirmModal')) confirmCancel();
 });
+(function initFavicon() {
+  api('GET', '/api/config')
+    .then(function(res) {
+      var data = res.data;
+      var logoPath = (data && data.navbarTitle && data.navbarTitle.logo) || (data && data.favicon && data.favicon[0] && data.favicon[0].src);
+      if (logoPath) {
+        var link = document.getElementById('favicon-link');
+        if (link) link.href = logoPath;
+      }
+    })
+    .catch(function() {});
+})();
 </script>`;
 
 const FOOTER = '</div></body></html>';
