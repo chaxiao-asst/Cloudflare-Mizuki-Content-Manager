@@ -429,7 +429,17 @@ function getModalContent(id) {
           <option value="logo"\${config.navbarTitle?.mode === 'logo' ? ' selected' : ''}>仅显示Logo</option></select></div>
         <div class="config-item"><label>标题文本</label><input type="text" id="modal-navbar-text" value="\${escAttr(config.navbarTitle?.text)}" placeholder="支持中文"></div>
         <div class="config-item"><label>图标路径（支持外链）</label><input type="url" id="modal-navbar-icon" value="\${escAttr(config.navbarTitle?.icon)}" placeholder="图标名或外链URL"></div>
-        <div class="config-item"><label>Logo路径（支持外链）</label><input type="url" id="modal-navbar-logo" value="\${escAttr(config.navbarTitle?.logo)}" placeholder="Logo图片外链URL"></div>
+        <div class="config-item"><label>Logo路径（支持外链）</label><input type="url" id="modal-navbar-logo" value="\${escAttr(config.navbarTitle?.logo)}" placeholder="Logo图片外链URL" oninput="updateFaviconPreview()"></div>
+      </div>
+    </div>
+    <div class="config-section" style="margin-top:20px;">
+      <h4>网站图标 (Favicon)</h4>
+      <p style="font-size:12px;color:#888;margin-bottom:10px;">网站图标将自动使用上方配置的 Logo 路径</p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div id="modal-favicon-preview" style="width:32px;height:32px;border-radius:6px;overflow:hidden;border:1px solid #e0e0e0;display:flex;align-items:center;justify-content:center;background:#f5f5f5;">
+          \${config.navbarTitle?.logo ? '<img src="' + escAttr(config.navbarTitle.logo) + '" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML=\\'⚠️\\'">' : '<span style="font-size:16px;">🌐</span>'}
+        </div>
+        <span id="modal-favicon-text" style="font-size:13px;color:#666;">\${config.navbarTitle?.logo ? '已设置网站图标' : '未设置 — 将使用默认图标'}</span>
       </div>
     </div>
     <div class="config-section" style="margin-top:20px;">
@@ -1227,6 +1237,19 @@ function initAnnouncementModal() {
   }
 }
 
+function updateFaviconPreview() {
+  const logoVal = document.getElementById('modal-navbar-logo').value;
+  const preview = document.getElementById('modal-favicon-preview');
+  const text = document.getElementById('modal-favicon-text');
+  if (logoVal) {
+    preview.innerHTML = '<img src="' + logoVal + '" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML=\\'⚠️\\'">';
+    text.textContent = '已设置网站图标';
+  } else {
+    preview.innerHTML = '<span style="font-size:16px;">🌐</span>';
+    text.textContent = '未设置 — 将使用默认图标';
+  }
+}
+
 function closeModal(event) {
   if (event && event.target !== event.currentTarget) return;
   document.getElementById('cfg-overlay').classList.remove('active');
@@ -1256,6 +1279,8 @@ function applyModalChanges() {
     if (currentConfig.diaryApiUrl === undefined) currentConfig.diaryApiUrl = '';
     currentConfig.navbarTitle = { mode: document.getElementById('modal-navbar-mode').value, text: document.getElementById('modal-navbar-text').value, icon: document.getElementById('modal-navbar-icon').value, logo: document.getElementById('modal-navbar-logo').value };
     currentConfig.footer = { enable: document.getElementById('modal-footer-enable').checked, customHtml: document.getElementById('modal-footer-customHtml').value };
+    const logoVal = document.getElementById('modal-navbar-logo').value;
+    currentConfig.favicon = logoVal ? [{ src: logoVal }] : [];
   }
   if (id === 'navbar') {
     currentConfig.navbarTitle = { mode: document.getElementById('modal-navbar-mode').value, text: document.getElementById('modal-navbar-text').value, icon: document.getElementById('modal-navbar-icon').value, logo: document.getElementById('modal-navbar-logo').value };
