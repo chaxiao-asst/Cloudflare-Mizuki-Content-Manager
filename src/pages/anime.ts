@@ -2,22 +2,24 @@ export const animePage = `
 <div class="content page-layout">
 <div class="page-toolbar">
 <h2>番剧管理</h2>
-<button type="button" class="btn btn-primary" onclick="openAnimeModal()">新建</button>
-<input type="text" id="animeSearchInput" placeholder="搜索番剧..." onkeyup="filterAnime()">
-<select id="animeStatusFilter" onchange="filterAnime()">
-  <option value="">全部状态</option>
-  <option value="watching">追看中</option>
-  <option value="completed">已完结</option>
-  <option value="planned">想看</option>
-</select>
-<select id="animeSortBy" onchange="filterAnime()">
-  <option value="title">按名称</option>
-  <option value="rating">按评分</option>
-  <option value="year">按年份</option>
-</select>
-<select id="animeGenreFilter" onchange="filterAnime()">
-  <option value="">全部类型</option>
-</select>
+<button type="button" class="btn btn-primary" onclick="openAnimeModal()" style="margin-bottom:15px;">新建番剧</button>
+<div class="filter-bar">
+  <input type="text" id="animeSearchInput" placeholder="搜索番剧..." onkeyup="filterAnime()">
+  <select id="animeStatusFilter" onchange="filterAnime()">
+    <option value="">全部状态</option>
+    <option value="watching">追看中</option>
+    <option value="completed">已完结</option>
+    <option value="planned">想看</option>
+  </select>
+  <select id="animeSortBy" onchange="filterAnime()">
+    <option value="title">按名称排序</option>
+    <option value="rating">按评分排序</option>
+    <option value="year">按年份排序</option>
+  </select>
+  <select id="animeGenreFilter" onchange="filterAnime()">
+    <option value="">全部类型</option>
+  </select>
+</div>
 </div>
 <div class="page-cards-area">
 <div class="card-grid" id="animeCards"></div>
@@ -51,7 +53,7 @@ export const animePage = `
         <div class="form-group"><label>开始观看日期</label><input type="month" name="startDate" id="animeStartDate"></div>
         <div class="form-group"><label>完成日期</label><input type="month" name="endDate" id="animeEndDate"></div>
       </div>
-      <div class="form-group"><label>类型标签</label><textarea name="genre" id="animeGenre" placeholder="每行一个标签" rows="3"></textarea></div>
+      <div class="form-group"><label>类型标签</label><input type="text" name="genre" id="animeGenre" placeholder="用逗号分隔，如: 日常, 治愈, 校园"></div>
       <div class="form-group"><label>简介</label><textarea name="description" id="animeDescription" placeholder="番剧简介..." rows="3"></textarea></div>
       <button type="submit" class="btn btn-primary">保存番剧</button>
       <button type="button" class="btn btn-success" onclick="clearAnimeForm(); closeAnimeModal();">取消</button>
@@ -150,7 +152,7 @@ function filterAnime() {
         (a.rating ? '<span class="badge badge-success">⭐ ' + a.rating + '</span>' : '') +
         (a.year ? '<span class="badge badge-secondary">' + a.year + '</span>' : '') +
         '</div>' +
-        '<div style="font-size:0.85rem;margin-top:8px;">' +
+        '<div style="font-size:0.85rem;color:#888;margin-top:8px;">' +
         (a.progress || a.totalEpisodes ? '<div>进度: ' + (a.progress || 0) + '/' + (a.totalEpisodes || '?') + '</div>' : '') +
         (a.studio ? '<div>制作: ' + a.studio + '</div>' : '') +
         '</div>' +
@@ -242,7 +244,7 @@ function viewAnimeDetail(title) {
     '</div>' +
     progressBar +
     (genreTags ? '<div class="anime-meta" style="margin:16px 0;">' + genreTags + '</div>' : '') +
-    (anime.description ? '<div><label style="font-size:12px;">简介</label><p style="margin-top:8px;line-height:1.6;">' + anime.description + '</p></div>' : '') +
+    (anime.description ? '<div><label style="font-size:12px;color:#888;">简介</label><p style="margin-top:8px;line-height:1.6;">' + anime.description + '</p></div>' : '') +
     (anime.link ? '<div style="margin-top:16px;"><a href="' + anime.link + '" target="_blank" class="btn btn-primary">🔗 前往观看</a></div>' : '');
   
   document.getElementById('animeDetailContent').innerHTML = html;
@@ -269,7 +271,7 @@ document.getElementById('animeForm').addEventListener('submit', async function(e
     totalEpisodes: parseInt(document.getElementById('animeTotalEpisodes').value) || 0,
     startDate: document.getElementById('animeStartDate').value,
     endDate: document.getElementById('animeEndDate').value || null,
-    genre: genreText.split('\n').map(function(t) { return t.trim(); }).filter(function(x) { return x; }),
+    genre: genreText.split(',').map(function(t) { return t.trim(); }).filter(function(x) { return x; }),
     description: document.getElementById('animeDescription').value
   };
   
@@ -322,7 +324,7 @@ async function editAnime(title) {
   document.getElementById('animeTotalEpisodes').value = data.totalEpisodes || '';
   document.getElementById('animeStartDate').value = data.startDate || '';
   document.getElementById('animeEndDate').value = data.endDate || '';
-  document.getElementById('animeGenre').value = (data.genre || []).join('\n');
+  document.getElementById('animeGenre').value = (data.genre || []).join(', ');
   document.getElementById('animeDescription').value = data.description || '';
   document.getElementById('animeModal').classList.add('active');
 }

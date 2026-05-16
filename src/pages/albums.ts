@@ -3,15 +3,17 @@ export const albumsPage = `
 <div class="page-toolbar">
 <h2>相册管理</h2>
 <button type="button" class="btn btn-primary" onclick="openAlbumModal()">新建</button>
-<input type="text" id="albumSearchInput" placeholder="搜索相册..." oninput="filterAlbums()">
-<select id="albumModeFilter" onchange="filterAlbums()">
-  <option value="">全部模式</option>
-  <option value="local">本地模式</option>
-  <option value="external">外链模式</option>
-</select>
-<select id="albumTagFilter" onchange="filterAlbums()">
-  <option value="">全部标签</option>
-</select>
+<div class="filter-bar">
+  <input type="text" id="albumSearchInput" placeholder="搜索相册..." oninput="filterAlbums()">
+  <select id="albumModeFilter" onchange="filterAlbums()">
+    <option value="">全部模式</option>
+    <option value="local">本地模式</option>
+    <option value="external">外链模式</option>
+  </select>
+  <select id="albumTagFilter" onchange="filterAlbums()">
+    <option value="">全部标签</option>
+  </select>
+</div>
 </div>
 <div class="page-cards-area">
 <div class="card-grid" id="albumsCards"></div>
@@ -43,7 +45,7 @@ export const albumsPage = `
         <div class="form-group"><label>拍摄地点</label><input type="text" name="location" id="albumLocation" placeholder="如: 日本京都"></div>
         <div class="form-group"><label>相册封面</label><input type="text" name="cover" id="albumCover" placeholder="图片URL或相对路径"></div>
       </div>
-      <div class="form-group"><label>标签</label><textarea name="tags" id="albumTags" placeholder="每行一个标签" rows="3"></textarea></div>
+      <div class="form-group"><label>标签</label><input type="text" name="tags" id="albumTags" placeholder="用逗号分隔，如: 旅行, 京都, 夏天"></div>
       <div class="form-group"><label>相册描述</label><textarea name="description" id="albumDescription" placeholder="相册描述..." rows="2"></textarea></div>
       <div class="form-group">
         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
@@ -94,7 +96,7 @@ export const albumsPage = `
         <div class="form-group"><label>镜头信息</label><input type="text" name="pLens" id="peLens" placeholder="如: RF 24-70mm"></div>
       </div>
       <div class="form-group"><label>图片描述</label><textarea name="pDescription" id="peDescription" placeholder="图片描述..." rows="2"></textarea></div>
-      <div class="form-group"><label>图片标签</label><textarea name="pTags" id="peTags" placeholder="每行一个标签" rows="2"></textarea></div>
+      <div class="form-group"><label>图片标签</label><input type="text" name="pTags" id="peTags" placeholder="用逗号分隔"></div>
       <div class="form-group">
         <label>拍摄参数</label>
         <div class="form-grid" style="margin-top:8px;">
@@ -127,14 +129,12 @@ export const albumsPage = `
     <div class="form-group">
       <label>图片链接</label>
       <textarea id="batchUrlsInput" placeholder="https://example.com/image.jpg" rows="8"></textarea>
-      <p style="font-size:12px;margin-top:8px;">提示：每行输入一个图片链接</p>
+      <p style="font-size:12px;color:#666;margin-top:8px;">提示：每行输入一个图片链接</p>
     </div>
     <button type="button" class="btn btn-primary" onclick="batchAddPhotos()">添加图片</button>
     <button type="button" class="btn btn-success" onclick="closeBatchAddModal()">取消</button>
   </div>
 </div>
-
-
 
 <script>
 window.albumsData = [];
@@ -214,7 +214,7 @@ function filterAlbums() {
       card.innerHTML = coverHtml +
         '<div class="card-content">' +
         '<h4>' + (info.title || a.name) + '</h4>' +
-        (info.description ? '<p style="font-size:0.9rem;margin:6px 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + info.description + '</p>' : '') +
+        (info.description ? '<p style="font-size:0.9rem;color:#666;margin:6px 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + info.description + '</p>' : '') +
         '<div class="album-meta">' +
         '<span class="badge badge-info">' + imageCount + ' 张图片</span>' +
         '<span class="badge ' + (albumMode === 'external' ? 'badge-warning' : 'badge-success') + '">' + (albumMode === 'external' ? '外链' : '本地') + '</span>' +
@@ -275,7 +275,7 @@ function viewAlbumDetail(name) {
     '<div class="detail-item"><label>照片数</label><span>' + ((info.photos || []).length) + ' 张</span></div>' +
     '<div class="detail-item"><label>隐藏</label><span>' + (info.hidden ? '是' : '否') + '</span></div>' +
     '</div>' +
-    (info.description ? '<p style="margin-bottom:15px;">' + info.description + '</p>' : '');
+    (info.description ? '<p style="color:#666;margin-bottom:15px;">' + info.description + '</p>' : '');
 
   if (Array.isArray(info.tags) && info.tags.length > 0) {
     html += '<div class="album-meta" style="margin-bottom:15px;">' +
@@ -460,7 +460,7 @@ function openPhotoEditModal(rowIndex) {
   document.getElementById('peCamera').value = photo.camera || '';
   document.getElementById('peLens').value = photo.lens || '';
   document.getElementById('peDescription').value = photo.description || '';
-  document.getElementById('peTags').value = Array.isArray(photo.tags) ? photo.tags.join('\n') : '';
+  document.getElementById('peTags').value = Array.isArray(photo.tags) ? photo.tags.join(', ') : '';
   if (photo.settings) {
     document.getElementById('peAperture').value = photo.settings.aperture || '';
     document.getElementById('peShutter').value = photo.settings.shutter || '';
@@ -494,7 +494,7 @@ document.getElementById('photoEditForm').addEventListener('submit', function(e) 
     camera: document.getElementById('peCamera').value.trim() || undefined,
     lens: document.getElementById('peLens').value.trim() || undefined,
     description: document.getElementById('peDescription').value.trim() || undefined,
-    tags: document.getElementById('peTags').value.split('\n').map(function(t) { return t.trim(); }).filter(Boolean)
+    tags: document.getElementById('peTags').value.split(',').map(function(t) { return t.trim(); }).filter(Boolean)
   };
 
   var aperture = document.getElementById('peAperture').value.trim();
@@ -543,7 +543,7 @@ document.getElementById('albumForm').addEventListener('submit', async function(e
     hidden: document.getElementById('albumHidden').checked || undefined,
     date: document.getElementById('albumDate').value || undefined,
     location: document.getElementById('albumLocation').value || undefined,
-    tags: document.getElementById('albumTags').value.split('\n').map(function(t) { return t.trim(); }).filter(Boolean),
+    tags: document.getElementById('albumTags').value.split(',').map(function(t) { return t.trim(); }).filter(Boolean),
     layout: document.getElementById('albumLayout').value || undefined,
     columns: parseInt(document.getElementById('albumColumns').value) || undefined,
     photos: photos
@@ -598,7 +598,7 @@ async function editAlbum(name) {
   document.getElementById('albumHidden').checked = !!data.hidden;
   document.getElementById('albumDate').value = data.date || '';
   document.getElementById('albumLocation').value = data.location || '';
-  document.getElementById('albumTags').value = (data.tags || []).join('\n');
+  document.getElementById('albumTags').value = (data.tags || []).join(', ');
   document.getElementById('albumLayout').value = data.layout || 'grid';
   document.getElementById('albumColumns').value = data.columns || 3;
 
