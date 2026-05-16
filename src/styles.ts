@@ -161,20 +161,180 @@ tr:hover td{background:oklch(0.97 0.005 var(--hue))}
 .page-cards-area .card-grid{margin-top:0}
 .page-cards-area .empty-state{padding:40px 20px}
 
-@media(max-width:768px){
-  .page-layout{max-height:calc(100vh - 150px)}
-  .container{padding:14px 16px}
-  .header{padding:22px 20px}
-  .content{padding:20px 16px}
-  .nav a{padding:7px 12px;font-size:0.82rem}
-  .card-grid{grid-template-columns:1fr}
-  .form-grid{grid-template-columns:1fr}
-  .modal-content{min-width:auto!important}
+/* ===== Responsive Design System ===== */
+/* 参考 Mizuki 主项目响应式方案：核心断点 768px / 1280px，额外精调 480px / 360px */
+
+/* Desktop - Max width constraint (>=1280px) */
+@media(min-width:1280px){
+  .container{max-width:1480px}
 }
-@media(max-width:480px){
-  .page-layout{max-height:calc(100vh - 140px)}
+
+/* Tablet landscape / compact desktop (<=1280px) */
+@media(max-width:1280px){
+  .container{max-width:100%}
+  .card-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+  .timeline-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+  .config-row{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+}
+
+/* Tablet portrait (<=1024px) */
+@media(max-width:1024px){
+  .container{padding:20px 22px}
+  .header{padding:24px 26px}
+  .content{padding:24px 26px}
+  .card-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+  .cfg-dialog{max-width:90vw}
+}
+
+/* Mobile / small tablet (<=768px) — 核心移动端断点 */
+@media(max-width:768px){
+  html{font-size:14px}
+  .container{padding:12px 14px}
+  .header{padding:18px 16px;border-radius:var(--radius-lg);margin-bottom:14px}
   .header h1{font-size:1.35rem}
-  .page-toolbar{flex-direction:column;align-items:flex-start;gap:10px}
+  .header p{font-size:0.82rem}
+  .nav{padding:4px;top:6px;margin-bottom:14px;border-radius:var(--radius)}
+  .nav ul{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;gap:2px;padding-bottom:1px;-webkit-overflow-scrolling:touch}
+  .nav ul::-webkit-scrollbar{display:none}
+  .nav a{padding:7px 13px;font-size:0.8rem;white-space:nowrap;flex-shrink:0}
+  .nav a.active{border-radius:var(--radius-sm)}
+  .content{padding:18px 14px;border-radius:var(--radius-lg)}
+  .content h2{font-size:1.15rem;margin-bottom:16px}
+  .content h2::before{height:20px}
+  .card-grid{grid-template-columns:1fr;gap:12px}
+  .timeline-grid{grid-template-columns:1fr;gap:12px}
+  .form-grid{grid-template-columns:1fr;gap:10px}
+  .config-row{grid-template-columns:1fr;gap:10px}
+  .feature-pages-grid{grid-template-columns:repeat(2,1fr);gap:6px}
+  .detail-grid{grid-template-columns:1fr}
+  .photo-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+  .page-layout{max-height:calc(100vh - 140px)}
+  .page-toolbar{flex-wrap:wrap;gap:8px}
+  .page-toolbar input{max-width:100%;flex-basis:100%;min-width:0}
+  .page-toolbar select{flex-shrink:1;min-width:0}
+  .page-toolbar h2{font-size:1.05rem}
+  .page-cards-area{padding:10px 0}
+  .filter-bar{flex-wrap:wrap;gap:8px}
+  .filter-bar input{flex:1 1 100%;min-width:0}
+  .modal-content{max-width:92vw!important;padding:22px 18px;border-radius:var(--radius-lg)}
+  .modal-header{margin-bottom:16px;padding-bottom:14px}
+  .modal-header h2{font-size:1.05rem}
+  .cfg-dialog{max-width:94vw!important;border-radius:var(--radius-lg)}
+  .cfg-dialog-header{padding:16px 18px;border-radius:var(--radius-lg) var(--radius-lg) 0 0}
+  .cfg-dialog-body{padding:18px 18px}
+  .cfg-dialog-footer{padding:10px 18px;flex-wrap:wrap;border-radius:0 0 var(--radius-lg) var(--radius-lg)}
+  .save-bar{flex-direction:column;gap:8px}
+  .save-bar .btn{width:100%}
+  .btn-save,.btn-cancel{width:100%;justify-content:center}
+  .config-card{padding:16px 18px}
+  .config-item{padding:12px 14px}
+  .confirm-modal .modal-content{max-width:88vw!important;padding:24px 20px}
+  .anime-cover,.anime-cover-placeholder,.album-cover,.album-cover-placeholder{height:160px;width:calc(100% + 28px);margin:-18px -14px 12px -14px;border-radius:var(--radius) var(--radius) 0 0}
+  .card{padding:16px}
+  .card h3{font-size:0.98rem}
+  .card p{font-size:0.85rem}
+  .friend-header{gap:10px}
+  .friend-avatar{width:40px;height:40px}
+  .nav-link-header{padding:12px 14px}
+  .nav-link-body{padding:0 14px 14px}
+  .nav-child-item{padding:12px}
+  .sidebar-component-item{padding:10px 14px}
+  .icon-sets-modal{max-width:90vw}
+  table{min-width:500px;font-size:0.84rem}
+  th,td{padding:10px 12px}
+  .btn{padding:9px 16px;font-size:0.84rem}
+  .badge{padding:3px 8px;font-size:0.74rem}
+  .lightbox-prev,.lightbox-next{font-size:20px;padding:10px 14px}
+  .lightbox-prev{left:12px}
+  .lightbox-next{right:12px}
+  .help-section table{font-size:0.78rem}
+  .help-section pre{font-size:0.78rem;padding:10px}
+}
+
+/* Small mobile (<=480px) */
+@media(max-width:480px){
+  html{font-size:13px}
+  .container{padding:8px 10px}
+  .header{padding:14px 12px;border-radius:var(--radius);margin-bottom:10px}
+  .header h1{font-size:1.2rem}
+  .header p{font-size:0.75rem}
+  .nav{padding:3px;top:4px;margin-bottom:10px;border-radius:var(--radius-sm)}
+  .nav ul{gap:1px}
+  .nav a{padding:6px 10px;font-size:0.74rem;border-radius:5px}
+  .content{padding:14px 12px;border-radius:var(--radius)}
+  .content h2{font-size:1.05rem;margin-bottom:14px;gap:8px}
+  .content h2::before{height:18px;width:3px}
+  .card-grid{gap:10px}
+  .card{padding:14px}
+  .card h3{font-size:0.92rem}
+  .card p{font-size:0.8rem}
+  .feature-pages-grid{grid-template-columns:1fr;gap:4px}
+  .feature-page-item{padding:8px 10px}
+  .page-toolbar{flex-direction:column;align-items:stretch;gap:8px}
+  .page-toolbar .btn{width:100%}
+  .page-toolbar h2{font-size:0.98rem}
+  .modal-content{padding:16px 12px}
+  .modal-header h2{font-size:0.95rem}
+  .cfg-dialog{border-radius:var(--radius)}
+  .cfg-dialog-header{padding:12px 14px;border-radius:var(--radius) var(--radius) 0 0}
+  .cfg-dialog-body{padding:14px 14px}
+  .cfg-dialog-footer{padding:8px 14px;flex-direction:column;border-radius:0 0 var(--radius) var(--radius)}
+  .cfg-dialog-footer .btn{width:100%}
+  .cfg-close-btn{font-size:1.2rem;padding:4px 8px}
+  .config-item{padding:10px 12px}
+  .config-section h4{font-size:0.78rem}
+  .table-wrapper{border-radius:var(--radius-sm)}
+  table{min-width:420px}
+  th,td{padding:8px 9px;font-size:0.78rem}
+  th{font-size:0.72rem}
+  .btn{padding:8px 12px;font-size:0.8rem;border-radius:var(--radius-sm)}
+  .btn-sm{padding:4px 10px;font-size:0.74rem}
+  .badge{padding:2px 7px;font-size:0.7rem}
+  .form-group input,.form-group select,.form-group textarea{padding:8px 10px;font-size:0.82rem}
+  .form-group label{font-size:0.78rem}
+  .filter-bar select,.filter-bar input{padding:7px 10px;font-size:0.8rem}
+  .anime-cover,.anime-cover-placeholder,.album-cover,.album-cover-placeholder{height:130px;width:calc(100% + 24px);margin:-14px -12px 10px -12px;border-radius:var(--radius-sm) var(--radius-sm) 0 0}
+  .detail-cover{max-height:180px}
+  .tab-btn{padding:8px 14px;font-size:0.82rem}
+  .confirm-modal .modal-content{padding:20px 16px}
+  .confirm-modal .modal-content h3{font-size:1rem}
+  .confirm-modal .modal-content p{font-size:0.85rem}
+  .confirm-modal .btn-group{flex-direction:column;gap:8px}
+  .icon-sets-overlay{padding:12px}
+  .icon-sets-modal{max-width:96vw}
+  .lightbox-close{font-size:30px;top:12px;right:16px}
+  .lightbox img{max-width:95%;max-height:75%}
+  .help-section h3{font-size:0.92rem}
+  .help-section h4{font-size:0.85rem}
+  .nav-link-header{padding:10px 12px}
+  .nav-link-header .link-name{font-size:0.82rem}
+  .nav-link-body{padding:0 12px 12px}
+  .nav-child-item{padding:10px}
+  .sidebar-component-item{padding:8px 12px}
+  .sidebar-component-item span{font-size:0.82rem}
+  .icon-sets-body{padding:10px;max-height:55vh}
+  .icon-set-item{padding:10px 14px;font-size:0.82rem}
+  .tab-nav{gap:2px}
+  .stats-bar{font-size:0.78rem}
+  #postSchemeRow{margin:8px 0 14px;padding:10px 12px}
+}
+
+/* Extra small mobile (<=360px) */
+@media(max-width:360px){
+  html{font-size:12px}
+  .container{padding:6px 8px}
+  .header{padding:12px 10px;margin-bottom:8px}
+  .header h1{font-size:1.1rem}
+  .content{padding:12px 10px}
+  .nav a{padding:5px 8px;font-size:0.7rem}
+  .table-wrapper{border-radius:3px}
+  table{min-width:360px}
+  th,td{padding:6px 7px;font-size:0.72rem}
+  .btn{padding:7px 10px;font-size:0.74rem}
+  .modal-content,.confirm-modal .modal-content{max-width:96vw!important;padding:14px 10px}
+  .feature-pages-grid{grid-template-columns:1fr}
+  .card-grid{gap:8px}
+  .form-grid{gap:8px}
 }
 
 /* ===== Modal System ===== */
