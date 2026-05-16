@@ -75,6 +75,8 @@ export const postsPage = `
             <div class="form-group"><label>源码链接</label><input type="text" name="sourceLink" id="postSourceLink" placeholder="https://github.com/..."></div>
           </div>
         </div>
+        <h3 style="margin:15px 0;color:#555;">分享设置</h3>
+        <div class="form-group"><label><input type="checkbox" name="showShare" id="postShowShare"> 📤 启用文章分享</label></div>
         <h3 style="margin:15px 0;color:#555;">其他</h3>
         <div class="form-grid">
           <div class="form-group"><label>别名</label><input type="text" name="alias" id="postAlias" placeholder="文章别名路径"></div>
@@ -442,7 +444,12 @@ document.getElementById('postForm').addEventListener('submit', async function(e)
     meta.licenseName = document.getElementById('postLicenseName').value;
     meta.licenseUrl = document.getElementById('postLicenseUrl').value;
     meta.sourceLink = document.getElementById('postSourceLink').value;
+  } else {
+    meta.licenseName = '';
+    meta.licenseUrl = '';
+    meta.sourceLink = '';
   }
+  meta.share = document.getElementById('postShowShare').checked;
   var content = document.getElementById('postContent').value;
   var existing = document.getElementById('postName').value;
   if (existing) {
@@ -479,6 +486,7 @@ function clearPostForm() {
   document.getElementById('postLicenseUrl').value = '';
   document.getElementById('postSourceLink').value = '';
   document.getElementById('postShowLicense').checked = false;
+  document.getElementById('postShowShare').checked = false;
   var folderRadio = document.querySelector('input[name="postScheme"][value="folder"]');
   if (folderRadio) folderRadio.checked = true;
   document.getElementById('postAlias').value = '';
@@ -517,6 +525,7 @@ async function editPost(name) {
   document.getElementById('postSourceLink').value = data.meta?.sourceLink || '';
   var hasLicense = !!(data.meta?.licenseName || data.meta?.licenseUrl || data.meta?.sourceLink);
   document.getElementById('postShowLicense').checked = hasLicense;
+  document.getElementById('postShowShare').checked = data.meta?.share === true;
   document.getElementById('postAlias').value = data.meta?.alias || '';
   document.getElementById('postPriority').value = data.meta?.priority !== undefined ? data.meta.priority : '';
   document.getElementById('postContent').value = data.content || '';

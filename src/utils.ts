@@ -202,7 +202,7 @@ export function parseTsVariable(content: string, varName: string): unknown {
     result = result
       .replace(/\/\/.*$/gm, '')
       .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/([{,]\s*)([a-zA-Z_$][a-zA-Z0-9_$]*)\s*:/g, '$1"$2":')
+      .replace(/([{,]\s*)([^\s:"'`{[\]},]+)\s*:/g, '$1"$2":')
       .replace(/,\s*([}\]])/g, '$1');
 
     for (const { placeholder, value } of strings) {
@@ -280,7 +280,8 @@ function generateTsObject(obj: unknown, indentLevel: number): string {
     const items = keys.map(key => {
       const value = (obj as Record<string, unknown>)[key];
       const valueStr = generateTsObject(value, indentLevel + 1);
-      return `${innerIndent}${key}: ${valueStr}`;
+      const safeKey = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(key) ? key : JSON.stringify(key);
+      return `${innerIndent}${safeKey}: ${valueStr}`;
     }).join(',\n');
 
     return `{\n${items}\n${indent}}`;
