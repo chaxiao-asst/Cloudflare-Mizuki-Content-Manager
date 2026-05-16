@@ -33,8 +33,10 @@ export function createCrudRouter(githubClient: GitHubClient, config: CrudConfig)
       const data = Array.isArray(rawData) ? rawData as Record<string, unknown>[] : [];
 
       if (idExtractor) {
-        const maxId = Math.max(...data.map(d => Number(idExtractor(d))), 0);
-        item.id = maxId + 1;
+        const numericIds = data.map(d => Number(idExtractor(d))).filter(n => isFinite(n));
+        if (numericIds.length > 0) {
+          item.id = Math.max(...numericIds, 0) + 1;
+        }
       }
 
       const finalItem = onCreate ? onCreate(item, data) : item;
