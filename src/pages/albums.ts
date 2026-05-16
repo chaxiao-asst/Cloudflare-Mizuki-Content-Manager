@@ -26,8 +26,8 @@ export const albumsPage = `
       <button class="close-btn" onclick="closeAlbumModal()">&times;</button>
     </div>
     <div class="tab-nav">
-      <button class="tab-btn active" onclick="switchAlbumTab('basic')">基础信息</button>
-      <button class="tab-btn" onclick="switchAlbumTab('photos')">图片列表</button>
+      <button class="tab-btn active" data-tab="basic" onclick="switchAlbumTab('basic')">基础信息</button>
+      <button class="tab-btn" data-tab="photos" onclick="switchAlbumTab('photos')">图片列表</button>
     </div>
     <form id="albumForm" class="form-group">
       <input type="hidden" name="oldName" id="albumOldName">
@@ -153,7 +153,7 @@ window.editingPhotoIndex = -1;
 function switchAlbumTab(name) {
   document.querySelectorAll('#albumForm .tab-btn').forEach(function(b) { b.classList.remove('active'); });
   document.querySelectorAll('#albumForm .tab-panel').forEach(function(p) { p.classList.remove('active'); });
-  document.querySelector('#albumForm .tab-btn[onclick="switchAlbumTab(\\'' + name + '\\')"]').classList.add('active');
+  document.querySelector('#albumForm .tab-btn[data-tab="' + name + '"]').classList.add('active');
   document.getElementById('tab-album-' + name).classList.add('active');
 }
 

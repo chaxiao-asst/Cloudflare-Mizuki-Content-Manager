@@ -76,7 +76,8 @@ export function createPostsRouter(githubClient: GitHubClient) {
 
   router.get('/api/posts/:name', async (request) => {
     try {
-      const name = request.params?.name || '';
+      const rawName = request.params?.name || '';
+      const name = decodeURIComponent(rawName);
       const { file, path } = await getPostFile(githubClient, name);
       const { meta, body } = parseFrontmatter(file.content);
       return Response.json({ success: true, data: { meta, content: body, path } });
@@ -102,7 +103,8 @@ export function createPostsRouter(githubClient: GitHubClient) {
 
   router.put('/api/posts/:name', async (request) => {
     try {
-      const name = request.params?.name || '';
+      const rawName = request.params?.name || '';
+      const name = decodeURIComponent(rawName);
       const { meta, content } = await request.json<{ meta: Record<string, unknown>; content: string }>();
       const normalizedMeta = normalizePostMeta(meta);
       const { file, path } = await getPostFile(githubClient, name);
@@ -116,7 +118,8 @@ export function createPostsRouter(githubClient: GitHubClient) {
 
   router.delete('/api/posts/:name', async (request) => {
     try {
-      const name = request.params?.name || '';
+      const rawName = request.params?.name || '';
+      const name = decodeURIComponent(rawName);
       const { file, path } = await getPostFile(githubClient, name);
       await githubClient.deleteFile(path, `Delete post ${name}`, file.sha);
       return Response.json({ success: true });

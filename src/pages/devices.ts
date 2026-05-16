@@ -49,6 +49,7 @@ function filterDevices() {
   var totalCount = 0; var totalAll = 0; var catCounts = {};
   Object.keys(data).forEach(function(category) {
     var devices = data[category];
+    if (!Array.isArray(devices)) return;
     var filtered = devices.filter(function(d) {
       return !searchTerm || (d.name && d.name.toLowerCase().indexOf(searchTerm) !== -1) || (d.specs && d.specs.toLowerCase().indexOf(searchTerm) !== -1);
     });
