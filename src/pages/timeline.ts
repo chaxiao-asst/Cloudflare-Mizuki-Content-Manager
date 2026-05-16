@@ -132,11 +132,11 @@ function filterTimeline() {
         '<h3 style="margin:0 0 5px">' + t.title + '</h3>' +
         '<span class="badge badge-info">' + (typeMap[t.type] || t.type) + '</span>' +
         '</div>' +
-        '<p style="color:#666;font-size:0.9rem;margin:5px 0;">' + (t.description || '暂无描述') + '</p>' +
+        '<p style="font-size:0.9rem;margin:5px 0;">' + (t.description || '暂无描述') + '</p>' +
         '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;">' +
-        '<span style="color:#888;font-size:0.85rem;">' + dateRange + '</span>' +
-        '<span style="color:#888;font-size:0.85rem;">' + (t.organization || '无') + '</span>' +
-        '<span style="color:#888;font-size:0.85rem;">' + (t.position || '无') + '</span>' +
+        '<span style="font-size:0.85rem;">' + dateRange + '</span>' +
+        '<span style="font-size:0.85rem;">' + (t.organization || '无') + '</span>' +
+        '<span style="font-size:0.85rem;">' + (t.position || '无') + '</span>' +
         '</div>' +
         '<div class="card-actions">' +
         '<button class="btn btn-sm btn-primary">编辑</button>' +

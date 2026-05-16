@@ -71,94 +71,6 @@ export const animePage = `
   </div>
 </div>
 
-<style>
-.modal-large {
-  max-width: 800px;
-}
-.anime-card {
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.anime-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-}
-.anime-cover {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 8px 8px 0 0;
-  margin: -18px -18px 12px -18px;
-}
-.anime-cover-placeholder {
-  width: 100%;
-  height: 180px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 8px 8px 0 0;
-  margin: -18px -18px 12px -18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 48px;
-}
-.progress-bar {
-  width: 100%;
-  height: 8px;
-  background: #e0e0e0;
-  border-radius: 4px;
-  overflow: hidden;
-  margin: 8px 0;
-}
-.progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-  transition: width 0.3s ease;
-}
-.anime-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
-}
-.anime-genre-tag {
-  background: #f0f0f0;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-  color: #666;
-}
-.anime-card-actions {
-  margin-top: auto;
-  padding-top: 12px;
-  display: flex;
-  gap: 8px;
-}
-.detail-cover {
-  width: 100%;
-  max-height: 300px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-.detail-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-.detail-item label {
-  font-size: 12px;
-  color: #888;
-  display: block;
-  margin-bottom: 4px;
-}
-.detail-item span {
-  font-weight: 500;
-}
-</style>
-
 <script>
 window.animeData = [];
 
@@ -240,7 +152,7 @@ function filterAnime() {
         (a.rating ? '<span class="badge badge-success">⭐ ' + a.rating + '</span>' : '') +
         (a.year ? '<span class="badge badge-secondary">' + a.year + '</span>' : '') +
         '</div>' +
-        '<div style="font-size:0.85rem;color:#888;margin-top:8px;">' +
+        '<div style="font-size:0.85rem;margin-top:8px;">' +
         (a.progress || a.totalEpisodes ? '<div>进度: ' + (a.progress || 0) + '/' + (a.totalEpisodes || '?') + '</div>' : '') +
         (a.studio ? '<div>制作: ' + a.studio + '</div>' : '') +
         '</div>' +
@@ -332,7 +244,7 @@ function viewAnimeDetail(title) {
     '</div>' +
     progressBar +
     (genreTags ? '<div class="anime-meta" style="margin:16px 0;">' + genreTags + '</div>' : '') +
-    (anime.description ? '<div><label style="font-size:12px;color:#888;">简介</label><p style="margin-top:8px;line-height:1.6;">' + anime.description + '</p></div>' : '') +
+    (anime.description ? '<div><label style="font-size:12px;">简介</label><p style="margin-top:8px;line-height:1.6;">' + anime.description + '</p></div>' : '') +
     (anime.link ? '<div style="margin-top:16px;"><a href="' + anime.link + '" target="_blank" class="btn btn-primary">🔗 前往观看</a></div>' : '');
   
   document.getElementById('animeDetailContent').innerHTML = html;

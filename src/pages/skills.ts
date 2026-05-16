@@ -168,7 +168,7 @@ function filterSkills() {
         '</div>' +
         '<div class="skill-meta">' +
         '<span>' + experience + '</span>' +
-        '<span style="margin-left:10px;color:#888;">' + (categoryNames[s.category] || s.category) + '</span>' +
+        '<span style="margin-left:10px;">' + (categoryNames[s.category] || s.category) + '</span>' +
         '</div>' +
         '<div class="card-actions">' +
         '<button class="btn btn-sm btn-primary">编辑</button>' +

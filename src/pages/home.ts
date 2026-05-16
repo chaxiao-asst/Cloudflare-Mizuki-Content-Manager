@@ -2,108 +2,6 @@ export const homePage = `
 <div class="content" id="configSection">
 <h2>站点管理</h2>
 
-<style>
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px}
-.config-card{background:white;border-radius:12px;padding:20px;cursor:pointer;transition:all 0.2s;border:1px solid #eee}
-.config-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.08)}
-.card-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.card-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}
-.card-title{font-weight:600;font-size:16px;color:#333;margin:0}
-.card-summary{color:#888;font-size:14px;line-height:1.6;margin:0}
-.card-summary-item{display:flex;align-items:center;gap:6px;margin-bottom:6px}
-.card-summary-item:last-child{margin-bottom:0}
-.summary-label{font-weight:500;color:#666}
-.summary-value{color:#333}
-.summary-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:10px;font-size:12px;background:#f0f0f0;color:#666}
-.summary-badge.success{background:#d4edda;color:#155724}
-.cfg-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;z-index:1000;padding:20px;overflow-y:auto}
-.cfg-overlay.active{display:flex}
-.cfg-dialog{background:white;border-radius:16px;width:100%;max-width:700px;max-height:90vh;display:flex;flex-direction:column;position:relative}
-.cfg-dialog-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #eee;flex-shrink:0;background:white}
-.cfg-dialog-header h2{margin:0;font-size:18px;color:#333;display:flex;align-items:center;gap:10px}
-.cfg-close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#888;padding:4px 8px;border-radius:6px}
-.cfg-close-btn:hover{background:#f5f5f5}
-.cfg-dialog-body{padding:24px;overflow-y:auto;flex:1}
-.config-section{margin-bottom:20px}
-.config-section:last-child{margin-bottom:0}
-.config-section h4{margin:0 0 12px 0;font-size:14px;color:#666;font-weight:600}
-.config-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
-.config-item{background:#f9fafb;padding:14px;border-radius:8px}
-.config-item label{display:block;font-size:12px;color:#6b7280;margin-bottom:8px;font-weight:500}
-.config-item input,.config-item select,.config-item textarea{width:100%;padding:10px 14px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;background:white;transition:all 0.2s}
-.config-item input:focus,.config-item select:focus,.config-item textarea:focus{outline:none;border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,0.15)}
-.config-item .boolean-switch{display:flex;align-items:center;gap:10px}
-.config-item .boolean-switch input[type="checkbox"]{width:20px;height:20px}
-.feature-pages-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
-.feature-page-item{display:flex;align-items:center;gap:8px;padding:10px;background:#f9fafb;border-radius:8px}
-.feature-page-item label{font-size:13px;color:#333}
-.nav-link-item{background:#fafafa;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:10px;overflow:hidden;transition:all 0.2s}
-.nav-link-item:hover{border-color:#d1d5db;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
-.nav-link-item.dragging{opacity:0.5}
-.nav-link-item.drag-over{border-top:3px solid #667eea}
-.nav-link-header{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer}
-.nav-link-header:hover{background:#f3f4f6}
-.nav-link-header .drag-handle{cursor:grab;color:#9ca3af;font-size:16px;padding:2px;transition:color 0.2s}
-.nav-link-header:hover .drag-handle{color:#6b7280}
-.nav-link-header .link-type{font-size:11px;padding:3px 10px;border-radius:12px;font-weight:600}
-.nav-link-header .link-type.preset{background:#dbeafe;color:#1e40af}
-.nav-link-header .link-type.leaf{background:#dcfce7;color:#166534}
-.nav-link-header .link-type.parent{background:#fef3c7;color:#92400e}
-.nav-link-header .link-name{font-weight:600;flex:1;color:#1f2937;font-size:14px}
-.nav-link-header .link-actions{display:flex;gap:6px}
-.nav-link-body{padding:0 16px 16px;display:none}
-.nav-link-item.expanded .nav-link-body{display:block}
-.nav-child-item{background:white;border:1px solid #e5e7eb;border-radius:8px;padding:14px;margin-bottom:10px;transition:all 0.2s}
-.nav-child-item:hover{border-color:#d1d5db}
-.nav-child-item:last-child{margin-bottom:0}
-.nav-child-item .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
-.nav-child-item .form-grid .form-group{margin:0}
-.nav-child-item .form-grid .form-group label{font-size:12px;color:#6b7280;margin-bottom:6px;font-weight:500}
-.nav-child-item .form-grid .form-group input,.nav-child-item .form-grid .form-group select{width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;transition:all 0.2s}
-.nav-child-item .form-grid .form-group input:focus,.nav-child-item .form-grid .form-group select:focus{outline:none;border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,0.15)}
-.cfg-dialog-footer{display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid #eee;background:#f9fafb;border-radius:0 0 16px 16px;flex-shrink:0}
-.btn-save{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;border:none;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;transition:all 0.2s;box-shadow:0 4px 12px rgba(102,126,234,0.3)}
-.btn-save:hover{opacity:0.95;transform:translateY(-1px);box-shadow:0 6px 16px rgba(102,126,234,0.4)}
-.btn-save:active{transform:translateY(0)}
-.btn-cancel{background:#f3f4f6;color:#374151;border:none;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;transition:all 0.2s;border:1px solid #d1d5db}
-.btn-cancel:hover{background:#e5e7eb;border-color:#9ca3af}
-.btn-primary{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:500;transition:all 0.2s;box-shadow:0 3px 10px rgba(102,126,234,0.25)}
-.btn-primary:hover{opacity:0.95;transform:translateY(-1px);box-shadow:0 4px 12px rgba(102,126,234,0.35)}
-.btn-primary:active{transform:translateY(0)}
-.btn-danger{background:#ef4444;color:white;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:500;transition:all 0.2s;box-shadow:0 2px 6px rgba(239,68,68,0.3)}
-.btn-danger:hover{background:#dc2626;transform:translateY(-1px);box-shadow:0 3px 8px rgba(239,68,68,0.4)}
-.btn-danger:active{transform:translateY(0)}
-.btn-sm{padding:4px 10px;font-size:12px}
-.iconify-float-btn{position:absolute;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(102,126,234,0.4);transition:all 0.2s;z-index:100}
-.iconify-float-btn:hover{transform:scale(1.05);box-shadow:0 6px 16px rgba(102,126,234,0.5)}
-.iconify-float-btn.dragging{cursor:grabbing;opacity:0.9}
-.iconify-float-btn .float-icon{transition:transform 0.2s}
-.iconify-float-btn.active .float-icon{transform:rotate(45deg)}
-.iconify-dropdown{position:absolute;bottom:100%;right:0;margin-bottom:8px;background:white;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.15);padding:6px;min-width:180px;display:none;z-index:99;border:1px solid #e5e7eb}
-.iconify-dropdown.active{display:block}
-.iconify-dropdown a{display:block;padding:8px 12px;color:#374151;text-decoration:none;font-size:13px;border-radius:6px;transition:all 0.15s}
-.iconify-dropdown a:hover{background:#f3f4f6;color:#667eea}
-.empty-state{text-align:center;color:#999;padding:30px;font-size:14px}
-
-.icon-sets-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:2000}
-.icon-sets-modal{background:white;border-radius:12px;box-shadow:0 16px 48px rgba(0,0,0,0.2);width:90%;max-width:400px;overflow:hidden}
-.icon-sets-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #e5e7eb}
-.icon-sets-header h3{margin:0;font-size:16px;color:#1f2937}
-.icon-sets-header button{background:none;border:none;font-size:20px;color:#9ca3af;cursor:pointer;padding:0;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:6px}
-.icon-sets-header button:hover{background:#f3f4f6;color:#374151}
-.icon-sets-body{padding:16px}
-.icon-set-item{display:block;padding:12px 16px;color:#374151;text-decoration:none;font-size:14px;border-radius:8px;transition:all 0.15s}
-.icon-set-item:hover{background:#f3f4f6;color:#667eea}
-.sidebar-component-item{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;margin-bottom:8px;transition:all 0.15s;cursor:move}
-.sidebar-component-item:hover{border-color:#d1d5db;background:#f3f4f6}
-.sidebar-component-item span{font-size:14px;color:#1f2937;font-weight:500}
-.sidebar-component-item .drag-handle{margin-right:12px;color:#9ca3af;font-size:18px;cursor:grab;user-select:none}
-.sidebar-component-item .drag-handle:hover{color:#6b7280}
-.sidebar-component-item.dragging{opacity:0.5;transform:scale(0.98)}
-.sidebar-component-item.drag-over{border-color:#667eea;border-style:dashed;background:#eff6ff}
-.sidebar-components-container{min-height:60px;padding:8px;background:white;border:1px solid #e5e7eb;border-radius:8px}
-</style>
-
 <div class="card-grid">
   <div class="config-card" onclick="openModal('basic')">
     <div class="card-header">
@@ -279,10 +177,6 @@ export const homePage = `
     </div>
   </div>
 
-<div class="save-bar">
-  <button class="btn-save" onclick="saveConfig()">保存配置</button>
-  <button class="btn-cancel" onclick="loadConfig()">重置</button>
-</div>
 </div>
 
 <div class="cfg-overlay" id="cfg-overlay" onclick="closeModal(event)">
@@ -543,7 +437,7 @@ function getModalContent(id) {
       </div>
       <div class="config-row" style="margin-top:8px;">
         <div class="config-item" style="grid-column:1/-1"><label>页脚内容 (HTML)</label>
-          <textarea id="modal-footer-customHtml" rows="6" placeholder="例如: &lt;p&gt;备案号：&lt;a href='https://beian.miit.gov.cn/'&gt;粤ICP备2023000000号&lt;/a&gt;&lt;/p&gt;" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:14px;font-family:monospace;">\${config.footer?.customHtml || ''}</textarea>
+          <textarea id="modal-footer-customHtml" rows="6" placeholder="例如: &lt;p&gt;备案号：&lt;a href='https://beian.miit.gov.cn/'&gt;粤ICP备2023000000号&lt;/a&gt;&lt;/p&gt;" style="width:100%;padding:10px;border-radius:6px;font-size:14px;font-family:monospace;">\${config.footer?.customHtml || ''}</textarea>
         </div>
       </div>
     </div>\`;
@@ -562,7 +456,7 @@ function getModalContent(id) {
 
   if (id === 'navLinks') {
     return \`<div class="config-section">
-      <p style="font-size:13px;color:#888;margin-bottom:12px;">配置博客顶部导航栏的链接结构，支持拖拽排序</p>
+      <p style="font-size:13px;margin-bottom:12px;">配置博客顶部导航栏的链接结构，支持拖拽排序</p>
       <div id="modal-navLinks-container"></div>
       <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
         <button type="button" class="btn-primary" onclick="addNavLink()">+ 添加链接</button>
@@ -618,7 +512,7 @@ function getModalContent(id) {
         <div class="config-item"><label>启用自动缩放</label><div class="boolean-switch">
           <input type="checkbox" id="modal-scaling-enable"\${config.pageScaling?.enable ? ' checked' : ''}><label for="modal-scaling-enable">开启页面自动缩放功能</label></div></div>
         <div class="config-item"><label>目标宽度 (px)</label><input type="number" id="modal-scaling-targetWidth" min="1000" max="4000" value="\${config.pageScaling?.targetWidth || 2000}">
-          <p style="font-size:12px;color:#999;margin-top:6px;">当页面宽度低于此值时开始缩放</p></div>
+          <p style="font-size:12px;margin-top:6px;">当页面宽度低于此值时开始缩放</p></div>
       </div>
     </div>\`;
   }
@@ -640,9 +534,9 @@ function getModalContent(id) {
   if (id === 'banner') {
     return \`<div class="config-section"><h4>图片设置（支持外链URL）</h4><div class="config-row">
       <div class="config-item" style="grid-column:1/-1"><label>桌面端横幅图片（每行一个URL）</label>
-        <textarea id="modal-banner-desktop" rows="4" style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px;background:white;resize:vertical">\${(config.banner?.src?.desktop || []).join('\\n')}</textarea></div>
+        <textarea id="modal-banner-desktop" rows="4" style="width:100%;padding:8px 12px;border-radius:6px;font-size:14px;resize:vertical">\${(config.banner?.src?.desktop || []).join('\\n')}</textarea></div>
       <div class="config-item" style="grid-column:1/-1"><label>移动端横幅图片（每行一个URL）</label>
-        <textarea id="modal-banner-mobile" rows="4" style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px;background:white;resize:vertical">\${(config.banner?.src?.mobile || []).join('\\n')}</textarea></div>
+        <textarea id="modal-banner-mobile" rows="4" style="width:100%;padding:8px 12px;border-radius:6px;font-size:14px;resize:vertical">\${(config.banner?.src?.mobile || []).join('\\n')}</textarea></div>
       <div class="config-item"><label>图片定位</label><select id="modal-banner-position">
         <option value="top"\${config.banner?.position === 'top' ? ' selected' : ''}>顶部</option>
         <option value="center"\${config.banner?.position !== 'top' && config.banner?.position !== 'bottom' ? ' selected' : ''}>居中</option>
@@ -666,7 +560,7 @@ function getModalContent(id) {
         <input type="checkbox" id="modal-banner-textEnable"\${config.banner?.homeText?.enable ? ' checked' : ''}><label for="modal-banner-textEnable">在横幅上显示文本</label></div></div>
       <div class="config-item"><label>主标题（支持中文）</label><input type="text" id="modal-banner-textTitle" value="\${escAttr(config.banner?.homeText?.title)}" placeholder="支持中文标题"></div>
       <div class="config-item" style="grid-column:1/-1"><label>副标题（每行一个，支持中文）</label>
-        <textarea id="modal-banner-textSubtitle" rows="4" style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px;background:white;resize:vertical">\${(config.banner?.homeText?.subtitle || []).join('\\n')}</textarea></div>
+        <textarea id="modal-banner-textSubtitle" rows="4" style="width:100%;padding:8px 12px;border-radius:6px;font-size:14px;resize:vertical">\${(config.banner?.homeText?.subtitle || []).join('\\n')}</textarea></div>
     </div>
     <div class="config-row" style="margin-top:8px;">
       <div class="config-item"><label>启用打字机效果</label><div class="boolean-switch">
@@ -686,9 +580,9 @@ function getModalContent(id) {
   if (id === 'fullscreen') {
     return \`<div class="config-section"><h4>图片设置（支持外链URL）</h4><div class="config-row">
       <div class="config-item" style="grid-column:1/-1"><label>桌面端壁纸（每行一个URL）</label>
-        <textarea id="modal-fullscreen-desktop" rows="4" style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px;background:white;resize:vertical">\${(config.fullscreenWallpaper?.src?.desktop || []).join('\\n')}</textarea></div>
+        <textarea id="modal-fullscreen-desktop" rows="4" style="width:100%;padding:8px 12px;border-radius:6px;font-size:14px;resize:vertical">\${(config.fullscreenWallpaper?.src?.desktop || []).join('\\n')}</textarea></div>
       <div class="config-item" style="grid-column:1/-1"><label>移动端壁纸（每行一个URL）</label>
-        <textarea id="modal-fullscreen-mobile" rows="4" style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px;background:white;resize:vertical">\${(config.fullscreenWallpaper?.src?.mobile || []).join('\\n')}</textarea></div>
+        <textarea id="modal-fullscreen-mobile" rows="4" style="width:100%;padding:8px 12px;border-radius:6px;font-size:14px;resize:vertical">\${(config.fullscreenWallpaper?.src?.mobile || []).join('\\n')}</textarea></div>
       <div class="config-item"><label>图片定位</label><select id="modal-fullscreen-position">
         <option value="top"\${config.fullscreenWallpaper?.position === 'top' ? ' selected' : ''}>顶部</option>
         <option value="center"\${config.fullscreenWallpaper?.position !== 'top' && config.fullscreenWallpaper?.position !== 'bottom' ? ' selected' : ''}>居中</option>
@@ -713,7 +607,7 @@ function getModalContent(id) {
     </div>
     <div class="config-row" style="margin-top:8px;">
       <div class="config-item" style="grid-column:1/-1"><label>页脚内容 (HTML)</label>
-        <textarea id="modal-footer-customHtml" rows="6" placeholder="例如: &lt;p&gt;备案号：&lt;a href='https://beian.miit.gov.cn/'&gt;粤ICP备2023000000号&lt;/a&gt;&lt;/p&gt;" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:14px;font-family:monospace;">\${config.footer?.customHtml || ''}</textarea>
+        <textarea id="modal-footer-customHtml" rows="6" placeholder="例如: &lt;p&gt;备案号：&lt;a href='https://beian.miit.gov.cn/'&gt;粤ICP备2023000000号&lt;/a&gt;&lt;/p&gt;" style="width:100%;padding:10px;border-radius:6px;font-size:14px;font-family:monospace;">\${config.footer?.customHtml || ''}</textarea>
       </div>
     </div></div>\`;
   }
@@ -723,47 +617,47 @@ function getModalContent(id) {
       <div class="config-item"><label>启用自动缩放</label><div class="boolean-switch">
         <input type="checkbox" id="modal-scaling-enable"\${config.pageScaling?.enable ? ' checked' : ''}><label for="modal-scaling-enable">开启页面自动缩放功能</label></div></div>
       <div class="config-item"><label>目标宽度 (px)</label><input type="number" id="modal-scaling-targetWidth" min="1000" max="4000" value="\${config.pageScaling?.targetWidth || 2000}">
-        <p style="font-size:12px;color:#999;margin-top:6px;">当页面宽度低于此值时开始缩放</p></div>
+        <p style="font-size:12px;margin-top:6px;">当页面宽度低于此值时开始缩放</p></div>
     </div></div>\`;
   }
 
   if (id === 'anime') {
     return \`<div class="config-section"><div class="config-row">
       <div class="config-item" style="grid-column:1/-1"><label>数据模式</label>
-        <select id="modal-anime-mode" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;">
+        <select id="modal-anime-mode" style="width:100%;padding:10px;border-radius:8px;">
           <option value="local"\${config.anime?.mode === 'local' ? ' selected' : ''}>本地模式 - 手动管理番剧数据</option>
           <option value="bangumi"\${config.anime?.mode === 'bangumi' ? ' selected' : ''}>Bangumi模式 - 自动从Bangumi API同步</option>
           <option value="bilibili"\${config.anime?.mode === 'bilibili' ? ' selected' : ''}>Bilibili模式 - 自动从Bilibili API同步</option>
         </select>
-        <p style="font-size:12px;color:#999;margin-top:6px;">选择番剧数据来源：本地手动管理、Bangumi自动同步或Bilibili自动同步观看记录</p>
+        <p style="font-size:12px;margin-top:6px;">选择番剧数据来源：本地手动管理、Bangumi自动同步或Bilibili自动同步观看记录</p>
       </div>
     </div>
-    <div class="config-section" style="margin-top:16px;background:#f8f9fa;padding:16px;border-radius:8px;">
+    <div class="config-section" style="margin-top:16px;padding:16px;border-radius:8px;">
       <h4 style="margin:0 0 12px 0;">Bangumi 配置</h4>
       <div class="config-row">
         <div class="config-item"><label>Bangumi用户ID</label><input type="text" id="modal-anime-bangumiId" value="\${config.anime?.bangumi?.userId || ''}" placeholder="例如: 12345 或 sai">
-          <p style="font-size:12px;color:#999;margin-top:6px;">访问 https://bgm.tv 登录 → 个人主页 → URL 中数字部分即为用户 ID</p></div>
+          <p style="font-size:12px;margin-top:6px;">访问 https://bgm.tv 登录 → 个人主页 → URL 中数字部分即为用户 ID</p></div>
       </div>
     </div>
-    <div class="config-section" style="margin-top:16px;background:#f8f9fa;padding:16px;border-radius:8px;">
+    <div class="config-section" style="margin-top:16px;padding:16px;border-radius:8px;">
       <h4 style="margin:0 0 12px 0;">Bilibili 配置</h4>
       <div class="config-row">
         <div class="config-item"><label>Bilibili用户ID (vmid)</label><input type="text" id="modal-anime-bilibiliVmid" value="\${config.anime?.bilibili?.vmid || ''}" placeholder="例如: 1129280784">
-          <p style="font-size:12px;color:#999;margin-top:6px;">访问 https://space.bilibili.com 登录 → 个人空间 → URL 中数字部分即为用户 ID</p></div>
+          <p style="font-size:12px;margin-top:6px;">访问 https://space.bilibili.com 登录 → 个人空间 → URL 中数字部分即为用户 ID</p></div>
         <div class="config-item"><label>开发环境获取数据</label><div class="boolean-switch">
           <input type="checkbox" id="modal-anime-fetchOnDev"\${config.anime?.bilibili?.fetchOnDev ? ' checked' : ''}><label for="modal-anime-fetchOnDev">在开发环境获取数据</label></div>
-          <p style="font-size:12px;color:#999;margin-top:6px;">建议保持关闭，避免开发时频繁请求 API</p></div>
+          <p style="font-size:12px;margin-top:6px;">建议保持关闭，避免开发时频繁请求 API</p></div>
       </div>
       <div class="config-row" style="margin-top:8px;">
         <div class="config-item"><label>封面镜像源</label><input type="text" id="modal-anime-coverMirror" value="\${config.anime?.bilibili?.coverMirror || ''}" placeholder="如: https://images.weserv.nl/?url=">
-          <p style="font-size:12px;color:#999;margin-top:6px;">可选，用于加速封面图片加载</p></div>
+          <p style="font-size:12px;margin-top:6px;">可选，用于加速封面图片加载</p></div>
         <div class="config-item"><label>使用WebP格式</label><div class="boolean-switch">
           <input type="checkbox" id="modal-anime-useWebp"\${(config.anime?.bilibili?.useWebp !== undefined ? config.anime.bilibili.useWebp : true) ? ' checked' : ''}><label for="modal-anime-useWebp">使用WebP格式</label></div>
-          <p style="font-size:12px;color:#999;margin-top:6px;">建议保持开启以获得更好的性能</p></div>
+          <p style="font-size:12px;margin-top:6px;">建议保持开启以获得更好的性能</p></div>
       </div>
-      <div style="background:#fff3cd;padding:12px;border-radius:6px;margin-top:12px;">
-        <h4 style="margin:0 0 6px 0;color:#856404;">SESSDATA 环境变量</h4>
-        <p style="margin:0;color:#856404;font-size:0.85rem;line-height:1.6;">
+      <div style="padding:12px;border-radius:6px;margin-top:12px;">
+        <h4 style="margin:0 0 6px 0;">SESSDATA 环境变量</h4>
+        <p style="margin:0;font-size:0.85rem;line-height:1.6;">
           用于获取详细观看进度，需在部署平台配置环境变量 <code>BILI_SESSDATA</code>。<br>
           获取：登录B站 → F12 → 应用程序 → Cookie → 找到 sessdata 值。<br>
           <strong>Vercel/Netlify/Cloudflare Pages</strong> 等平台的环境变量设置中添加即可。
@@ -783,10 +677,10 @@ function getModalContent(id) {
 
     return \`<div class="config-section">
       <h4>左侧栏组件</h4>
-      <p style="font-size:12px;color:#888;margin-bottom:12px;">拖拽排序，控制在左侧栏显示的组件</p>
+      <p style="font-size:12px;margin-bottom:12px;">拖拽排序，控制在左侧栏显示的组件</p>
       <div id="sidebar-left-container" class="sidebar-components-container">\${leftItems || '<div class="empty-state">暂无组件</div>'}</div>
       <div style="margin-top:12px;">
-        <select id="modal-sidebar-add-left" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin-bottom:8px;">
+        <select id="modal-sidebar-add-left" style="width:100%;padding:10px;border-radius:8px;margin-bottom:8px;">
           <option value="">选择要添加的组件...</option>
           \${componentTypes.filter(t => !(sl.components.left || []).includes(t)).map(t => '<option value="' + t + '">' + (componentNames[t] || t) + '</option>').join('')}
         </select>
@@ -795,10 +689,10 @@ function getModalContent(id) {
     </div>
     <div class="config-section" style="margin-top:20px;">
       <h4>右侧栏组件</h4>
-      <p style="font-size:12px;color:#888;margin-bottom:12px;">拖拽排序，控制在右侧栏显示的组件</p>
+      <p style="font-size:12px;margin-bottom:12px;">拖拽排序，控制在右侧栏显示的组件</p>
       <div id="sidebar-right-container" class="sidebar-components-container">\${rightItems || '<div class="empty-state">暂无组件</div>'}</div>
       <div style="margin-top:12px;">
-        <select id="modal-sidebar-add-right" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin-bottom:8px;">
+        <select id="modal-sidebar-add-right" style="width:100%;padding:10px;border-radius:8px;margin-bottom:8px;">
           <option value="">选择要添加的组件...</option>
           \${componentTypes.filter(t => !(sl.components.right || []).includes(t)).map(t => '<option value="' + t + '">' + (componentNames[t] || t) + '</option>').join('')}
         </select>
@@ -807,10 +701,10 @@ function getModalContent(id) {
     </div>
     <div class="config-section" style="margin-top:20px;">
       <h4>抽屉模式组件（移动端）</h4>
-      <p style="font-size:12px;color:#888;margin-bottom:12px;">控制在移动端抽屉菜单中显示的组件</p>
+      <p style="font-size:12px;margin-bottom:12px;">控制在移动端抽屉菜单中显示的组件</p>
       <div id="sidebar-drawer-container" class="sidebar-components-container">\${drawerItems || '<div class="empty-state">暂无组件</div>'}</div>
       <div style="margin-top:12px;">
-        <select id="modal-sidebar-add-drawer" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin-bottom:8px;">
+        <select id="modal-sidebar-add-drawer" style="width:100%;padding:10px;border-radius:8px;margin-bottom:8px;">
           <option value="">选择要添加的组件...</option>
           \${componentTypes.filter(t => !(sl.components.drawer || []).includes(t)).map(t => '<option value="' + t + '">' + (componentNames[t] || t) + '</option>').join('')}
         </select>
@@ -851,14 +745,14 @@ function getModalContent(id) {
 
     return \`<div class="config-section">
       <h4>基本信息</h4>
-      <p style="font-size:12px;color:#888;margin-bottom:8px;">头像支持本地路径或在线链接（https://）</p>
+      <p style="font-size:12px;margin-bottom:8px;">头像支持本地路径或在线链接（https://）</p>
       <div class="config-row">
         <div class="config-item"><label>头像</label><input type="text" id="modal-profile-avatar" value="\${escAttr(pf.avatar)}" placeholder="assets/images/avatar.webp 或 https://example.com/avatar.webp"></div>
         <div class="config-item"><label>名称</label><input type="text" id="modal-profile-name" value="\${escAttr(pf.name)}" placeholder="您的名称"></div>
       </div>
       <div class="config-row" style="margin-top:8px;">
         <div class="config-item" style="grid-column:1/-1"><label>个人简介</label>
-          <textarea id="modal-profile-bio" rows="3" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:14px;">\${escAttr(pf.bio)}</textarea>
+          <textarea id="modal-profile-bio" rows="3" style="width:100%;padding:10px;border-radius:8px;font-size:14px;">\${escAttr(pf.bio)}</textarea>
         </div>
       </div>
     </div>
@@ -881,7 +775,7 @@ function getModalContent(id) {
     </div>
     <div class="config-section" style="margin-top:20px;">
       <h4>社交媒体链接</h4>
-      <p style="font-size:12px;color:#888;margin-bottom:12px;">添加您的社交媒体链接，图标使用 Iconify 格式</p>
+      <p style="font-size:12px;margin-bottom:12px;">添加您的社交媒体链接，图标使用 Iconify 格式</p>
       <div id="profile-links-container">\${linksHtml || '<div class="empty-state">暂无链接</div>'}</div>
       <div style="margin-top:12px;">
         <button type="button" class="btn-primary" onclick="addProfileLink()">+ 添加链接</button>
@@ -901,7 +795,7 @@ function getModalContent(id) {
       </div>
       <div class="config-row" style="margin-top:8px;">
         <div class="config-item" style="grid-column:1/-1"><label>公告内容</label>
-          <textarea id="modal-announcement-content" rows="4" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:14px;">\${escAttr(an.content)}</textarea>
+          <textarea id="modal-announcement-content" rows="4" style="width:100%;padding:10px;border-radius:8px;font-size:14px;">\${escAttr(an.content)}</textarea>
         </div>
       </div>
       <div class="config-row" style="margin-top:8px;">
@@ -954,7 +848,7 @@ function getModalContent(id) {
       <div class="config-row" style="margin-top:8px;">
         <div class="config-item"><label>折叠阈值</label><input type="number" id="modal-categories-threshold" min="-1" max="999" value="\${catProp.responsive?.collapseThreshold !== undefined ? catProp.responsive.collapseThreshold : 5}"></div>
       </div>
-      <p style="font-size:12px;color:#888;margin-top:8px;">当分类数量超过此阈值时自动折叠；设置为 -1 禁用折叠功能</p>
+      <p style="font-size:12px;margin-top:8px;">当分类数量超过此阈值时自动折叠；设置为 -1 禁用折叠功能</p>
     </div>
     <div class="config-section" style="margin-top:20px;">
       <h4>标签组件配置</h4>
@@ -967,7 +861,7 @@ function getModalContent(id) {
       <div class="config-row" style="margin-top:8px;">
         <div class="config-item"><label>折叠阈值</label><input type="number" id="modal-tags-threshold" min="-1" max="999" value="\${tagsProp.responsive?.collapseThreshold !== undefined ? tagsProp.responsive.collapseThreshold : 20}"></div>
       </div>
-      <p style="font-size:12px;color:#888;margin-top:8px;">当标签数量超过此阈值时自动折叠；设置为 -1 禁用折叠功能</p>
+      <p style="font-size:12px;margin-top:8px;">当标签数量超过此阈值时自动折叠；设置为 -1 禁用折叠功能</p>
     </div>
     <div class="config-section" style="margin-top:20px;">
       <h4>卡片目录配置</h4>
@@ -986,7 +880,7 @@ function getModalContent(id) {
           <option value="sticky"\${calendarProp.position !== 'top' ? ' selected' : ''}>粘性定位</option></select></div>
         <div class="config-item"><label>动画延迟（毫秒）</label><input type="number" id="modal-calendar-delay" min="0" max="1000" value="\${calendarProp.animationDelay || 250}"></div>
       </div>
-      <p style="font-size:12px;color:#888;margin-top:8px;">移动端不显示日历组件</p>
+      <p style="font-size:12px;margin-top:8px;">移动端不显示日历组件</p>
     </div>
     <div class="config-section" style="margin-top:20px;">
       <h4>站点统计配置</h4>
@@ -999,7 +893,7 @@ function getModalContent(id) {
       <div class="config-row" style="margin-top:8px;">
         <div class="config-item"><label>站点开始日期</label><input type="date" id="modal-siteStats-startDate" value="\${config.siteStartDate || ''}"></div>
       </div>
-      <p style="font-size:12px;color:#888;margin-top:8px;">设置博客开始运行的日期，站点统计组件会根据这个日期计算运行天数</p>
+      <p style="font-size:12px;margin-top:8px;">设置博客开始运行的日期，站点统计组件会根据这个日期计算运行天数</p>
     </div>\`;
   }
 
@@ -1034,7 +928,7 @@ function getModalContent(id) {
           <option value="meting"\${mp.mode === 'meting' ? ' selected' : ''}>Meting API模式（网易云音乐等）</option>
           <option value="local"\${mp.mode === 'local' ? ' selected' : ''}>本地模式</option></select></div>
       </div>
-      <p style="font-size:12px;color:#888;margin-top:8px;">推荐使用Meting API模式，可以播放网易云音乐、QQ音乐等平台的在线音乐</p>
+      <p style="font-size:12px;margin-top:8px;">推荐使用Meting API模式，可以播放网易云音乐、QQ音乐等平台的在线音乐</p>
     </div>
     <div class="config-section" style="margin-top:20px;">
       <h4>界面设置</h4>
@@ -1072,13 +966,13 @@ function getModalContent(id) {
             <option value="artist"\${mp.type === 'artist' ? ' selected' : ''}>艺术家</option></select></div>
           <div class="config-item"><label>ID</label><input type="text" id="modal-music-id" value="\${escAttr(mp.id || '')}" placeholder="歌单/歌曲ID"></div>
         </div>
-        <p style="font-size:12px;color:#888;margin-top:8px;">从音乐平台分享链接中获取ID，如 https://music.163.com/playlist?id=123456789 中的 123456789</p>
+        <p style="font-size:12px;margin-top:8px;">从音乐平台分享链接中获取ID，如 https://music.163.com/playlist?id=123456789 中的 123456789</p>
       </div>
     </div>
     <div id="modal-music-localFields" style="margin-top:20px;">
       <div class="config-section">
         <h4>本地音乐列表</h4>
-        <p style="font-size:12px;color:#888;margin-bottom:12px;">添加本地音乐文件，需要将音乐文件放置在项目的 public 目录下</p>
+        <p style="font-size:12px;margin-bottom:12px;">添加本地音乐文件，需要将音乐文件放置在项目的 public 目录下</p>
         <div id="music-songs-container">\${songsHtml || '<div class="empty-state">暂无本地音乐，请添加</div>'}</div>
         <div style="margin-top:12px;">
           <button type="button" class="btn-primary" onclick="addMusicSong()">+ 添加歌曲</button>
@@ -1164,7 +1058,7 @@ function getModalContent(id) {
       <div class="config-row">
         <div class="config-item" style="width:100%;"><label>模型路径（JSON格式）</label><input type="text" id="modal-pio-models" value="\${escAttr(pio.models?.join(', ') || '/pio/models/pio/model.json')}" placeholder="多个路径用逗号分隔"></div>
       </div>
-      <p style="font-size:12px;color:#888;margin-top:8px;">将模型文件放置在 public/pio/models/ 目录下</p>
+      <p style="font-size:12px;margin-top:8px;">将模型文件放置在 public/pio/models/ 目录下</p>
     </div>
     <div class="config-section" style="margin-top:20px;">
       <h4>对话设置</h4>
@@ -1203,8 +1097,8 @@ function getModalContent(id) {
       <div class="config-row" style="margin-top:8px;">
         <div class="config-item" style="width:100%;"><label>网站 ID (websiteId)</label><input type="text" id="modal-umami-id" value="\${escAttr(umami.websiteId || '')}" placeholder="your-website-id"></div>
       </div>
-      <p style="font-size:12px;color:#888;margin-top:12px;">提示：如果使用 Umami Cloud，分享链接需要先在浏览器中访问一次，复制重定向后的最终地址。</p>
-      <p style="font-size:12px;color:#888;margin-top:4px;">设置 shareUrl 为 false 可禁用组件的访问量显示，但不影响统计功能。</p>
+      <p style="font-size:12px;margin-top:12px;">提示：如果使用 Umami Cloud，分享链接需要先在浏览器中访问一次，复制重定向后的最终地址。</p>
+      <p style="font-size:12px;margin-top:4px;">设置 shareUrl 为 false 可禁用组件的访问量显示，但不影响统计功能。</p>
     </div>\`;
   }
 
@@ -1237,7 +1131,7 @@ function getModalContent(id) {
         <div class="config-item"><label>主题切换时隐藏</label><div class="boolean-switch">
           <input type="checkbox" id="modal-code-hideTransition"\${exp.hideDuringThemeTransition !== false ? ' checked' : ''}><label for="modal-code-hideTransition">避免切换时卡顿</label></div></div>
       </div>
-      <p style="font-size:12px;color:#888;margin-top:8px;">注意：某些样式已被覆盖，请参阅 astro.config.mjs 文件。</p>
+      <p style="font-size:12px;margin-top:8px;">注意：某些样式已被覆盖，请参阅 astro.config.mjs 文件。</p>
     </div>
     <div class="config-section" style="margin-top:20px;">
       <h4>分享组件</h4>
@@ -1279,7 +1173,7 @@ function getModalContent(id) {
         <div class="config-item"><label>日语假名标记</label><div class="boolean-switch">
           <input type="checkbox" id="modal-toc-japaneseBadge"\${toc.useJapaneseBadge ? ' checked' : ''}><label for="modal-toc-japaneseBadge">使用假名(ァィゥ...)代替数字</label></div></div>
       </div>
-      <p style="font-size:12px;color:#888;margin-top:8px;">开启后会将 1、2、3... 改为 ァ、ィ、ゥ...，首页文章列表导航也会生效。</p>
+      <p style="font-size:12px;margin-top:8px;">开启后会将 1、2、3... 改为 ァ、ィ、ゥ...，首页文章列表导航也会生效。</p>
     </div>
     <div class="config-section" style="margin-top:20px;">
       <h4>评论系统</h4>
@@ -1312,7 +1206,7 @@ function getModalContent(id) {
           <div class="config-item"><label>分类ID (categoryId)</label><input type="text" id="modal-comment-giscus-categoryId" value="\${escAttr(comment.giscus?.categoryId || '')}" placeholder="DIC_kwD..."></div>
         </div>
       </div>
-      <p style="font-size:12px;color:#888;margin-top:12px;">Twikoo 需要部署到 Vercel 等平台。Giscus 基于 GitHub Discussions，适合技术博客。</p>
+      <p style="font-size:12px;margin-top:12px;">Twikoo 需要部署到 Vercel 等平台。Giscus 基于 GitHub Discussions，适合技术博客。</p>
     </div>\`;
   }
 
@@ -1844,7 +1738,7 @@ function renderNavBarLinks() {
       if (hasChildren) {
         const cs = document.createElement('div');
         cs.style.marginTop = '16px';
-        cs.innerHTML = '<h4 style="font-size:13px;margin:0 0 8px 0;color:#666;">子菜单项</h4>';
+        cs.innerHTML = '<h4 style="font-size:13px;margin:0 0 8px 0;">子菜单项</h4>';
         const cc = document.createElement('div');
         cc.className = 'nl-children';
         link.children.forEach(function(child) { cc.appendChild(createChildItem(child)); });

@@ -129,47 +129,14 @@ export const albumsPage = `
     <div class="form-group">
       <label>图片链接</label>
       <textarea id="batchUrlsInput" placeholder="https://example.com/image.jpg" rows="8"></textarea>
-      <p style="font-size:12px;color:#666;margin-top:8px;">提示：每行输入一个图片链接</p>
+      <p style="font-size:12px;margin-top:8px;">提示：每行输入一个图片链接</p>
     </div>
     <button type="button" class="btn btn-primary" onclick="batchAddPhotos()">添加图片</button>
     <button type="button" class="btn btn-success" onclick="closeBatchAddModal()">取消</button>
   </div>
 </div>
 
-<style>
-.modal-large{max-width:800px}
-.filter-checkbox{display:flex;align-items:center;gap:6px;font-size:0.9rem;color:#555;cursor:pointer;white-space:nowrap}
-.filter-checkbox input{margin:0}
-.album-card{display:flex;flex-direction:column;transition:transform 0.2s,box-shadow 0.2s;overflow:hidden}
-.album-card:hover{transform:translateY(-4px);box-shadow:0 8px 25px rgba(0,0,0,0.15)}
-.album-cover{width:100%;height:180px;border-radius:8px 8px 0 0;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#f5f5f5}
-.album-cover img{width:100%;height:100%;object-fit:cover;object-position:center center}
-.album-cover-placeholder{width:100%;height:180px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:8px 8px 0 0;display:flex;align-items:center;justify-content:center;color:white;font-size:48px}
-.album-card .card-content{padding:0;flex:1;display:flex;flex-direction:column}
-.album-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.album-tag{background:#f0f0f0;padding:2px 8px;border-radius:12px;font-size:12px;color:#666}
-.album-card-actions{margin-top:auto;padding-top:12px;display:flex;gap:8px}
-.photo-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;padding:8px;background:#f9fafb;border-radius:6px;border:1px solid #eee}
-.photo-row input{flex:1;padding:6px 10px;border:1px solid #ddd;border-radius:4px;font-size:0.9rem}
-.photo-row input:focus{outline:none;border-color:#667eea}
-.photo-row .btn-sm{padding:4px 10px;font-size:0.8rem}
-.detail-cover{width:100%;max-height:300px;object-fit:cover;border-radius:8px;margin-bottom:20px}
-.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-.detail-item label{font-size:12px;color:#888;display:block;margin-bottom:4px}
-.detail-item span{font-weight:500}
-.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:15px}
-.photo-thumb{width:100%;height:120px;object-fit:cover;border-radius:6px;cursor:pointer;transition:transform 0.2s}
-.photo-thumb:hover{transform:scale(1.05)}
-.lightbox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:2000;justify-content:center;align-items:center;flex-direction:column}
-.lightbox.active{display:flex}
-.lightbox img{max-width:90%;max-height:80%;object-fit:contain;border-radius:4px}
-.lightbox-close{position:absolute;top:20px;right:30px;color:white;font-size:40px;cursor:pointer;z-index:2001}
-.lightbox-prev,.lightbox-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.2);color:white;border:none;font-size:30px;padding:15px 18px;cursor:pointer;border-radius:50%;transition:background 0.2s}
-.lightbox-prev:hover,.lightbox-next:hover{background:rgba(255,255,255,0.4)}
-.lightbox-prev{left:20px}
-.lightbox-next{right:20px}
-.lightbox-info{color:rgba(255,255,255,0.8);font-size:0.9rem;margin-top:12px;text-align:center}
-</style>
+
 
 <script>
 window.albumsData = [];
@@ -249,7 +216,7 @@ function filterAlbums() {
       card.innerHTML = coverHtml +
         '<div class="card-content">' +
         '<h4>' + (info.title || a.name) + '</h4>' +
-        (info.description ? '<p style="font-size:0.9rem;color:#666;margin:6px 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + info.description + '</p>' : '') +
+        (info.description ? '<p style="font-size:0.9rem;margin:6px 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + info.description + '</p>' : '') +
         '<div class="album-meta">' +
         '<span class="badge badge-info">' + imageCount + ' 张图片</span>' +
         '<span class="badge ' + (albumMode === 'external' ? 'badge-warning' : 'badge-success') + '">' + (albumMode === 'external' ? '外链' : '本地') + '</span>' +
@@ -310,7 +277,7 @@ function viewAlbumDetail(name) {
     '<div class="detail-item"><label>照片数</label><span>' + ((info.photos || []).length) + ' 张</span></div>' +
     '<div class="detail-item"><label>隐藏</label><span>' + (info.hidden ? '是' : '否') + '</span></div>' +
     '</div>' +
-    (info.description ? '<p style="color:#666;margin-bottom:15px;">' + info.description + '</p>' : '');
+    (info.description ? '<p style="margin-bottom:15px;">' + info.description + '</p>' : '');
 
   if (Array.isArray(info.tags) && info.tags.length > 0) {
     html += '<div class="album-meta" style="margin-bottom:15px;">' +

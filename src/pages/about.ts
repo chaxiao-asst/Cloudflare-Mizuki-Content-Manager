@@ -1,7 +1,7 @@
 export const aboutPage = `
 <div class="content">
 <h2>关于页面</h2>
-<p style="color:#888;font-size:14px;margin-bottom:20px;">关于页面内容存储在 Markdown 文件中，支持标准 Markdown 语法及主题扩展语法</p>
+<p style="font-size:14px;margin-bottom:20px;">关于页面内容存储在 Markdown 文件中，支持标准 Markdown 语法及主题扩展语法</p>
 
 <div class="form-group">
   <label>页面内容</label>
@@ -14,7 +14,7 @@ export const aboutPage = `
 
 <div class="config-section" style="margin-top:20px;">
   <h4>支持的 Markdown 扩展语法</h4>
-  <ul style="font-size:14px;color:#666;">
+  <ul style="font-size:14px;">
     <li><strong>GitHub 卡片</strong>: <code>github{repo=用户名/仓库名}</code></li>
     <li><strong>注意框</strong>: <code>[!NOTE]</code>、<code>[!TIP]</code>、<code>[!WARNING]</code></li>
     <li><strong>数学公式</strong>: 行内 <code>$公式$</code>，块级 <code>$$公式$$</code></li>

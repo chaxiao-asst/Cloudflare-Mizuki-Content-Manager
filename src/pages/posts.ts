@@ -53,7 +53,7 @@ export const postsPage = `
           <div class="form-group"><label>作者</label><input type="text" name="author" id="postAuthor" placeholder="作者名"></div>
           <div class="form-group"><label>封面图片</label><input type="text" name="image" id="postImage" placeholder="cover.webp 或 ./cover.webp"></div>
         </div>
-        <div id="postSchemeRow" style="margin:10px 0 15px;padding:10px;background:#f8f9fa;border-radius:6px;">
+        <div id="postSchemeRow" style="margin:10px 0 15px;padding:10px;border-radius:6px;">
           <label style="font-weight:600;display:block;margin-bottom:8px;">📂 存储方案</label>
           <label style="margin-right:20px;cursor:pointer;"><input type="radio" name="postScheme" value="folder" checked> 📁 文件夹方案 — 文章名即文件夹，内含 index.md + 图片资源</label>
           <label style="cursor:pointer;"><input type="radio" name="postScheme" value="single"> 📄 单文件方案 — {name}.md，适合无图片的简单文章</label>
@@ -66,13 +66,13 @@ export const postsPage = `
         </div>
       </div>
       <div class="tab-panel" id="tab-advanced">
-        <h3 style="margin-bottom:15px;color:#555;">加密设置</h3>
+        <h3 style="margin-bottom:15px;">加密设置</h3>
         <div class="form-grid">
           <div class="form-group"><label><input type="checkbox" name="encrypted" id="postEncrypted" onchange="toggleEncryptFields()"> 🔒 启用客户端加密</label></div>
           <div class="form-group" id="encryptPasswordGroup" style="display:none;"><label>加密密码</label><input type="text" name="password" id="postPassword" placeholder="设置访问密码"></div>
           <div class="form-group" id="encryptHintGroup" style="display:none;"><label>密码提示</label><input type="text" name="passwordHint" id="postPasswordHint" placeholder="提示访问者密码"></div>
         </div>
-        <h3 style="margin:15px 0;color:#555;">版权与来源</h3>
+        <h3 style="margin:15px 0;">版权与来源</h3>
         <div class="form-group"><label><input type="checkbox" name="showLicense" id="postShowLicense" onchange="toggleLicenseFields()"> 📋 启用版权信息</label></div>
         <div id="licenseFields" style="display:none;">
           <div class="form-grid">
@@ -81,7 +81,7 @@ export const postsPage = `
             <div class="form-group"><label>源码链接</label><input type="text" name="sourceLink" id="postSourceLink" placeholder="https://github.com/..."></div>
           </div>
         </div>
-        <h3 style="margin:15px 0;color:#555;">其他</h3>
+        <h3 style="margin:15px 0;">其他</h3>
         <div class="form-grid">
           <div class="form-group"><label>别名</label><input type="text" name="alias" id="postAlias" placeholder="文章别名路径"></div>
           <div class="form-group"><label>优先级 (数字越大越靠前)</label><input type="number" name="priority" id="postPriority" placeholder="0"></div>
@@ -89,7 +89,7 @@ export const postsPage = `
       </div>
       <div class="tab-panel" id="tab-content">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <span style="font-size:0.85rem;color:#888;">📝 支持 Markdown + Mermaid 图表 + HTML 视频嵌入 + 图片宽高语法</span>
+          <span style="font-size:0.85rem;">📝 支持 Markdown + Mermaid 图表 + HTML 视频嵌入 + 图片宽高语法</span>
           <button type="button" class="btn btn-sm btn-secondary" onclick="openHelpModal()">语法参考</button>
         </div>
         <div class="form-group"><label>Markdown 内容</label><textarea name="content" id="postContent" placeholder="编写 Markdown 内容..." style="min-height:300px;font-family:monospace;font-size:0.9rem;"></textarea></div>
@@ -119,7 +119,7 @@ export const postsPage = `
       </div>
       <div class="help-section active" id="help-basic">
         <h3>Frontmatter (前置元数据)</h3>
-        <pre style="background:#f5f5f5;padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">---
+        <pre style="background:var(--card-bg-hover);padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">---
 title: "文章标题"
 published: 2025-01-20
 pinned: true
@@ -178,7 +178,7 @@ permalink: custom-url
         <h3>Mermaid 图表支持</h3>
         <p>Mizuki 内置 Mermaid 支持，使用 <code>\`\`\`mermaid</code> 代码块创建图表。</p>
         <h4>流程图</h4>
-        <pre style="background:#f5f5f5;padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">\`\`\`mermaid
+        <pre style="background:var(--card-bg-hover);padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">\`\`\`mermaid
 graph TD
     A[开始] --> B{判断条件}
     B -->|是| C[执行操作1]
@@ -187,7 +187,7 @@ graph TD
     D --> E
 \`\`\`</pre>
         <h4>序列图</h4>
-        <pre style="background:#f5f5f5;padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">\`\`\`mermaid
+        <pre style="background:var(--card-bg-hover);padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">\`\`\`mermaid
 sequenceDiagram
     participant 用户
     participant 前端
@@ -210,7 +210,7 @@ sequenceDiagram
       <div class="help-section" id="help-video" style="display:none;">
         <h3>B站视频嵌入</h3>
         <p>从B站复制嵌入代码，直接粘贴到 Markdown 中即可。</p>
-        <pre style="background:#f5f5f5;padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">&lt;iframe width="100%" height="468"
+        <pre style="background:var(--card-bg-hover);padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">&lt;iframe width="100%" height="468"
   src="//player.bilibili.com/player.html?bvid=BV1fK4y1s7Qf&p=1&autoplay=0"
   scrolling="no" border="0" frameborder="no" framespacing="0"
   allowfullscreen="true"&gt;&lt;/iframe&gt;</pre>
@@ -232,21 +232,21 @@ sequenceDiagram
       <div class="help-section" id="help-image" style="display:none;">
         <h3>图片语法 (Mizuki 8.0+)</h3>
         <p>支持设置图片缩放比例、标题和居中对齐。</p>
-        <pre style="background:#f5f5f5;padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">![图片描述 w-50%](图片链接 "图片标题")</pre>
+        <pre style="background:var(--card-bg-hover);padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">![图片描述 w-50%](图片链接 "图片标题")</pre>
         <ul>
           <li><code>w-50%</code> 表示图片宽度为 50%（可以是任意百分比）</li>
           <li><code>"图片标题"</code> 表示图片的标题（可选）</li>
         </ul>
         <h4>图片路径最佳实践 (文件夹方案)</h4>
         <p>推荐使用相对路径引用同目录下的图片资源：</p>
-        <pre style="background:#f5f5f5;padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">![图片描述](image1.png)
+        <pre style="background:var(--card-bg-hover);padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">![图片描述](image1.png)
 ![封面](./cover.webp)</pre>
         <p>这样能让 RSS 正确构建图片路径，同时确保图片与文章一同打包部署。</p>
       </div>
       <div class="help-section" id="help-encrypt" style="display:none;">
         <h3>文章客户端加密</h3>
         <p>使用 bcryptjs + crypto-js 在客户端实现加密。访客输入密码后浏览器端解密渲染。</p>
-        <pre style="background:#f5f5f5;padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">---
+        <pre style="background:var(--card-bg-hover);padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">---
 title: "加密文章"
 encrypted: true
 password: "your-secret-password"
@@ -263,7 +263,7 @@ passwordHint: "提示：我的生日"
       <div class="help-section" id="help-permalink" style="display:none;">
         <h3>固定链接 (Mizuki 7.2+)</h3>
         <p>为文章配置自定义固定链接，优化 SEO。</p>
-        <pre style="background:#f5f5f5;padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">---
+        <pre style="background:var(--card-bg-hover);padding:12px;border-radius:8px;font-size:0.85rem;overflow-x:auto;">---
 permalink: encrypted-example
 ---</pre>
         <p>文章将通过 <code>/posts/encrypted-example</code> 访问。</p>
@@ -348,7 +348,7 @@ function filterPosts() {
   });
 
   if (filtered.length === 0) {
-    container.innerHTML = '<div class="empty-state"><p style="font-size:3rem;">📝</p><p>没有符合条件的文章</p><p style="font-size:0.85rem;color:#aaa;">点击「新建文章」开始写作</p></div>';
+    container.innerHTML = '<div class="empty-state"><p style="font-size:3rem;">📝</p><p>没有符合条件的文章</p><p style="font-size:0.85rem;">点击「新建文章」开始写作</p></div>';
   } else {
     container.innerHTML = '';
 
@@ -356,21 +356,18 @@ function filterPosts() {
       var meta = p.meta || {};
       var card = document.createElement('div');
       card.className = 'card';
-      if (meta.image) {
-        card.style.borderLeft = '4px solid #667eea';
-      }
 
       var badges = '';
       if (meta.draft) badges += '<span class="badge badge-warning">📝 草稿</span>';
       if (meta.pinned) badges += '<span class="badge badge-success">📌 置顶</span>';
-      if (meta.encrypted) badges += '<span class="badge" style="background:#fde3e3;color:#c0392b;">🔒 加密</span>';
+      if (meta.encrypted) badges += '<span class="badge">🔒 加密</span>';
       if (meta.category) badges += '<span class="badge badge-info">' + meta.category + '</span>';
 
       var tagsHtml = '';
       if (meta.tags && meta.tags.length > 0) {
         tagsHtml = '<div style="font-size:0.8rem;margin-top:6px;">' +
-          meta.tags.slice(0, 5).map(function(t) { return '<span style="background:#eef;color:#556;padding:2px 8px;border-radius:12px;margin-right:4px;display:inline-block;">#' + t + '</span>'; }).join('') +
-          (meta.tags.length > 5 ? '<span style="color:#999;"> +' + (meta.tags.length - 5) + '</span>' : '') +
+          meta.tags.slice(0, 5).map(function(t) { return '<span style="padding:2px 8px;border-radius:12px;margin-right:4px;display:inline-block;">#' + t + '</span>'; }).join('') +
+          (meta.tags.length > 5 ? '<span> +' + (meta.tags.length - 5) + '</span>' : '') +
           '</div>';
       }
 
@@ -381,11 +378,11 @@ function filterPosts() {
 
       card.innerHTML =
         '<h3>' + (meta.title || p.name) + '</h3>' +
-        '<p style="color:#666;font-size:0.9rem;">' + (meta.description || '暂无描述') + '</p>' +
+        '<p style="font-size:0.9rem;">' + (meta.description || '暂无描述') + '</p>' +
         '<div class="card-meta">' + badges + '</div>' +
-        '<div style="font-size:0.8rem;color:#999;margin-top:6px;">' + metaInfo + '</div>' +
+        '<div style="font-size:0.8rem;margin-top:6px;">' + metaInfo + '</div>' +
         tagsHtml +
-        (meta.licenseName ? '<div style="font-size:0.75rem;color:#aaa;margin-top:4px;">📜 ' + meta.licenseName + '</div>' : '') +
+        (meta.licenseName ? '<div style="font-size:0.75rem;margin-top:4px;">📜 ' + meta.licenseName + '</div>' : '') +
         '<div class="card-actions" style="margin-top:12px;">' +
         '<button class="btn btn-sm btn-primary">✏️ 编辑</button>' +
         '<button class="btn btn-sm btn-danger">🗑 删除</button>' +

@@ -67,7 +67,7 @@ function filterDevices() {
       card.innerHTML = '<h4>' + d.name + '</h4>' +
         (d.image ? '<img src="' + d.image + '" style="width:100%;max-height:150px;object-fit:cover;border-radius:8px;margin:10px 0;" alt="' + d.name + '">' : '') +
         '<p>' + (d.description || '暂无描述') + '</p>' +
-        (d.specs ? '<div style="font-size:0.85rem;color:#888;">规格: ' + d.specs + '</div>' : '') +
+        (d.specs ? '<div style="font-size:0.85rem;">规格: ' + d.specs + '</div>' : '') +
         '<div class="card-actions">' +
         (d.link ? '<a href="' + d.link + '" target="_blank" class="btn btn-sm btn-primary">详情</a>' : '') +
         '<button class="btn btn-sm btn-primary">编辑</button>' +
