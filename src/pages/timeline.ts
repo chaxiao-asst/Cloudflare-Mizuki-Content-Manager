@@ -3,11 +3,9 @@ export const timelinePage = `
 <div class="page-toolbar">
 <h2>时间线管理</h2>
 <button type="button" class="btn btn-primary" onclick="openTimelineModal()">新建</button>
-<div class="filter-bar">
-  <select id="timelineTypeFilter" onchange="filterTimeline()">
-    <option value="">全部类型</option>
-  </select>
-</div>
+<select id="timelineTypeFilter" onchange="filterTimeline()">
+  <option value="">全部类型</option>
+</select>
 </div>
 <div class="page-cards-area">
 <div class="timeline" id="timelineCards"></div>

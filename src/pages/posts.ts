@@ -1,26 +1,20 @@
 export const postsPage = `
 <div class="content page-layout">
 <div class="page-toolbar">
-<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
 <h2>文章管理</h2>
-<div style="display:flex;gap:8px;">
-<button type="button" class="btn btn-secondary" onclick="openHelpModal()">📖 Markdown 语法帮助</button>
-<button type="button" class="btn btn-primary" onclick="openPostModal()">+ 新建文章</button>
-</div>
-</div>
-<div class="filter-bar">
-  <input type="text" id="postSearchInput" placeholder="搜索文章标题 / 名称..." onkeyup="filterPosts()">
-  <select id="postCategoryFilter" onchange="filterPosts()">
-    <option value="">全部分类</option>
-  </select>
-  <select id="postStatusFilter" onchange="filterPosts()">
-    <option value="">全部状态</option>
-    <option value="published">已发布</option>
-    <option value="draft">草稿</option>
-    <option value="encrypted">加密</option>
-    <option value="pinned">置顶</option>
-  </select>
-</div>
+<button type="button" class="btn btn-primary" onclick="openPostModal()">新建</button>
+<input type="text" id="postSearchInput" placeholder="搜索文章..." onkeyup="filterPosts()">
+<select id="postCategoryFilter" onchange="filterPosts()">
+  <option value="">全部分类</option>
+</select>
+<select id="postStatusFilter" onchange="filterPosts()">
+  <option value="">全部状态</option>
+  <option value="published">已发布</option>
+  <option value="draft">草稿</option>
+  <option value="encrypted">加密</option>
+  <option value="pinned">置顶</option>
+</select>
+<button type="button" class="btn btn-secondary btn-sm" onclick="openHelpModal()">📖 帮助</button>
 </div>
 <div class="page-cards-area">
 <div class="card-grid" id="postsCards"></div>
@@ -49,7 +43,7 @@ export const postsPage = `
           <div class="form-group"><label>发布日期</label><input type="date" name="published" id="postPublished"></div>
           <div class="form-group"><label>更新日期</label><input type="date" name="updated" id="postUpdated"></div>
           <div class="form-group"><label>分类</label><input type="text" name="category" id="postCategory" placeholder="技术 / 生活 / 教程..."></div>
-          <div class="form-group"><label>标签</label><input type="text" name="tags" id="postTags" placeholder="tag1, tag2, tag3"></div>
+          <div class="form-group"><label>标签</label><textarea name="tags" id="postTags" placeholder="每行一个标签" rows="3"></textarea></div>
           <div class="form-group"><label>作者</label><input type="text" name="author" id="postAuthor" placeholder="作者名"></div>
           <div class="form-group"><label>封面图片</label><input type="text" name="image" id="postImage" placeholder="cover.webp 或 ./cover.webp"></div>
         </div>
@@ -427,7 +421,7 @@ document.getElementById('postForm').addEventListener('submit', async function(e)
     published: document.getElementById('postPublished').value,
     updated: document.getElementById('postUpdated').value,
     description: document.getElementById('postDescription').value,
-    tags: document.getElementById('postTags').value.split(',').map(function(t) { return t.trim(); }).filter(Boolean),
+    tags: document.getElementById('postTags').value.split('\n').map(function(t) { return t.trim(); }).filter(Boolean),
     category: document.getElementById('postCategory').value,
     author: document.getElementById('postAuthor').value,
     permalink: document.getElementById('postPermalink').value,
@@ -506,7 +500,7 @@ async function editPost(name) {
   document.getElementById('postUpdated').value = data.meta?.updated || '';
   document.getElementById('postCategory').value = data.meta?.category || '';
   document.getElementById('postAuthor').value = data.meta?.author || '';
-  document.getElementById('postTags').value = (data.meta?.tags || []).join(', ');
+  document.getElementById('postTags').value = (data.meta?.tags || []).join('\n');
   document.getElementById('postImage').value = data.meta?.image || '';
   document.getElementById('postDescription').value = data.meta?.description || '';
   document.getElementById('postPinned').checked = data.meta?.pinned || false;

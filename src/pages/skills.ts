@@ -3,18 +3,16 @@ export const skillsPage = `
 <div class="page-toolbar">
 <h2>技能管理</h2>
 <button type="button" class="btn btn-primary" onclick="openSkillModal()">新建</button>
-<div class="filter-bar">
-  <select id="skillCategoryFilter" onchange="filterSkills()">
-    <option value="">全部分类</option>
-  </select>
-  <select id="skillLevelFilter" onchange="filterSkills()">
-    <option value="">全部水平</option>
-    <option value="beginner">初级</option>
-    <option value="intermediate">中级</option>
-    <option value="advanced">高级</option>
-    <option value="expert">专家</option>
-  </select>
-</div>
+<select id="skillCategoryFilter" onchange="filterSkills()">
+  <option value="">全部分类</option>
+</select>
+<select id="skillLevelFilter" onchange="filterSkills()">
+  <option value="">全部水平</option>
+  <option value="beginner">初级</option>
+  <option value="intermediate">中级</option>
+  <option value="advanced">高级</option>
+  <option value="expert">专家</option>
+</select>
 </div>
 <div class="page-cards-area">
 <div class="card-grid" id="skillsCards"></div>

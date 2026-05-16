@@ -3,17 +3,15 @@ export const projectsPage = `
 <div class="page-toolbar">
 <h2>项目管理</h2>
 <button type="button" class="btn btn-primary" onclick="openProjectModal()">新建</button>
-<div class="filter-bar">
-  <select id="projectCategoryFilter" onchange="filterProjects()">
-    <option value="">全部分类</option>
-  </select>
-  <select id="projectStatusFilter" onchange="filterProjects()">
-    <option value="">全部状态</option>
-    <option value="completed">已完成</option>
-    <option value="in-progress">进行中</option>
-    <option value="planned">已计划</option>
-  </select>
-</div>
+<select id="projectCategoryFilter" onchange="filterProjects()">
+  <option value="">全部分类</option>
+</select>
+<select id="projectStatusFilter" onchange="filterProjects()">
+  <option value="">全部状态</option>
+  <option value="completed">已完成</option>
+  <option value="in-progress">进行中</option>
+  <option value="planned">已计划</option>
+</select>
 </div>
 <div class="page-cards-area">
 <div class="card-grid" id="projectsCards"></div>

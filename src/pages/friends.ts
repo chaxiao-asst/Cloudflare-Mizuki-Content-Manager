@@ -3,9 +3,7 @@ export const friendsPage = `
 <div class="page-toolbar">
 <h2>友链管理</h2>
 <button type="button" class="btn btn-primary" onclick="openFriendModal()">新建</button>
-<div class="filter-bar">
-  <input type="text" id="friendSearchFilter" placeholder="搜索友链..." oninput="filterFriends()">
-</div>
+<input type="text" id="friendSearchFilter" placeholder="搜索友链..." oninput="filterFriends()">
 </div>
 <div class="page-cards-area">
 <div class="card-grid" id="friendsCards"></div>

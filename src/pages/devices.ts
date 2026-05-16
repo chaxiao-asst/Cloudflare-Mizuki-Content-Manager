@@ -2,10 +2,8 @@ export const devicesPage = `
 <div class="content page-layout">
 <div class="page-toolbar">
 <h2>设备管理</h2>
-<div class="filter-bar">
-  <button type="button" class="btn btn-primary" onclick="openDeviceModal()">新建</button>
-  <input type="text" id="deviceSearchFilter" placeholder="搜索设备名称或规格..." oninput="filterDevices()">
-</div>
+<button type="button" class="btn btn-primary" onclick="openDeviceModal()">新建</button>
+<input type="text" id="deviceSearchFilter" placeholder="搜索设备..." oninput="filterDevices()">
 </div>
 <div class="page-cards-area">
 <div class="card-grid" id="devicesCards"></div>

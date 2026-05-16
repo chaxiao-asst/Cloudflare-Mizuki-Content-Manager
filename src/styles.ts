@@ -119,7 +119,7 @@ tr:hover td{background:oklch(0.97 0.005 var(--hue))}
 .skill-progress-bar{height:100%;border-radius:4px;transition:width 0.5s cubic-bezier(0.25,0.46,0.45,0.94);background:var(--gradient-primary)}
 .skill-meta{font-size:0.82rem;color:var(--text-muted);display:flex;gap:12px;flex-wrap:wrap}
 
-.filter-bar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.filter-bar{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
 .filter-bar select,.filter-bar input{padding:9px 14px;border:1.5px solid var(--card-border);border-radius:var(--radius);font-size:0.88rem;background:var(--card-bg);color:var(--text-primary);transition:all 0.2s}
 .filter-bar select:focus,.filter-bar input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-bg)}
 .filter-bar input{flex:1;min-width:160px}
@@ -144,9 +144,14 @@ tr:hover td{background:oklch(0.97 0.005 var(--hue))}
 .device-card h4{margin:0 0 8px;font-size:1rem;font-weight:700;color:var(--text-primary)}
 
 .page-layout{display:flex;flex-direction:column;max-height:calc(100vh - 180px);overflow:hidden}
-.page-toolbar{flex-shrink:0;padding-bottom:12px;border-bottom:1px solid var(--card-border);margin-bottom:0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.page-toolbar h2{margin:0!important;flex-shrink:0}
+.page-toolbar{flex-shrink:0;padding-bottom:12px;border-bottom:1px solid var(--card-border);margin-bottom:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.page-toolbar h2{margin:0!important;flex-shrink:0;white-space:nowrap;font-size:1.15rem}
 .page-toolbar h2::before{display:none}
+.page-toolbar .btn{flex-shrink:0}
+.page-toolbar input{flex:1;min-width:140px;max-width:300px;padding:8px 12px;border:1.5px solid var(--card-border);border-radius:var(--radius);font-size:0.86rem;background:var(--card-bg);color:var(--text-primary);transition:all 0.2s}
+.page-toolbar input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-bg)}
+.page-toolbar select{padding:8px 12px;border:1.5px solid var(--card-border);border-radius:var(--radius);font-size:0.86rem;background:var(--card-bg);color:var(--text-primary);transition:all 0.2s;flex-shrink:0}
+.page-toolbar select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-bg)}
 .page-cards-area{flex:1;overflow-y:auto;min-height:0;padding:14px 0;scrollbar-width:thin;scrollbar-color:oklch(0.8 0.01 var(--hue)) transparent}
 .page-cards-area::-webkit-scrollbar{width:5px}
 .page-cards-area::-webkit-scrollbar-track{background:transparent}

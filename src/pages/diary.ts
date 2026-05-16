@@ -3,9 +3,7 @@ export const diaryPage = `
 <div class="page-toolbar">
 <h2>日记管理</h2>
 <button type="button" class="btn btn-primary" onclick="openDiaryModal()">新建</button>
-<div class="filter-bar">
-  <input type="text" id="diarySearchFilter" placeholder="搜索日记..." oninput="filterDiary()">
-</div>
+<input type="text" id="diarySearchFilter" placeholder="搜索日记..." oninput="filterDiary()">
 </div>
 <div class="page-cards-area">
 <div id="diaryTagStats" class="tag-stats"></div>
