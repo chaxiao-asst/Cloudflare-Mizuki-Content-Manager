@@ -108,21 +108,48 @@ export function parseTsVariable(content: string, varName: string): unknown {
       const char = result[i];
 
       if (escapeNext) {
-        currentString += char;
+        if (inString) currentString += char;
         escapeNext = false;
         continue;
       }
       if (char === '\\') {
-        currentString += char;
+        if (inString) currentString += char;
         escapeNext = true;
         continue;
       }
       if (inString) {
         if (char === stringChar) {
-          const placeholder = `__STR_${stringCounter}__`;
-          strings.push({ placeholder, value: currentString });
-          tempResult += placeholder;
-          stringCounter++;
+          let peekIdx = i + 1;
+          while (peekIdx < result.length) {
+            const peekChar = result[peekIdx];
+            if (peekChar === ' ' || peekChar === '\t' || peekChar === '\n' || peekChar === '\r') {
+              peekIdx++;
+              continue;
+            }
+            if (peekChar === '/' && peekIdx + 1 < result.length) {
+              if (result[peekIdx + 1] === '/') {
+                const nl = result.indexOf('\n', peekIdx);
+                peekIdx = nl === -1 ? result.length : nl + 1;
+                continue;
+              }
+              if (result[peekIdx + 1] === '*') {
+                const cc = result.indexOf('*/', peekIdx + 2);
+                peekIdx = cc === -1 ? result.length : cc + 2;
+                continue;
+              }
+            }
+            break;
+          }
+
+          if (peekIdx < result.length && result[peekIdx] === ':') {
+            const escapedKey = currentString.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+            tempResult += '"' + escapedKey + '"';
+          } else {
+            const placeholder = `__STR_${stringCounter}__`;
+            strings.push({ placeholder, value: currentString });
+            tempResult += placeholder;
+            stringCounter++;
+          }
           currentString = '';
           inString = false;
         } else {
