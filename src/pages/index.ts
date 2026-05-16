@@ -1,0 +1,12 @@
+export { homePage } from './home';
+export { dashboardPage } from './dashboard';
+export { diaryPage } from './diary';
+export { friendsPage } from './friends';
+export { projectsPage } from './projects';
+export { skillsPage } from './skills';
+export { timelinePage } from './timeline';
+export { devicesPage } from './devices';
+export { postsPage } from './posts';
+export { animePage } from './anime';
+export { albumsPage } from './albums';
+export { aboutPage } from './about';

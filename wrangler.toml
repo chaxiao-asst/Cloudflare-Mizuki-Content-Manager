@@ -1,0 +1,11 @@
+name = "mizuki-content-manager"
+main = "src/index.ts"
+compatibility_date = "2024-05-29"
+
+[env.production]
+name = "mizuki-content-manager-production"
+compatibility_date = "2024-05-29"
+
+[env.staging]
+name = "mizuki-content-manager-staging"
+compatibility_date = "2024-05-29"
