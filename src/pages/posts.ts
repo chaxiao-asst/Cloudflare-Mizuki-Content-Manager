@@ -1,26 +1,20 @@
 export const postsPage = `
 <div class="content page-layout">
 <div class="page-toolbar">
-<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
 <h2>文章管理</h2>
-<div style="display:flex;gap:8px;">
 <button type="button" class="btn btn-secondary" onclick="openHelpModal()">📖 Markdown 语法帮助</button>
 <button type="button" class="btn btn-primary" onclick="openPostModal()">+ 新建文章</button>
-</div>
-</div>
-<div class="filter-bar">
-  <input type="text" id="postSearchInput" placeholder="搜索文章标题 / 名称..." onkeyup="filterPosts()">
-  <select id="postCategoryFilter" onchange="filterPosts()">
-    <option value="">全部分类</option>
-  </select>
-  <select id="postStatusFilter" onchange="filterPosts()">
-    <option value="">全部状态</option>
-    <option value="published">已发布</option>
-    <option value="draft">草稿</option>
-    <option value="encrypted">加密</option>
-    <option value="pinned">置顶</option>
-  </select>
-</div>
+<input type="text" id="postSearchInput" placeholder="搜索文章标题 / 名称..." onkeyup="filterPosts()">
+<select id="postCategoryFilter" onchange="filterPosts()">
+  <option value="">全部分类</option>
+</select>
+<select id="postStatusFilter" onchange="filterPosts()">
+  <option value="">全部状态</option>
+  <option value="published">已发布</option>
+  <option value="draft">草稿</option>
+  <option value="encrypted">加密</option>
+  <option value="pinned">置顶</option>
+</select>
 </div>
 <div class="page-cards-area">
 <div class="card-grid" id="postsCards"></div>

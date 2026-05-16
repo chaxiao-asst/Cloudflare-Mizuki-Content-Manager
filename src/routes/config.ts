@@ -129,7 +129,11 @@ export function createConfigRouter(githubClient: GitHubClient) {
       content = conditionalUpdate(content, file.content, 'fullscreenWallpaperConfig', fullscreenWallpaper as Record<string, unknown> | undefined, 'FullscreenWallpaperConfig', true);
 
       if (navBarLinks) {
-        content = updateTsVariable(content, 'navBarConfig', { links: navBarLinks }, 'NavBarConfig');
+        let linksArray = navBarLinks;
+        if (typeof navBarLinks === 'object' && navBarLinks !== null && !Array.isArray(navBarLinks) && 'links' in navBarLinks) {
+          linksArray = (navBarLinks as Record<string, unknown>).links;
+        }
+        content = updateTsVariable(content, 'navBarConfig', { links: linksArray }, 'NavBarConfig');
       }
 
       const keyUpdates: [string, string | undefined, string, boolean][] = [

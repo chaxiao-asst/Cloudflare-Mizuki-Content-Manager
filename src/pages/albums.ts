@@ -3,17 +3,15 @@ export const albumsPage = `
 <div class="page-toolbar">
 <h2>相册管理</h2>
 <button type="button" class="btn btn-primary" onclick="openAlbumModal()">新建</button>
-<div class="filter-bar">
-  <input type="text" id="albumSearchInput" placeholder="搜索相册..." oninput="filterAlbums()">
-  <select id="albumModeFilter" onchange="filterAlbums()">
-    <option value="">全部模式</option>
-    <option value="local">本地模式</option>
-    <option value="external">外链模式</option>
-  </select>
-  <select id="albumTagFilter" onchange="filterAlbums()">
-    <option value="">全部标签</option>
-  </select>
-</div>
+<input type="text" id="albumSearchInput" placeholder="搜索相册..." oninput="filterAlbums()">
+<select id="albumModeFilter" onchange="filterAlbums()">
+  <option value="">全部模式</option>
+  <option value="local">本地模式</option>
+  <option value="external">外链模式</option>
+</select>
+<select id="albumTagFilter" onchange="filterAlbums()">
+  <option value="">全部标签</option>
+</select>
 </div>
 <div class="page-cards-area">
 <div class="card-grid" id="albumsCards"></div>

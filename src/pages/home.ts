@@ -242,6 +242,9 @@ async function loadConfig() {
   try {
     const res = await api('GET', '/api/config');
     currentConfig = res.data || {};
+    if (currentConfig.navBarLinks && typeof currentConfig.navBarLinks === 'object' && !Array.isArray(currentConfig.navBarLinks) && currentConfig.navBarLinks.links) {
+      currentConfig.navBarLinks = currentConfig.navBarLinks.links;
+    }
     updateAllSummaries();
     loadNavBarConfig(currentConfig.navBarLinks || []);
     loadMusicSongs(currentConfig.musicPlayerConfig?.local?.songs || []);
@@ -1623,7 +1626,7 @@ async function saveConfig() {
 window.navBarLinksData = [];
 let dragSrcIdx = null;
 
-function loadNavBarConfig(links) { window.navBarLinksData = Array.isArray(links) ? links : []; }
+function loadNavBarConfig(links) { const linksArr = (typeof links === 'object' && links !== null && !Array.isArray(links) && links.links) ? links.links : links; window.navBarLinksData = Array.isArray(linksArr) ? linksArr : []; }
 
 function renderNavBarLinks() {
   const container = document.getElementById('modal-navLinks-container');

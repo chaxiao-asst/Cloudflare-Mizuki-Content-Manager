@@ -2,24 +2,22 @@ export const animePage = `
 <div class="content page-layout">
 <div class="page-toolbar">
 <h2>番剧管理</h2>
-<button type="button" class="btn btn-primary" onclick="openAnimeModal()" style="margin-bottom:15px;">新建番剧</button>
-<div class="filter-bar">
-  <input type="text" id="animeSearchInput" placeholder="搜索番剧..." onkeyup="filterAnime()">
-  <select id="animeStatusFilter" onchange="filterAnime()">
-    <option value="">全部状态</option>
-    <option value="watching">追看中</option>
-    <option value="completed">已完结</option>
-    <option value="planned">想看</option>
-  </select>
-  <select id="animeSortBy" onchange="filterAnime()">
-    <option value="title">按名称排序</option>
-    <option value="rating">按评分排序</option>
-    <option value="year">按年份排序</option>
-  </select>
-  <select id="animeGenreFilter" onchange="filterAnime()">
-    <option value="">全部类型</option>
-  </select>
-</div>
+<button type="button" class="btn btn-primary" onclick="openAnimeModal()">新建番剧</button>
+<input type="text" id="animeSearchInput" placeholder="搜索番剧..." onkeyup="filterAnime()">
+<select id="animeStatusFilter" onchange="filterAnime()">
+  <option value="">全部状态</option>
+  <option value="watching">追看中</option>
+  <option value="completed">已完结</option>
+  <option value="planned">想看</option>
+</select>
+<select id="animeSortBy" onchange="filterAnime()">
+  <option value="title">按名称排序</option>
+  <option value="rating">按评分排序</option>
+  <option value="year">按年份排序</option>
+</select>
+<select id="animeGenreFilter" onchange="filterAnime()">
+  <option value="">全部类型</option>
+</select>
 </div>
 <div class="page-cards-area">
 <div class="card-grid" id="animeCards"></div>
