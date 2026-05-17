@@ -174,6 +174,12 @@ function initPostLayoutModal() {
   if (tocDepth) tocDepth.value = toc.depth || 2;
   const tocBadge = el('modal-toc-japaneseBadge');
   if (tocBadge) tocBadge.checked = !!toc.useJapaneseBadge;
+  const tocDesktop = el('modal-toc-desktopSidebar');
+  if (tocDesktop) tocDesktop.checked = toc.desktopSidebar !== false;
+  const tocFloating = el('modal-toc-floating');
+  if (tocFloating) tocFloating.checked = toc.floating !== false;
+  const tocMobile = el('modal-toc-mobileTop');
+  if (tocMobile) tocMobile.checked = toc.mobileTop !== false;
 
   const comment = cfg.commentConfig || {};
   const commentEnable = el('modal-comment-enable');

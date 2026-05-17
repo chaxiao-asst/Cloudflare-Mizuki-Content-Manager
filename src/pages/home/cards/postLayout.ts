@@ -78,6 +78,18 @@ export function modalHtml(config: string): string {
           <input type="checkbox" id="modal-toc-japaneseBadge" \${(${config}.toc?.useJapaneseBadge ? ' checked' : '')}><label for="modal-toc-japaneseBadge">使用假名(ァィゥ...)代替数字</label></div></div>
       </div>
       <p style="font-size:12px;margin-top:8px;">开启后会将 1、2、3... 改为 ァ、ィ、ゥ...，首页文章列表导航也会生效。</p>
+      <div class="config-row" style="margin-top:12px;">
+        <div class="config-item"><label>桌面端侧边栏</label><div class="boolean-switch">
+          <input type="checkbox" id="modal-toc-desktopSidebar" \${(${config}.toc?.desktopSidebar !== false ? ' checked' : '')}><label for="modal-toc-desktopSidebar">电脑端右侧边栏显示目录导航</label></div></div>
+      </div>
+      <div class="config-row" style="margin-top:8px;">
+        <div class="config-item"><label>FAB悬浮按钮组</label><div class="boolean-switch">
+          <input type="checkbox" id="modal-toc-floating" \${(${config}.toc?.floating !== false ? ' checked' : '')}><label for="modal-toc-floating">集成到FAB按钮组的目录导航</label></div></div>
+      </div>
+      <div class="config-row" style="margin-top:8px;">
+        <div class="config-item"><label>手机端顶部</label><div class="boolean-switch">
+          <input type="checkbox" id="modal-toc-mobileTop" \${(${config}.toc?.mobileTop !== false ? ' checked' : '')}><label for="modal-toc-mobileTop">手机端顶部显示目录导航按钮</label></div></div>
+      </div>
     </div>
     <div class="config-section" style="margin-top:20px;">
       <h4>评论系统</h4>
@@ -137,7 +149,10 @@ export const applyJs = `
     currentConfig.toc = {
       enable: document.getElementById('modal-toc-enable').checked,
       depth: parseInt(document.getElementById('modal-toc-depth').value) || 2,
-      useJapaneseBadge: document.getElementById('modal-toc-japaneseBadge').checked
+      useJapaneseBadge: document.getElementById('modal-toc-japaneseBadge').checked,
+      desktopSidebar: document.getElementById('modal-toc-desktopSidebar').checked,
+      floating: document.getElementById('modal-toc-floating').checked,
+      mobileTop: document.getElementById('modal-toc-mobileTop').checked
     };
     const commentSystem = document.getElementById('modal-comment-system').value;
     const commentEnable = document.getElementById('modal-comment-enable').checked;

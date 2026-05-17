@@ -16,7 +16,7 @@ const DEFAULT_CONFIGS: Record<string, unknown> = {
   expressiveCodeConfig: { theme: 'github-dark', hideDuringThemeTransition: true },
   shareConfig: { enable: true },
   licenseConfig: { enable: true, name: 'CC BY-NC-SA 4.0', url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/' },
-  toc: { enable: true, depth: 2, useJapaneseBadge: true },
+  toc: { enable: true, depth: 2, useJapaneseBadge: true, mobileTop: true, desktopSidebar: true, floating: true },
   commentConfig: { enable: false, system: 'twikoo', twikoo: { envId: '', lang: 'SITE_LANG' }, giscus: {} },
 };
 
