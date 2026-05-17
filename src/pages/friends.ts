@@ -141,7 +141,7 @@ document.getElementById('friendForm').addEventListener('submit', async e => {
     siteurl: document.getElementById('friendSiteurl').value,
     imgurl: document.getElementById('friendImgurl').value,
     desc: document.getElementById('friendDesc').value,
-    tags: document.getElementById('friendTags').value.split('\n').map(t => t.trim()).filter(Boolean)
+    tags: document.getElementById('friendTags').value.split('\\n').map(t => t.trim()).filter(Boolean)
   };
   const id = document.getElementById('friendId').value;
   if (id) {
@@ -180,7 +180,7 @@ async function editFriend(id) {
   document.getElementById('friendSiteurl').value = f.siteurl;
   document.getElementById('friendImgurl').value = f.imgurl || '';
   document.getElementById('friendDesc').value = f.desc || '';
-  document.getElementById('friendTags').value = (f.tags||[]).join('\n');
+  document.getElementById('friendTags').value = (f.tags||[]).join('\\n');
   document.getElementById('friendModal').classList.add('active');
 }
 async function deleteFriend(id) {

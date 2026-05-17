@@ -134,8 +134,8 @@ document.getElementById('diaryForm').addEventListener('submit', async e => {
     date: date.toISOString(),
     mood: document.getElementById('diaryMood').value,
     location: document.getElementById('diaryLocation').value,
-    tags: document.getElementById('diaryTags').value.split('\n').map(t => t.trim()).filter(Boolean),
-    images: document.getElementById('diaryImages').value.split('\n').map(t => t.trim()).filter(Boolean)
+    tags: document.getElementById('diaryTags').value.split('\\n').map(t => t.trim()).filter(Boolean),
+    images: document.getElementById('diaryImages').value.split('\\n').map(t => t.trim()).filter(Boolean)
   };
   const id = document.getElementById('diaryId').value;
   if (id) {
@@ -177,8 +177,8 @@ async function editDiary(id) {
   }
   document.getElementById('diaryMood').value = d.mood || '';
   document.getElementById('diaryLocation').value = d.location || '';
-  document.getElementById('diaryTags').value = (d.tags||[]).join('\n');
-  document.getElementById('diaryImages').value = (d.images||[]).join('\n');
+  document.getElementById('diaryTags').value = (d.tags||[]).join('\\n');
+  document.getElementById('diaryImages').value = (d.images||[]).join('\\n');
   document.getElementById('diaryContent').value = d.content || '';
   document.getElementById('diaryModal').classList.add('active');
 }

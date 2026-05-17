@@ -213,8 +213,8 @@ document.getElementById('skillForm').addEventListener('submit', async e => {
       months: parseInt(document.getElementById('skillExpMonths').value) || 0
     },
     color: document.getElementById('skillColor').value,
-    projects: document.getElementById('skillProjects').value.split('\n').map(t => t.trim()).filter(Boolean),
-    certifications: document.getElementById('skillCertifications').value.split('\n').map(t => t.trim()).filter(Boolean)
+    projects: document.getElementById('skillProjects').value.split('\\n').map(t => t.trim()).filter(Boolean),
+    certifications: document.getElementById('skillCertifications').value.split('\\n').map(t => t.trim()).filter(Boolean)
   };
   const id = document.getElementById('skillId').value;
   if (id) {
@@ -266,8 +266,8 @@ async function editSkill(id) {
   document.getElementById('skillExpYears').value = s.experience?.years || 0;
   document.getElementById('skillExpMonths').value = s.experience?.months || 0;
   document.getElementById('skillColor').value = s.color || '#F7DF1E';
-  document.getElementById('skillProjects').value = (s.projects || []).join('\n');
-  document.getElementById('skillCertifications').value = (s.certifications || []).join('\n');
+  document.getElementById('skillProjects').value = (s.projects || []).join('\\n');
+  document.getElementById('skillCertifications').value = (s.certifications || []).join('\\n');
   document.getElementById('skillModal').classList.add('active');
 }
 async function deleteSkill(id) {
