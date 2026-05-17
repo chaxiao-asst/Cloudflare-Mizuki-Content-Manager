@@ -155,6 +155,8 @@ export function createConfigRouter(githubClient: GitHubClient) {
         ['sakuraConfig', 'sakuraConfig', 'SakuraConfig', false],
         ['umamiConfig', 'umamiConfig', 'UmamiConfig', false],
         ['expressiveCodeConfig', 'expressiveCodeConfig', 'Record<string, unknown>', false],
+        ['shareConfig', 'shareConfig', 'ShareConfig', false],
+        ['licenseConfig', 'licenseConfig', 'LicenseConfig', false],
         ['toc', 'toc', 'TocConfig', false],
         ['commentConfig', 'commentConfig', 'CommentConfig', false],
       ];
