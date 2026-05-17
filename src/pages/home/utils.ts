@@ -1,6 +1,14 @@
 export const SHARED_JS = `
 function escAttr(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 
+function toggleTocSubControls() {
+  var enable = document.getElementById('modal-toc-enable');
+  var sub = document.getElementById('modal-toc-sub-controls');
+  if (enable && sub) {
+    sub.style.display = enable.checked ? 'block' : 'none';
+  }
+}
+
 function updateFaviconPreview() {
   const logoVal = document.getElementById('modal-navbar-logo').value;
   const preview = document.getElementById('modal-favicon-preview');
