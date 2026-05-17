@@ -49,7 +49,7 @@ export function modalHtml(config: string): string {
       <p style="font-size:12px;color:#888;margin-bottom:10px;">网站图标将自动使用上方配置的 Logo 路径</p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div id="modal-favicon-preview" style="width:32px;height:32px;border-radius:6px;overflow:hidden;border:1px solid #e0e0e0;display:flex;align-items:center;justify-content:center;background:#f5f5f5;">
-          \${${config}.navbarTitle?.logo ? '<img src="' + escAttr(${config}.navbarTitle.logo) + '" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML=\\\\'⚠️\\\\'">' : '<span style="font-size:16px;">🌐</span>'}
+          \${${config}.navbarTitle?.logo ? '<img src="' + escAttr(${config}.navbarTitle.logo) + '" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML=\\'⚠️\\'">' : '<span style="font-size:16px;">🌐</span>'}
         </div>
         <span id="modal-favicon-text" style="font-size:13px;color:#666;">\${${config}.navbarTitle?.logo ? '已设置网站图标' : '未设置 — 将使用默认图标'}</span>
       </div>
