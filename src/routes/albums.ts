@@ -65,8 +65,13 @@ export function createAlbumsRouter(githubClient: GitHubClient) {
   router.delete('/api/albums/:name', async (request) => {
     try {
       const name = decodeURIComponent(request.params?.name || '');
-      const file = await githubClient.getFile(`public/images/albums/${name}/info.json`);
-      await githubClient.deleteFile(`public/images/albums/${name}/info.json`, `Delete album ${name}`, file.sha);
+      const dirPath = `public/images/albums/${name}`;
+      const files = await githubClient.listFiles(dirPath);
+      for (const f of files) {
+        if (f.type === 'file') {
+          await githubClient.deleteFile(f.path, `Delete album ${name}`, f.sha);
+        }
+      }
       return Response.json({ success: true });
     } catch (error) {
       return Response.json({ success: false, message: (error as Error).message }, { status: 500 });

@@ -126,7 +126,17 @@ export function createPostsRouter(githubClient: GitHubClient) {
       const rawName = request.params?.name || '';
       const name = decodeURIComponent(rawName);
       const { file, path } = await getPostFile(githubClient, name);
-      await githubClient.deleteFile(path, `Delete post ${name}`, file.sha);
+      if (path.endsWith('/index.md')) {
+        const dirPath = path.slice(0, -'/index.md'.length);
+        const files = await githubClient.listFiles(dirPath);
+        for (const f of files) {
+          if (f.type === 'file') {
+            await githubClient.deleteFile(f.path, `Delete post ${name}`, f.sha);
+          }
+        }
+      } else {
+        await githubClient.deleteFile(path, `Delete post ${name}`, file.sha);
+      }
       return Response.json({ success: true });
     } catch (error) {
       return Response.json({ success: false, message: (error as Error).message }, { status: 500 });

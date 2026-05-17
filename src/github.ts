@@ -119,9 +119,9 @@ export class GitHubClient {
     await this.request("DELETE", `/contents/${this.encPath(path)}`, { message, sha });
   }
 
-  async listFiles(path: string): Promise<Array<{ name: string; path: string; type: string }>> {
+  async listFiles(path: string): Promise<Array<{ name: string; path: string; type: string; sha: string }>> {
     const response = await this.request("GET", `/contents/${this.encPath(path)}`);
-    const files = response as unknown as Array<{ name: string; path: string; type: string }>;
+    const files = response as unknown as Array<{ name: string; path: string; type: string; sha: string }>;
     files.forEach(file => {
       file.name = decodeURIComponent(file.name);
       file.path = decodeURIComponent(file.path);
