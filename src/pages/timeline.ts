@@ -31,8 +31,8 @@ export const timelinePage = `
         <div class="form-group"><label>地点</label><input type="text" name="location" id="timelineLocation" placeholder="北京、上海..."></div>
         <div class="form-group"><label>组织/机构</label><input type="text" name="organization" id="timelineOrganization" placeholder="公司、学校..."></div>
         <div class="form-group"><label>职位</label><input type="text" name="position" id="timelinePosition" placeholder="前端开发工程师..."></div>
-        <div class="form-group"><label>相关技能</label><input type="text" name="skills" id="timelineSkills" placeholder="React, Node.js..."></div>
-        <div class="form-group"><label>成就</label><input type="text" name="achievements" id="timelineAchievements" placeholder="成就1, 成就2..."></div>
+        <div class="form-group"><label>相关技能</label><input type="text" name="skills" id="timelineSkills" placeholder="每行一个技能"></div>
+        <div class="form-group"><label>成就</label><input type="text" name="achievements" id="timelineAchievements" placeholder="每行一个成就"></div>
         <div class="form-group"><label>图标</label><input type="text" name="icon" id="timelineIcon" placeholder="material-symbols:school"></div>
         <div class="form-group"><label>主题颜色</label><input type="color" name="color" id="timelineColor" value="#059669"></div>
       </div>
@@ -187,8 +187,8 @@ document.getElementById('timelineForm').addEventListener('submit', async e => {
     location: document.getElementById('timelineLocation').value,
     organization: document.getElementById('timelineOrganization').value,
     position: document.getElementById('timelinePosition').value,
-    skills: document.getElementById('timelineSkills').value.split(',').map(t => t.trim()).filter(Boolean),
-    achievements: document.getElementById('timelineAchievements').value.split(',').map(t => t.trim()).filter(Boolean),
+    skills: document.getElementById('timelineSkills').value.split('\\n').map(t => t.trim()).filter(Boolean),
+    achievements: document.getElementById('timelineAchievements').value.split('\\n').map(t => t.trim()).filter(Boolean),
     icon: document.getElementById('timelineIcon').value || undefined,
     color: document.getElementById('timelineColor').value || undefined,
     links,
@@ -247,8 +247,8 @@ async function editTimeline(id) {
   document.getElementById('timelineLocation').value = t.location || '';
   document.getElementById('timelineOrganization').value = t.organization || '';
   document.getElementById('timelinePosition').value = t.position || '';
-  document.getElementById('timelineSkills').value = (t.skills || []).join(', ');
-  document.getElementById('timelineAchievements').value = (t.achievements || []).join(', ');
+  document.getElementById('timelineSkills').value = (t.skills || []).join('\\n');
+  document.getElementById('timelineAchievements').value = (t.achievements || []).join('\\n');
   document.getElementById('timelineIcon').value = t.icon || '';
   document.getElementById('timelineColor').value = t.color || '#059669';
   document.getElementById('timelineLinks').value = t.links ? JSON.stringify(t.links) : '';

@@ -61,21 +61,21 @@ export function modalHtml(config: string): string {
       <h4>目录导航</h4>
       <div class="config-row">
         <div class="config-item"><label>启用目录</label><div class="boolean-switch">
-          <input type="checkbox" id="modal-toc-enable"\${(${config}.toc || {}).enable ? ' checked' : ''}><label for="modal-toc-enable">在文章侧边显示目录导航</label></div></div>
+          <input type="checkbox" id="modal-toc-enable"${''}><label for="modal-toc-enable">在文章侧边显示目录导航</label></div></div>
       </div>
       <div class="config-row" style="margin-top:8px;">
         <div class="config-item"><label>目录深度</label><select id="modal-toc-depth">
-          <option value="1"\${(${config}.toc || {}).depth === 1 ? ' selected' : ''}>1 (仅h1)</option>
-          <option value="2"\${(${config}.toc || {}).depth === 2 ? ' selected' : ''}>2 (h1-h2)</option>
-          <option value="3"\${(${config}.toc || {}).depth === 3 ? ' selected' : ''}>3 (h1-h3)</option>
-          <option value="4"\${(${config}.toc || {}).depth === 4 ? ' selected' : ''}>4 (h1-h4)</option>
-          <option value="5"\${(${config}.toc || {}).depth === 5 ? ' selected' : ''}>5 (h1-h5)</option>
-          <option value="6"\${(${config}.toc || {}).depth === 6 ? ' selected' : ''}>6 (h1-h6)</option>
+          <option value="1"${''}>1 (仅h1)</option>
+          <option value="2"${''}>2 (h1-h2)</option>
+          <option value="3"${''}>3 (h1-h3)</option>
+          <option value="4"${''}>4 (h1-h4)</option>
+          <option value="5"${''}>5 (h1-h5)</option>
+          <option value="6"${''}>6 (h1-h6)</option>
         </select></div>
       </div>
       <div class="config-row" style="margin-top:8px;">
         <div class="config-item"><label>日语假名标记</label><div class="boolean-switch">
-          <input type="checkbox" id="modal-toc-japaneseBadge"\${(${config}.toc || {}).useJapaneseBadge ? ' checked' : ''}><label for="modal-toc-japaneseBadge">使用假名(ァィゥ...)代替数字</label></div></div>
+          <input type="checkbox" id="modal-toc-japaneseBadge"${''}><label for="modal-toc-japaneseBadge">使用假名(ァィゥ...)代替数字</label></div></div>
       </div>
       <p style="font-size:12px;margin-top:8px;">开启后会将 1、2、3... 改为 ァ、ィ、ゥ...，首页文章列表导航也会生效。</p>
     </div>

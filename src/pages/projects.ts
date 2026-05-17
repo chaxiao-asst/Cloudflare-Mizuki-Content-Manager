@@ -33,14 +33,14 @@ export const projectsPage = `
         <div class="form-group"><label>分类</label><input type="text" name="categoryInput" id="projectCategoryInput" list="projectCategoryList" placeholder="选择或输入新分类" autocomplete="off">
           <datalist id="projectCategoryList"></datalist></div>
         <div class="form-group"><label>状态</label><select name="status" id="projectStatus"><option value="completed">已完成</option><option value="in-progress">进行中</option><option value="planned">已计划</option></select></div>
-        <div class="form-group"><label>技术栈</label><input type="text" name="techStack" id="projectTechStack" placeholder="React, TypeScript..."></div>
+        <div class="form-group"><label>技术栈</label><input type="text" name="techStack" id="projectTechStack" placeholder="每行一个技术"></div>
         <div class="form-group"><label>封面图片URL</label><input type="text" name="image" id="projectImage" placeholder="/assets/projects/cover.png"></div>
         <div class="form-group"><label>Demo网址</label><input type="text" name="liveDemo" id="projectLiveDemo" placeholder="URL或相对路径"></div>
         <div class="form-group"><label>源码地址</label><input type="text" name="sourceCode" id="projectSourceCode" placeholder="URL或相对路径"></div>
         <div class="form-group"><label>项目主页</label><input type="text" name="visitUrl" id="projectVisitUrl" placeholder="URL或相对路径"></div>
         <div class="form-group"><label>开始日期</label><input type="date" name="startDate" id="projectStartDate"></div>
         <div class="form-group"><label>结束日期</label><input type="date" name="endDate" id="projectEndDate"></div>
-        <div class="form-group"><label>标签</label><input type="text" name="tags" id="projectTags" placeholder="tag1, tag2"></div>
+        <div class="form-group"><label>标签</label><input type="text" name="tags" id="projectTags" placeholder="每行一个标签"></div>
       </div>
       <div class="form-group"><label>描述</label><textarea name="description" id="projectDescription" placeholder="项目详细描述..."></textarea></div>
       <div class="form-group"><div class="boolean-switch"><input type="checkbox" name="featured" id="projectFeatured"><label for="projectFeatured">置顶项目</label></div></div>
@@ -169,14 +169,14 @@ document.getElementById('projectForm').addEventListener('submit', async e => {
     description: document.getElementById('projectDescription').value,
     image: document.getElementById('projectImage').value,
     category: categoryKey,
-    techStack: document.getElementById('projectTechStack').value.split(',').map(t => t.trim()).filter(Boolean),
+    techStack: document.getElementById('projectTechStack').value.split('\\n').map(t => t.trim()).filter(Boolean),
     status: document.getElementById('projectStatus').value,
     liveDemo: document.getElementById('projectLiveDemo').value,
     sourceCode: document.getElementById('projectSourceCode').value,
     startDate: document.getElementById('projectStartDate').value,
     endDate: document.getElementById('projectEndDate').value,
     featured: document.getElementById('projectFeatured').checked,
-    tags: document.getElementById('projectTags').value.split(',').map(t => t.trim()).filter(Boolean),
+    tags: document.getElementById('projectTags').value.split('\\n').map(t => t.trim()).filter(Boolean),
     visitUrl: document.getElementById('projectVisitUrl').value
   };
   const id = document.getElementById('projectId').value;
@@ -227,14 +227,14 @@ async function editProject(id) {
   document.getElementById('projectImage').value = p.image || '';
   var categoryNames = window.categoryNames || {};
   document.getElementById('projectCategoryInput').value = categoryNames[p.category] || p.category || '';
-  document.getElementById('projectTechStack').value = (p.techStack||[]).join(', ');
+  document.getElementById('projectTechStack').value = (p.techStack||[]).join('\\n');
   document.getElementById('projectStatus').value = p.status;
   document.getElementById('projectLiveDemo').value = p.liveDemo || '';
   document.getElementById('projectSourceCode').value = p.sourceCode || '';
   document.getElementById('projectStartDate').value = p.startDate || '';
   document.getElementById('projectEndDate').value = p.endDate || '';
   document.getElementById('projectFeatured').checked = p.featured || false;
-  document.getElementById('projectTags').value = (p.tags||[]).join(', ');
+  document.getElementById('projectTags').value = (p.tags||[]).join('\\n');
   document.getElementById('projectVisitUrl').value = p.visitUrl || '';
   document.getElementById('projectModal').classList.add('active');
 }

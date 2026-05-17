@@ -122,6 +122,7 @@ function openModal(id) {
   body.innerHTML = getModalContent(id);
   if (id === 'navLinks') renderNavBarLinks();
   if (id === 'announcement') initAnnouncementModal();
+  if (id === 'post-layout') initPostLayoutModal();
   modal.classList.add('active');
   const iconBtn = document.getElementById('iconify-footer-btn');
   if (iconBtn) {
@@ -139,5 +140,15 @@ ${composeModalContent()}
 function applyModalChanges() {
   const id = currentModal;
   ${composeApplyJs()}
+}
+
+function initPostLayoutModal() {
+  const toc = currentConfig.toc || {};
+  const tocEnable = document.getElementById('modal-toc-enable');
+  const tocDepth = document.getElementById('modal-toc-depth');
+  const tocBadge = document.getElementById('modal-toc-japaneseBadge');
+  if (tocEnable) tocEnable.checked = !!toc.enable;
+  if (tocDepth) tocDepth.value = toc.depth || 2;
+  if (tocBadge) tocBadge.checked = !!toc.useJapaneseBadge;
 }
 </script>`;

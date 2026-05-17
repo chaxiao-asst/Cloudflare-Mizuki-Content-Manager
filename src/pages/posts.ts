@@ -43,7 +43,7 @@ export const postsPage = `
           <div class="form-group"><label>发布日期</label><input type="date" name="published" id="postPublished"></div>
           <div class="form-group"><label>更新日期</label><input type="date" name="updated" id="postUpdated"></div>
           <div class="form-group"><label>分类</label><input type="text" name="category" id="postCategory" placeholder="技术 / 生活 / 教程..."></div>
-          <div class="form-group"><label>标签</label><input type="text" name="tags" id="postTags" placeholder="tag1, tag2, tag3"></div>
+          <div class="form-group"><label>标签</label><input type="text" name="tags" id="postTags" placeholder="每行一个标签"></div>
           <div class="form-group"><label>作者</label><input type="text" name="author" id="postAuthor" placeholder="作者名"></div>
           <div class="form-group"><label>封面图片</label><input type="text" name="image" id="postImage" placeholder="cover.webp 或 ./cover.webp"></div>
         </div>
@@ -71,26 +71,6 @@ export const postsPage = `
           <div class="form-group"><div class="boolean-switch"><input type="checkbox" name="encrypted" id="postEncrypted" onchange="toggleEncryptFields()"><label for="postEncrypted">🔒 启用客户端加密</label></div></div>
           <div class="form-group" id="encryptPasswordGroup" style="display:none;"><label>加密密码</label><input type="text" name="password" id="postPassword" placeholder="设置访问密码"></div>
           <div class="form-group" id="encryptHintGroup" style="display:none;"><label>密码提示</label><input type="text" name="passwordHint" id="postPasswordHint" placeholder="提示访问者密码"></div>
-        </div>
-        <div id="postLicenseSection">
-        <h3 style="margin:15px 0;color:#555;">版权与来源</h3>
-        <div class="form-group"><div class="boolean-switch"><input type="checkbox" name="showLicense" id="postShowLicense" onchange="toggleLicenseFields()"><label for="postShowLicense">📋 自定义版权信息</label></div></div>
-        <div id="licenseFields" style="display:none;">
-          <div class="form-grid">
-            <div class="form-group"><label>许可证</label><input type="text" name="licenseName" id="postLicenseName" placeholder="CC BY-NC-SA 4.0 / MIT / Unlicensed"></div>
-            <div class="form-group"><label>许可证链接</label><input type="text" name="licenseUrl" id="postLicenseUrl" placeholder="https://creativecommons.org/..."></div>
-            <div class="form-group"><label>源码链接</label><input type="text" name="sourceLink" id="postSourceLink" placeholder="https://github.com/..."></div>
-          </div>
-        </div>
-        </div>
-        <div id="postShareSection">
-        <h3 style="margin:15px 0;color:#555;">分享设置</h3>
-        <div class="form-group"><div class="boolean-switch"><input type="checkbox" name="showShare" id="postShowShare" onchange="toggleShareFields()"><label for="postShowShare">📤 自定义文章分享</label></div></div>
-        <div id="shareFields" style="display:none;">
-          <div class="form-grid">
-            <div class="form-group"><label>分享链接</label><input type="url" name="shareLink" id="postShareLink" placeholder="https://example.com/share/..."></div>
-          </div>
-        </div>
         </div>
         <h3 style="margin:15px 0;color:#555;">其他</h3>
         <div class="form-grid">
@@ -316,16 +296,6 @@ function toggleEncryptFields() {
   document.getElementById('encryptHintGroup').style.display = checked ? 'block' : 'none';
 }
 
-function toggleLicenseFields() {
-  var checked = document.getElementById('postShowLicense').checked;
-  document.getElementById('licenseFields').style.display = checked ? 'block' : 'none';
-}
-
-function toggleShareFields() {
-  var checked = document.getElementById('postShowShare').checked;
-  document.getElementById('shareFields').style.display = checked ? 'block' : 'none';
-}
-
 async function loadPosts() {
   var res = await api('GET', '/api/posts');
   window.postsData = res.data || [];
@@ -446,7 +416,7 @@ document.getElementById('postForm').addEventListener('submit', async function(e)
     published: document.getElementById('postPublished').value,
     updated: document.getElementById('postUpdated').value,
     description: document.getElementById('postDescription').value,
-    tags: document.getElementById('postTags').value.split(',').map(function(t) { return t.trim(); }).filter(Boolean),
+    tags: document.getElementById('postTags').value.split('\\n').map(function(t) { return t.trim(); }).filter(Boolean),
     category: document.getElementById('postCategory').value,
     author: document.getElementById('postAuthor').value,
     permalink: document.getElementById('postPermalink').value,
@@ -460,21 +430,6 @@ document.getElementById('postForm').addEventListener('submit', async function(e)
     alias: document.getElementById('postAlias').value,
     priority: document.getElementById('postPriority').value ? parseInt(document.getElementById('postPriority').value) : undefined
   };
-  if (document.getElementById('postShowLicense').checked) {
-    meta.licenseName = document.getElementById('postLicenseName').value;
-    meta.licenseUrl = document.getElementById('postLicenseUrl').value;
-    meta.sourceLink = document.getElementById('postSourceLink').value;
-  } else {
-    meta.licenseName = '';
-    meta.licenseUrl = '';
-    meta.sourceLink = '';
-  }
-  meta.share = document.getElementById('postShowShare').checked;
-  if (meta.share) {
-    meta.shareLink = document.getElementById('postShareLink').value || '';
-  } else {
-    meta.shareLink = '';
-  }
   var content = document.getElementById('postContent').value;
   var existing = document.getElementById('postName').value;
   if (existing) {
@@ -507,20 +462,12 @@ function clearPostForm() {
   document.getElementById('postEncrypted').checked = false;
   document.getElementById('postPassword').value = '';
   document.getElementById('postPasswordHint').value = '';
-  document.getElementById('postLicenseName').value = '';
-  document.getElementById('postLicenseUrl').value = '';
-  document.getElementById('postSourceLink').value = '';
-  document.getElementById('postShowLicense').checked = false;
-  document.getElementById('postShowShare').checked = false;
-  document.getElementById('postShareLink').value = '';
   var schemeToggle = document.getElementById('postSchemeToggle');
   if (schemeToggle) schemeToggle.checked = false;
   document.getElementById('postAlias').value = '';
   document.getElementById('postPriority').value = '';
   document.getElementById('postContent').value = '';
   toggleEncryptFields();
-  toggleLicenseFields();
-  toggleShareFields();
 }
 
 async function editPost(name) {
@@ -538,7 +485,7 @@ async function editPost(name) {
   document.getElementById('postUpdated').value = data.meta?.updated || '';
   document.getElementById('postCategory').value = data.meta?.category || '';
   document.getElementById('postAuthor').value = data.meta?.author || '';
-  document.getElementById('postTags').value = (data.meta?.tags || []).join(', ');
+  document.getElementById('postTags').value = (data.meta?.tags || []).join('\\n');
   document.getElementById('postImage').value = data.meta?.image || '';
   document.getElementById('postDescription').value = data.meta?.description || '';
   document.getElementById('postPinned').checked = data.meta?.pinned || false;
@@ -547,19 +494,10 @@ async function editPost(name) {
   document.getElementById('postEncrypted').checked = data.meta?.encrypted || false;
   document.getElementById('postPassword').value = data.meta?.password || '';
   document.getElementById('postPasswordHint').value = data.meta?.passwordHint || '';
-  document.getElementById('postLicenseName').value = data.meta?.licenseName || '';
-  document.getElementById('postLicenseUrl').value = data.meta?.licenseUrl || '';
-  document.getElementById('postSourceLink').value = data.meta?.sourceLink || '';
-  var hasLicense = !!(data.meta?.licenseName || data.meta?.licenseUrl || data.meta?.sourceLink);
-  document.getElementById('postShowLicense').checked = hasLicense;
-  document.getElementById('postShowShare').checked = data.meta?.share === true;
-  document.getElementById('postShareLink').value = data.meta?.shareLink || '';
   document.getElementById('postAlias').value = data.meta?.alias || '';
   document.getElementById('postPriority').value = data.meta?.priority !== undefined ? data.meta.priority : '';
   document.getElementById('postContent').value = data.content || '';
   toggleEncryptFields();
-  toggleLicenseFields();
-  toggleShareFields();
   document.getElementById('postSchemeRow').style.display = 'none';
   document.getElementById('postModal').classList.add('active');
   switchTab('basic');
@@ -579,31 +517,9 @@ document.addEventListener('DOMContentLoaded', async function() {
   helpBtns = document.querySelectorAll('.help-nav .btn');
   helpSections = document.querySelectorAll('.help-section');
   document.querySelector('.nav-link[data-page="posts"]')?.classList.add('active');
-  await fetchPostGlobalConfig();
-  applyPostGlobalConfig();
   loadPosts();
   document.getElementById('postModal').addEventListener('click', function(e) { if (e.target === document.getElementById('postModal')) { closePostModal(); } });
   document.getElementById('helpModal').addEventListener('click', function(e) { if (e.target === document.getElementById('helpModal')) { closeHelpModal(); } });
 });
 
-window.postGlobalConfig = { shareConfig: {}, licenseConfig: {} };
-
-async function fetchPostGlobalConfig() {
-  try {
-    var res = await api('GET', '/api/config');
-    window.postGlobalConfig = res.data || {};
-  } catch(e) {}
-}
-
-function applyPostGlobalConfig() {
-  var cfg = window.postGlobalConfig;
-  if (cfg.licenseConfig && cfg.licenseConfig.enable === false) {
-    var licenseSection = document.getElementById('postLicenseSection');
-    if (licenseSection) licenseSection.style.display = 'none';
-  }
-  if (cfg.shareConfig && cfg.shareConfig.enable === false) {
-    var shareSection = document.getElementById('postShareSection');
-    if (shareSection) shareSection.style.display = 'none';
-  }
-}
 </script>`;

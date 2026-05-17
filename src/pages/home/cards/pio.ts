@@ -40,7 +40,7 @@ export function modalHtml(config: string): string {
     <div class="config-section" style="margin-top:20px;">
       <h4>模型路径</h4>
       <div class="config-row">
-        <div class="config-item" style="width:100%;"><label>模型路径（JSON格式）</label><input type="text" id="modal-pio-models" value="\${escAttr((${config}.pioConfig || {}).models?.join(', ') || '/pio/models/pio/model.json')}" placeholder="多个路径用逗号分隔"></div>
+        <div class="config-item" style="width:100%;"><label>模型路径（JSON格式）</label><input type="text" id="modal-pio-models" value="\${escAttr((${config}.pioConfig || {}).models?.join('\\n') || '/pio/models/pio/model.json')}" placeholder="每行一个模型路径"></div>
       </div>
       <p style="font-size:12px;margin-top:8px;">将模型文件放置在 public/pio/models/ 目录下</p>
     </div>
@@ -82,7 +82,7 @@ export const applyJs = `
   if (id === 'pio') {
     currentConfig.pioConfig = {
       enable: document.getElementById('modal-pio-enable').checked,
-      models: document.getElementById('modal-pio-models').value.split(',').map(s => s.trim()).filter(s => s),
+      models: document.getElementById('modal-pio-models').value.split('\\n').map(s => s.trim()).filter(s => s),
       position: document.getElementById('modal-pio-position').value,
       width: parseInt(document.getElementById('modal-pio-width').value) || 280,
       height: parseInt(document.getElementById('modal-pio-height').value) || 250,
