@@ -31,8 +31,8 @@ export const timelinePage = `
         <div class="form-group"><label>地点</label><input type="text" name="location" id="timelineLocation" placeholder="北京、上海..."></div>
         <div class="form-group"><label>组织/机构</label><input type="text" name="organization" id="timelineOrganization" placeholder="公司、学校..."></div>
         <div class="form-group"><label>职位</label><input type="text" name="position" id="timelinePosition" placeholder="前端开发工程师..."></div>
-        <div class="form-group"><label>相关技能</label><input type="text" name="skills" id="timelineSkills" placeholder="每行一个技能"></div>
-        <div class="form-group"><label>成就</label><input type="text" name="achievements" id="timelineAchievements" placeholder="每行一个成就"></div>
+        <div class="form-group"><label>相关技能</label><textarea name="skills" id="timelineSkills" placeholder="每行一个技能" rows="2"></textarea></div>
+        <div class="form-group"><label>成就</label><textarea name="achievements" id="timelineAchievements" placeholder="每行一个成就" rows="2"></textarea></div>
         <div class="form-group"><label>图标</label><input type="text" name="icon" id="timelineIcon" placeholder="material-symbols:school"></div>
         <div class="form-group"><label>主题颜色</label><input type="color" name="color" id="timelineColor" value="#059669"></div>
       </div>

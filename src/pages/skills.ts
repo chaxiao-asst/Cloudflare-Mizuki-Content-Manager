@@ -38,8 +38,8 @@ export const skillsPage = `
         <div class="form-group"><label>主题颜色</label><input type="color" name="color" id="skillColor" value="#F7DF1E"></div>
         <div class="form-group"><label>经验（年）</label><input type="number" name="expYears" id="skillExpYears" value="0" min="0"></div>
         <div class="form-group"><label>经验（月）</label><input type="number" name="expMonths" id="skillExpMonths" value="0" min="0" max="11"></div>
-        <div class="form-group"><label>相关项目</label><input type="text" name="projects" id="skillProjects" placeholder="project1, project2"></div>
-        <div class="form-group"><label>证书</label><input type="text" name="certifications" id="skillCertifications" placeholder="证书1, 证书2"></div>
+        <div class="form-group"><label>相关项目</label><textarea name="projects" id="skillProjects" placeholder="每行一个项目" rows="2"></textarea></div>
+        <div class="form-group"><label>证书</label><textarea name="certifications" id="skillCertifications" placeholder="每行一个证书" rows="2"></textarea></div>
       </div>
       <div class="form-group"><label>描述</label><textarea name="description" id="skillDescription" placeholder="技能描述..."></textarea></div>
       <button type="submit" class="btn btn-primary">保存技能</button>
@@ -213,8 +213,8 @@ document.getElementById('skillForm').addEventListener('submit', async e => {
       months: parseInt(document.getElementById('skillExpMonths').value) || 0
     },
     color: document.getElementById('skillColor').value,
-    projects: document.getElementById('skillProjects').value.split(',').map(t => t.trim()).filter(Boolean),
-    certifications: document.getElementById('skillCertifications').value.split(',').map(t => t.trim()).filter(Boolean)
+    projects: document.getElementById('skillProjects').value.split('\n').map(t => t.trim()).filter(Boolean),
+    certifications: document.getElementById('skillCertifications').value.split('\n').map(t => t.trim()).filter(Boolean)
   };
   const id = document.getElementById('skillId').value;
   if (id) {
@@ -266,8 +266,8 @@ async function editSkill(id) {
   document.getElementById('skillExpYears').value = s.experience?.years || 0;
   document.getElementById('skillExpMonths').value = s.experience?.months || 0;
   document.getElementById('skillColor').value = s.color || '#F7DF1E';
-  document.getElementById('skillProjects').value = (s.projects || []).join(', ');
-  document.getElementById('skillCertifications').value = (s.certifications || []).join(', ');
+  document.getElementById('skillProjects').value = (s.projects || []).join('\n');
+  document.getElementById('skillCertifications').value = (s.certifications || []).join('\n');
   document.getElementById('skillModal').classList.add('active');
 }
 async function deleteSkill(id) {

@@ -24,7 +24,7 @@ export const friendsPage = `
         <div class="form-group"><label>网站URL</label><input type="url" name="siteurl" id="friendSiteurl" placeholder="https://..." required></div>
         <div class="form-group"><label>图片URL</label><input type="url" name="imgurl" id="friendImgurl" placeholder="https://.../avatar.png"></div>
         <div class="form-group"><label>描述</label><input type="text" name="desc" id="friendDesc" placeholder="网站描述"></div>
-        <div class="form-group"><label>标签</label><input type="text" name="tags" id="friendTags" placeholder="tag1, tag2"></div>
+        <div class="form-group"><label>标签</label><textarea name="tags" id="friendTags" placeholder="每行一个标签" rows="2"></textarea></div>
       </div>
       <button type="submit" class="btn btn-primary">保存友链</button>
       <button type="button" class="btn btn-success" onclick="clearFriendForm(); closeFriendModal()">取消</button>
@@ -141,7 +141,7 @@ document.getElementById('friendForm').addEventListener('submit', async e => {
     siteurl: document.getElementById('friendSiteurl').value,
     imgurl: document.getElementById('friendImgurl').value,
     desc: document.getElementById('friendDesc').value,
-    tags: document.getElementById('friendTags').value.split(',').map(t => t.trim()).filter(Boolean)
+    tags: document.getElementById('friendTags').value.split('\n').map(t => t.trim()).filter(Boolean)
   };
   const id = document.getElementById('friendId').value;
   if (id) {
@@ -180,7 +180,7 @@ async function editFriend(id) {
   document.getElementById('friendSiteurl').value = f.siteurl;
   document.getElementById('friendImgurl').value = f.imgurl || '';
   document.getElementById('friendDesc').value = f.desc || '';
-  document.getElementById('friendTags').value = (f.tags||[]).join(', ');
+  document.getElementById('friendTags').value = (f.tags||[]).join('\n');
   document.getElementById('friendModal').classList.add('active');
 }
 async function deleteFriend(id) {

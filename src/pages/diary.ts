@@ -24,8 +24,8 @@ export const diaryPage = `
         <div class="form-group"><label>日期时间</label><input type="datetime-local" name="date" id="diaryDate" required></div>
         <div class="form-group"><label>心情</label><input type="text" name="mood" id="diaryMood" placeholder="开心/难过/平静..."></div>
         <div class="form-group"><label>地点</label><input type="text" name="location" id="diaryLocation" placeholder="北京、上海..."></div>
-        <div class="form-group"><label>标签</label><input type="text" name="tags" id="diaryTags" placeholder="tag1, tag2"></div>
-        <div class="form-group"><label>图片</label><input type="text" name="images" id="diaryImages" placeholder="images/diary/1.jpg, images/diary/2.jpg"></div>
+        <div class="form-group"><label>标签</label><textarea name="tags" id="diaryTags" placeholder="每行一个标签" rows="2"></textarea></div>
+        <div class="form-group"><label>图片</label><textarea name="images" id="diaryImages" placeholder="每行一个图片路径" rows="2"></textarea></div>
       </div>
       <div class="form-group"><label>内容</label><textarea name="content" id="diaryContent" placeholder="今天发生了什么..."></textarea></div>
       <button type="submit" class="btn btn-primary">保存日记</button>
@@ -134,8 +134,8 @@ document.getElementById('diaryForm').addEventListener('submit', async e => {
     date: date.toISOString(),
     mood: document.getElementById('diaryMood').value,
     location: document.getElementById('diaryLocation').value,
-    tags: document.getElementById('diaryTags').value.split(',').map(t => t.trim()).filter(Boolean),
-    images: document.getElementById('diaryImages').value.split(',').map(t => t.trim()).filter(Boolean)
+    tags: document.getElementById('diaryTags').value.split('\n').map(t => t.trim()).filter(Boolean),
+    images: document.getElementById('diaryImages').value.split('\n').map(t => t.trim()).filter(Boolean)
   };
   const id = document.getElementById('diaryId').value;
   if (id) {
@@ -177,8 +177,8 @@ async function editDiary(id) {
   }
   document.getElementById('diaryMood').value = d.mood || '';
   document.getElementById('diaryLocation').value = d.location || '';
-  document.getElementById('diaryTags').value = (d.tags||[]).join(', ');
-  document.getElementById('diaryImages').value = (d.images||[]).join(', ');
+  document.getElementById('diaryTags').value = (d.tags||[]).join('\n');
+  document.getElementById('diaryImages').value = (d.images||[]).join('\n');
   document.getElementById('diaryContent').value = d.content || '';
   document.getElementById('diaryModal').classList.add('active');
 }

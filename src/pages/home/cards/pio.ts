@@ -40,7 +40,7 @@ export function modalHtml(config: string): string {
     <div class="config-section" style="margin-top:20px;">
       <h4>模型路径</h4>
       <div class="config-row">
-        <div class="config-item" style="width:100%;"><label>模型路径（JSON格式）</label><input type="text" id="modal-pio-models" value="\${escAttr((${config}.pioConfig || {}).models?.join('\\n') || '/pio/models/pio/model.json')}" placeholder="每行一个模型路径"></div>
+        <div class="config-item" style="width:100%;"><label>模型路径（JSON格式）</label><textarea id="modal-pio-models" placeholder="每行一个模型路径" rows="2">\${escAttr((${config}.pioConfig || {}).models?.join('\\n') || '/pio/models/pio/model.json')}</textarea></div>
       </div>
       <p style="font-size:12px;margin-top:8px;">将模型文件放置在 public/pio/models/ 目录下</p>
     </div>

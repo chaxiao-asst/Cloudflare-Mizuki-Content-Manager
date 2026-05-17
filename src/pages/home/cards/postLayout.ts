@@ -18,22 +18,22 @@ export function modalHtml(config: string): string {
       <h4>上次编辑卡片</h4>
       <div class="config-row">
         <div class="config-item"><label>显示上次编辑</label><div class="boolean-switch">
-          <input type="checkbox" id="modal-lastmod-enable"\${${config}.showLastModified !== undefined ? (${config}.showLastModified ? ' checked' : '') : ' checked'}><label for="modal-lastmod-enable">在文章底部显示最后修改时间</label></div></div>
+          <input type="checkbox" id="modal-lastmod-enable"><label for="modal-lastmod-enable">在文章底部显示最后修改时间</label></div></div>
       </div>
     </div>
     <div class="config-section" style="margin-top:20px;">
       <h4>代码块配置</h4>
       <div class="config-row">
         <div class="config-item"><label>代码块主题</label><select id="modal-code-theme">
-          <option value="github-dark"\${(${config}.expressiveCodeConfig || {}).theme === 'github-dark' ? ' selected' : ''}>github-dark (深色)</option>
-          <option value="github-light"\${(${config}.expressiveCodeConfig || {}).theme === 'github-light' ? ' selected' : ''}>github-light (浅色)</option>
-          <option value="dracula"\${(${config}.expressiveCodeConfig || {}).theme === 'dracula' ? ' selected' : ''}>dracula</option>
-          <option value="monokai"\${(${config}.expressiveCodeConfig || {}).theme === 'monokai' ? ' selected' : ''}>monokai</option>
+          <option value="github-dark">github-dark (深色)</option>
+          <option value="github-light">github-light (浅色)</option>
+          <option value="dracula">dracula</option>
+          <option value="monokai">monokai</option>
         </select></div>
       </div>
       <div class="config-row" style="margin-top:8px;">
         <div class="config-item"><label>主题切换时隐藏</label><div class="boolean-switch">
-          <input type="checkbox" id="modal-code-hideTransition"\${(${config}.expressiveCodeConfig || {}).hideDuringThemeTransition !== false ? ' checked' : ''}><label for="modal-code-hideTransition">避免切换时卡顿</label></div></div>
+          <input type="checkbox" id="modal-code-hideTransition"><label for="modal-code-hideTransition">避免切换时卡顿</label></div></div>
       </div>
       <p style="font-size:12px;margin-top:8px;">注意：某些样式已被覆盖，请参阅 astro.config.mjs 文件。</p>
     </div>
@@ -41,41 +41,41 @@ export function modalHtml(config: string): string {
       <h4>分享组件</h4>
       <div class="config-row">
         <div class="config-item"><label>启用分享</label><div class="boolean-switch">
-          <input type="checkbox" id="modal-share-enable"\${(${config}.shareConfig || {}).enable ? ' checked' : ''}><label for="modal-share-enable">在文章区域显示分享组件</label></div></div>
+          <input type="checkbox" id="modal-share-enable"><label for="modal-share-enable">在文章区域显示分享组件</label></div></div>
       </div>
     </div>
     <div class="config-section" style="margin-top:20px;">
       <h4>版权信息</h4>
       <div class="config-row">
         <div class="config-item"><label>显示版权</label><div class="boolean-switch">
-          <input type="checkbox" id="modal-license-enable"\${(${config}.licenseConfig || {}).enable ? ' checked' : ''}><label for="modal-license-enable">在文章底部显示版权信息</label></div></div>
+          <input type="checkbox" id="modal-license-enable"><label for="modal-license-enable">在文章底部显示版权信息</label></div></div>
       </div>
       <div class="config-row" style="margin-top:8px;">
-        <div class="config-item"><label>版权名称</label><input type="text" id="modal-license-name" value="\${escAttr((${config}.licenseConfig || {}).name || '')}" placeholder="如: CC BY-NC-SA 4.0"></div>
+        <div class="config-item"><label>版权名称</label><input type="text" id="modal-license-name" placeholder="如: CC BY-NC-SA 4.0"></div>
       </div>
       <div class="config-row" style="margin-top:8px;">
-        <div class="config-item"><label>版权链接</label><input type="text" id="modal-license-url" value="\${escAttr((${config}.licenseConfig || {}).url || '')}" placeholder="https://creativecommons.org/..."></div>
+        <div class="config-item"><label>版权链接</label><input type="text" id="modal-license-url" placeholder="https://creativecommons.org/..."></div>
       </div>
     </div>
     <div class="config-section" style="margin-top:20px;">
       <h4>目录导航</h4>
       <div class="config-row">
         <div class="config-item"><label>启用目录</label><div class="boolean-switch">
-          <input type="checkbox" id="modal-toc-enable"${''}><label for="modal-toc-enable">在文章侧边显示目录导航</label></div></div>
+          <input type="checkbox" id="modal-toc-enable"><label for="modal-toc-enable">在文章侧边显示目录导航</label></div></div>
       </div>
       <div class="config-row" style="margin-top:8px;">
         <div class="config-item"><label>目录深度</label><select id="modal-toc-depth">
-          <option value="1"${''}>1 (仅h1)</option>
-          <option value="2"${''}>2 (h1-h2)</option>
-          <option value="3"${''}>3 (h1-h3)</option>
-          <option value="4"${''}>4 (h1-h4)</option>
-          <option value="5"${''}>5 (h1-h5)</option>
-          <option value="6"${''}>6 (h1-h6)</option>
+          <option value="1">1 (仅h1)</option>
+          <option value="2">2 (h1-h2)</option>
+          <option value="3">3 (h1-h3)</option>
+          <option value="4">4 (h1-h4)</option>
+          <option value="5">5 (h1-h5)</option>
+          <option value="6">6 (h1-h6)</option>
         </select></div>
       </div>
       <div class="config-row" style="margin-top:8px;">
         <div class="config-item"><label>日语假名标记</label><div class="boolean-switch">
-          <input type="checkbox" id="modal-toc-japaneseBadge"${''}><label for="modal-toc-japaneseBadge">使用假名(ァィゥ...)代替数字</label></div></div>
+          <input type="checkbox" id="modal-toc-japaneseBadge"><label for="modal-toc-japaneseBadge">使用假名(ァィゥ...)代替数字</label></div></div>
       </div>
       <p style="font-size:12px;margin-top:8px;">开启后会将 1、2、3... 改为 ァ、ィ、ゥ...，首页文章列表导航也会生效。</p>
     </div>
@@ -83,31 +83,31 @@ export function modalHtml(config: string): string {
       <h4>评论系统</h4>
       <div class="config-row">
         <div class="config-item"><label>启用评论</label><div class="boolean-switch">
-          <input type="checkbox" id="modal-comment-enable"\${(${config}.commentConfig || {}).enable ? ' checked' : ''}><label for="modal-comment-enable">启用评论功能</label></div></div>
+          <input type="checkbox" id="modal-comment-enable"><label for="modal-comment-enable">启用评论功能</label></div></div>
       </div>
       <div class="config-row" style="margin-top:8px;">
         <div class="config-item"><label>评论系统</label><select id="modal-comment-system">
-          <option value="twikoo"\${(${config}.commentConfig || {}).system === 'twikoo' ? ' selected' : ''}>Twikoo</option>
-          <option value="giscus"\${(${config}.commentConfig || {}).system === 'giscus' ? ' selected' : ''}>Giscus (GitHub)</option>
+          <option value="twikoo">Twikoo</option>
+          <option value="giscus">Giscus (GitHub)</option>
         </select></div>
       </div>
-      <div id="modal-comment-twikoo-fields" style="margin-top:12px;\${(${config}.commentConfig || {}).system === 'giscus' ? 'display:none;' : ''}">
+      <div id="modal-comment-twikoo-fields" style="margin-top:12px;">
         <div class="config-row">
-          <div class="config-item"><label>Twikoo 环境ID</label><input type="text" id="modal-comment-twikoo-envId" value="\${escAttr((${config}.commentConfig || {}).twikoo?.envId || '')}" placeholder="https://your-twikoo.vercel.app"></div>
+          <div class="config-item"><label>Twikoo 环境ID</label><input type="text" id="modal-comment-twikoo-envId" placeholder="https://your-twikoo.vercel.app"></div>
         </div>
       </div>
-      <div id="modal-comment-giscus-fields" style="margin-top:12px;\${(${config}.commentConfig || {}).system !== 'giscus' ? 'display:none;' : ''}">
+      <div id="modal-comment-giscus-fields" style="margin-top:12px;">
         <div class="config-row">
-          <div class="config-item"><label>仓库 (repo)</label><input type="text" id="modal-comment-giscus-repo" value="\${escAttr((${config}.commentConfig || {}).giscus?.repo || '')}" placeholder="username/repo"></div>
+          <div class="config-item"><label>仓库 (repo)</label><input type="text" id="modal-comment-giscus-repo" placeholder="username/repo"></div>
         </div>
         <div class="config-row" style="margin-top:8px;">
-          <div class="config-item"><label>仓库ID (repoId)</label><input type="text" id="modal-comment-giscus-repoId" value="\${escAttr((${config}.commentConfig || {}).giscus?.repoId || '')}" placeholder="R_kgD..."></div>
+          <div class="config-item"><label>仓库ID (repoId)</label><input type="text" id="modal-comment-giscus-repoId" placeholder="R_kgD..."></div>
         </div>
         <div class="config-row" style="margin-top:8px;">
-          <div class="config-item"><label>分类 (category)</label><input type="text" id="modal-comment-giscus-category" value="\${escAttr((${config}.commentConfig || {}).giscus?.category || 'Announcements')}"></div>
+          <div class="config-item"><label>分类 (category)</label><input type="text" id="modal-comment-giscus-category" placeholder="Announcements"></div>
         </div>
         <div class="config-row" style="margin-top:8px;">
-          <div class="config-item"><label>分类ID (categoryId)</label><input type="text" id="modal-comment-giscus-categoryId" value="\${escAttr((${config}.commentConfig || {}).giscus?.categoryId || '')}" placeholder="DIC_kwD..."></div>
+          <div class="config-item"><label>分类ID (categoryId)</label><input type="text" id="modal-comment-giscus-categoryId" placeholder="DIC_kwD..."></div>
         </div>
       </div>
       <p style="font-size:12px;margin-top:12px;">Twikoo 需要部署到 Vercel 等平台。Giscus 基于 GitHub Discussions，适合技术博客。</p>

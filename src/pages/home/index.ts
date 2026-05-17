@@ -143,12 +143,56 @@ function applyModalChanges() {
 }
 
 function initPostLayoutModal() {
-  const toc = currentConfig.toc || {};
-  const tocEnable = document.getElementById('modal-toc-enable');
-  const tocDepth = document.getElementById('modal-toc-depth');
-  const tocBadge = document.getElementById('modal-toc-japaneseBadge');
+  const cfg = currentConfig;
+  const el = function(id) { return document.getElementById(id); };
+
+  const lastmod = el('modal-lastmod-enable');
+  if (lastmod) lastmod.checked = cfg.showLastModified !== undefined ? cfg.showLastModified : true;
+
+  const ec = cfg.expressiveCodeConfig || {};
+  const codeTheme = el('modal-code-theme');
+  if (codeTheme) codeTheme.value = ec.theme || 'github-dark';
+  const codeHide = el('modal-code-hideTransition');
+  if (codeHide) codeHide.checked = ec.hideDuringThemeTransition !== false;
+
+  const share = cfg.shareConfig || {};
+  const shareEnable = el('modal-share-enable');
+  if (shareEnable) shareEnable.checked = !!share.enable;
+
+  const license = cfg.licenseConfig || {};
+  const licenseEnable = el('modal-license-enable');
+  if (licenseEnable) licenseEnable.checked = !!license.enable;
+  const licenseName = el('modal-license-name');
+  if (licenseName) licenseName.value = license.name || '';
+  const licenseUrl = el('modal-license-url');
+  if (licenseUrl) licenseUrl.value = license.url || '';
+
+  const toc = cfg.toc || {};
+  const tocEnable = el('modal-toc-enable');
   if (tocEnable) tocEnable.checked = !!toc.enable;
+  const tocDepth = el('modal-toc-depth');
   if (tocDepth) tocDepth.value = toc.depth || 2;
+  const tocBadge = el('modal-toc-japaneseBadge');
   if (tocBadge) tocBadge.checked = !!toc.useJapaneseBadge;
+
+  const comment = cfg.commentConfig || {};
+  const commentEnable = el('modal-comment-enable');
+  if (commentEnable) commentEnable.checked = !!comment.enable;
+  const commentSystem = el('modal-comment-system');
+  if (commentSystem) commentSystem.value = comment.system || 'twikoo';
+  const twikooFields = el('modal-comment-twikoo-fields');
+  const giscusFields = el('modal-comment-giscus-fields');
+  if (twikooFields) twikooFields.style.display = comment.system === 'giscus' ? 'none' : '';
+  if (giscusFields) giscusFields.style.display = comment.system === 'giscus' ? '' : 'none';
+  const twikooEnvId = el('modal-comment-twikoo-envId');
+  if (twikooEnvId) twikooEnvId.value = (comment.twikoo || {}).envId || '';
+  const giscusRepo = el('modal-comment-giscus-repo');
+  if (giscusRepo) giscusRepo.value = (comment.giscus || {}).repo || '';
+  const giscusRepoId = el('modal-comment-giscus-repoId');
+  if (giscusRepoId) giscusRepoId.value = (comment.giscus || {}).repoId || '';
+  const giscusCategory = el('modal-comment-giscus-category');
+  if (giscusCategory) giscusCategory.value = (comment.giscus || {}).category || '';
+  const giscusCategoryId = el('modal-comment-giscus-categoryId');
+  if (giscusCategoryId) giscusCategoryId.value = (comment.giscus || {}).categoryId || '';
 }
 </script>`;

@@ -48,7 +48,7 @@ export const albumsPage = `
           <div class="form-group"><label>拍摄地点</label><input type="text" name="location" id="albumLocation" placeholder="如: 日本京都"></div>
           <div class="form-group"><label>相册封面</label><input type="text" name="cover" id="albumCover" placeholder="图片URL或相对路径"></div>
         </div>
-        <div class="form-group"><label>标签</label><input type="text" name="tags" id="albumTags" placeholder="每行一个标签"></div>
+        <div class="form-group"><label>标签</label><textarea name="tags" id="albumTags" placeholder="每行一个标签" rows="2"></textarea></div>
         <div class="form-group"><label>相册描述</label><textarea name="description" id="albumDescription" placeholder="相册描述..." rows="2"></textarea></div>
         <div class="form-group">
           <div class="boolean-switch"><input type="checkbox" name="hidden" id="albumHidden"><label for="albumHidden">隐藏相册（不在前台列表显示）</label></div>
@@ -102,7 +102,7 @@ export const albumsPage = `
         <div class="form-group"><label>镜头信息</label><input type="text" name="pLens" id="peLens" placeholder="如: RF 24-70mm"></div>
       </div>
       <div class="form-group"><label>图片描述</label><textarea name="pDescription" id="peDescription" placeholder="图片描述..." rows="2"></textarea></div>
-      <div class="form-group"><label>图片标签</label><input type="text" name="pTags" id="peTags" placeholder="每行一个标签"></div>
+      <div class="form-group"><label>图片标签</label><textarea name="pTags" id="peTags" placeholder="每行一个标签" rows="2"></textarea></div>
       <div class="form-group">
         <label>拍摄参数</label>
         <div class="form-grid" style="margin-top:8px;">

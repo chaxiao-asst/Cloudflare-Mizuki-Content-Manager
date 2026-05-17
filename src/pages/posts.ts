@@ -43,7 +43,7 @@ export const postsPage = `
           <div class="form-group"><label>发布日期</label><input type="date" name="published" id="postPublished"></div>
           <div class="form-group"><label>更新日期</label><input type="date" name="updated" id="postUpdated"></div>
           <div class="form-group"><label>分类</label><input type="text" name="category" id="postCategory" placeholder="技术 / 生活 / 教程..."></div>
-          <div class="form-group"><label>标签</label><input type="text" name="tags" id="postTags" placeholder="每行一个标签"></div>
+          <div class="form-group"><label>标签</label><textarea name="tags" id="postTags" placeholder="每行一个标签" rows="2"></textarea></div>
           <div class="form-group"><label>作者</label><input type="text" name="author" id="postAuthor" placeholder="作者名"></div>
           <div class="form-group"><label>封面图片</label><input type="text" name="image" id="postImage" placeholder="cover.webp 或 ./cover.webp"></div>
         </div>
