@@ -6,10 +6,10 @@ export function createAlbumsRouter(githubClient: GitHubClient) {
   const router = Router();
 
   router.get('/api/albums', async () => {
+    const albums: Array<{ name: string; info: AlbumInfo }> = [];
     try {
       const files = await githubClient.listFiles('public/images/albums');
       const dirs = files.filter(f => f.type === 'dir');
-      const albums: Array<{ name: string; info: AlbumInfo }> = [];
 
       for (const dir of dirs) {
         try {
@@ -22,8 +22,8 @@ export function createAlbumsRouter(githubClient: GitHubClient) {
       }
 
       return Response.json({ success: true, data: albums });
-    } catch (error) {
-      return Response.json({ success: false, message: (error as Error).message }, { status: 500 });
+    } catch {
+      return Response.json({ success: true, data: albums });
     }
   });
 

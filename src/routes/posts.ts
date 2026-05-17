@@ -47,20 +47,23 @@ export function createPostsRouter(githubClient: GitHubClient) {
   const router = Router();
 
   router.get('/api/posts', async () => {
+    const posts: Array<{ name: string; meta: Record<string, unknown> }> = [];
     try {
       const files = await githubClient.listFiles('src/content/posts');
-      const posts: Array<{ name: string; meta: Record<string, unknown> }> = [];
-
       for (const file of files) {
-        if (file.type === 'dir') {
-          const postFile = await githubClient.getFile(`src/content/posts/${file.name}/index.md`);
-          const { meta } = parseFrontmatter(postFile.content);
-          posts.push({ name: file.name, meta: normalizePostMeta(meta) });
-        } else if (file.type === 'file' && file.name.endsWith('.md')) {
-          const postFile = await githubClient.getFile(`src/content/posts/${file.name}`);
-          const { meta } = parseFrontmatter(postFile.content);
-          const name = file.name.replace('.md', '');
-          posts.push({ name, meta: normalizePostMeta(meta) });
+        try {
+          if (file.type === 'dir') {
+            const postFile = await githubClient.getFile(`src/content/posts/${file.name}/index.md`);
+            const { meta } = parseFrontmatter(postFile.content);
+            posts.push({ name: file.name, meta: normalizePostMeta(meta) });
+          } else if (file.type === 'file' && file.name.endsWith('.md')) {
+            const postFile = await githubClient.getFile(`src/content/posts/${file.name}`);
+            const { meta } = parseFrontmatter(postFile.content);
+            const name = file.name.replace('.md', '');
+            posts.push({ name, meta: normalizePostMeta(meta) });
+          }
+        } catch {
+          continue;
         }
       }
 
@@ -71,8 +74,8 @@ export function createPostsRouter(githubClient: GitHubClient) {
       });
 
       return Response.json({ success: true, data: posts });
-    } catch (error) {
-      return Response.json({ success: false, message: (error as Error).message }, { status: 500 });
+    } catch {
+      return Response.json({ success: true, data: posts });
     }
   });
 
