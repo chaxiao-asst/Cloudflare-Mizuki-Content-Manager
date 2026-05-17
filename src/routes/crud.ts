@@ -18,10 +18,16 @@ export function createCrudRouter(githubClient: GitHubClient, config: CrudConfig)
     try {
       const file = await githubClient.getFile(filePath);
       const parseResult = parseTsVariable(file.content, varName);
-      const data = Array.isArray(parseResult) ? parseResult : [];
-      return Response.json({ success: true, data });
+      if (parseResult === null) {
+        return Response.json({ success: false, message: `Variable "${varName}" not found in ${filePath}` }, { status: 500 });
+      }
+      if (!Array.isArray(parseResult)) {
+        const errObj = parseResult as Record<string, unknown>;
+        return Response.json({ success: false, message: `Parse error: ${errObj.error || 'unknown'}`, detail: String(errObj.jsonStr || '').substring(0, 300) }, { status: 500 });
+      }
+      return Response.json({ success: true, data: parseResult });
     } catch (error) {
-      return Response.json({ success: false, message: (error as Error).message }, { status: 500 });
+      return Response.json({ success: false, message: `File error: ${(error as Error).message}` }, { status: 500 });
     }
   });
 
