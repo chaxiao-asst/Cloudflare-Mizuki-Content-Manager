@@ -18,13 +18,15 @@ export function modalHtml(config: string): string {
 }
 
 export const summaryJs = `
-  const sl = config.sidebarLayoutConfig;
-  if (sl && sl.components) {
-    document.getElementById('summary-sidebarLayout-left').textContent = (sl.components.left || []).length + ' 个组件';
-    document.getElementById('summary-sidebarLayout-right').textContent = (sl.components.right || []).length + ' 个组件';
-  } else {
-    document.getElementById('summary-sidebarLayout-left').textContent = '未配置';
-    document.getElementById('summary-sidebarLayout-right').textContent = '未配置';
+  {
+    const sl = config.sidebarLayoutConfig;
+    if (sl && sl.components) {
+      document.getElementById('summary-sidebarLayout-left').textContent = (sl.components.left || []).length + ' 个组件';
+      document.getElementById('summary-sidebarLayout-right').textContent = (sl.components.right || []).length + ' 个组件';
+    } else {
+      document.getElementById('summary-sidebarLayout-left').textContent = '未配置';
+      document.getElementById('summary-sidebarLayout-right').textContent = '未配置';
+    }
   }
 `;
 

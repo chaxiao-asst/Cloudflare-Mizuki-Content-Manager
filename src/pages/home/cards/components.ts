@@ -75,19 +75,21 @@ export function modalHtml(config: string): string {
 }
 
 export const summaryJs = `
-  const sl = config.sidebarLayoutConfig;
-  if (sl && sl.properties) {
-    const catProp = sl.properties.find(p => p.type === 'categories');
-    if (catProp) {
-      document.getElementById('summary-categories-position').textContent = catProp.position === 'sticky' ? '粘性定位' : (catProp.position === 'top' ? '顶部固定' : catProp.position || '-');
-      document.getElementById('summary-categories-threshold').textContent = catProp.responsive?.collapseThreshold !== undefined ? catProp.responsive.collapseThreshold : '未设置';
+  {
+    const sl = config.sidebarLayoutConfig;
+    if (sl && sl.properties) {
+      const catProp = sl.properties.find(p => p.type === 'categories');
+      if (catProp) {
+        document.getElementById('summary-categories-position').textContent = catProp.position === 'sticky' ? '粘性定位' : (catProp.position === 'top' ? '顶部固定' : catProp.position || '-');
+        document.getElementById('summary-categories-threshold').textContent = catProp.responsive?.collapseThreshold !== undefined ? catProp.responsive.collapseThreshold : '未设置';
+      } else {
+        document.getElementById('summary-categories-position').textContent = '未配置';
+        document.getElementById('summary-categories-threshold').textContent = '-';
+      }
     } else {
       document.getElementById('summary-categories-position').textContent = '未配置';
       document.getElementById('summary-categories-threshold').textContent = '-';
     }
-  } else {
-    document.getElementById('summary-categories-position').textContent = '未配置';
-    document.getElementById('summary-categories-threshold').textContent = '-';
   }
 `;
 
