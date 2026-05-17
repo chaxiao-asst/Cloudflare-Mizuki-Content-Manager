@@ -1,4 +1,4 @@
-export const CARD_ID = 'postLayout';
+export const CARD_ID = 'post-layout';
 
 export function cardHtml(): string {
   return `<div class="config-card" onclick="openModal('post-layout')">

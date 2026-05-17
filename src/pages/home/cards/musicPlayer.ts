@@ -1,4 +1,4 @@
-export const CARD_ID = 'musicPlayer';
+export const CARD_ID = 'music-player';
 
 export function cardHtml(): string {
   return `<div class="config-card" onclick="openModal('music-player')">

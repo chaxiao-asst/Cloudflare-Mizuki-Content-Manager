@@ -67,12 +67,12 @@ export function sidebarLayoutModalHtml(config: string): string {
       <h4>左侧栏组件</h4>
       <p style="font-size:12px;margin-bottom:12px;">拖拽排序，控制在左侧栏显示的组件</p>
       <div id="sidebar-left-container" class="sidebar-components-container" ondragover="handleContainerDragOver(event)" ondrop="handleContainerDrop(event)">
-        \${((${config}).sidebarLayoutConfig?.components?.left || []).map((c, idx) => '<div class="sidebar-component-item" draggable="true" data-sidebar="left" data-type="' + c + '" data-index="' + idx + '" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event)" ondragenter="handleDragEnter(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)"><span class="drag-handle">⋮⋮</span><span>' + (componentNames[c] || c) + '</span><button type="button" class="btn-danger btn-sm" onclick="removeSidebarComponent(\\"' + c + '\\", \\"left\\")">移除</button></div>').join('') || '<div class="empty-state">暂无组件</div>'}
+        \${((${config}).sidebarLayoutConfig?.components?.left || []).map((c, idx) => '<div class="sidebar-component-item" draggable="true" data-sidebar="left" data-type="' + c + '" data-index="' + idx + '" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event)" ondragenter="handleDragEnter(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)"><span class="drag-handle">⋮⋮</span><span>' + (${JSON.stringify(componentNames)}[c] || c) + '</span><button type="button" class="btn-danger btn-sm" onclick="removeSidebarComponent(\\"' + c + '\\", \\"left\\")">移除</button></div>').join('') || '<div class="empty-state">暂无组件</div>'}
       </div>
       <div style="margin-top:12px;">
         <select id="modal-sidebar-add-left" style="width:100%;padding:10px;border-radius:8px;margin-bottom:8px;">
           <option value="">选择要添加的组件...</option>
-          \${componentTypes.filter(t => !((${config}).sidebarLayoutConfig?.components?.left || []).includes(t)).map(t => '<option value="' + t + '">' + (componentNames[t] || t) + '</option>').join('')}
+          \${${JSON.stringify(componentTypes)}.filter(t => !((${config}).sidebarLayoutConfig?.components?.left || []).includes(t)).map(t => '<option value="' + t + '">' + (${JSON.stringify(componentNames)}[t] || t) + '</option>').join('')}
         </select>
         <button type="button" class="btn-primary" onclick="addSidebarComponent('left')" style="width:100%;">+ 添加到左侧栏</button>
       </div>
@@ -81,12 +81,12 @@ export function sidebarLayoutModalHtml(config: string): string {
       <h4>右侧栏组件</h4>
       <p style="font-size:12px;margin-bottom:12px;">拖拽排序，控制在右侧栏显示的组件</p>
       <div id="sidebar-right-container" class="sidebar-components-container" ondragover="handleContainerDragOver(event)" ondrop="handleContainerDrop(event)">
-        \${((${config}).sidebarLayoutConfig?.components?.right || []).map((c, idx) => '<div class="sidebar-component-item" draggable="true" data-sidebar="right" data-type="' + c + '" data-index="' + idx + '" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event)" ondragenter="handleDragEnter(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)"><span class="drag-handle">⋮⋮</span><span>' + (componentNames[c] || c) + '</span><button type="button" class="btn-danger btn-sm" onclick="removeSidebarComponent(\\"' + c + '\\", \\"right\\")">移除</button></div>').join('') || '<div class="empty-state">暂无组件</div>'}
+        \${((${config}).sidebarLayoutConfig?.components?.right || []).map((c, idx) => '<div class="sidebar-component-item" draggable="true" data-sidebar="right" data-type="' + c + '" data-index="' + idx + '" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event)" ondragenter="handleDragEnter(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)"><span class="drag-handle">⋮⋮</span><span>' + (${JSON.stringify(componentNames)}[c] || c) + '</span><button type="button" class="btn-danger btn-sm" onclick="removeSidebarComponent(\\"' + c + '\\", \\"right\\")">移除</button></div>').join('') || '<div class="empty-state">暂无组件</div>'}
       </div>
       <div style="margin-top:12px;">
         <select id="modal-sidebar-add-right" style="width:100%;padding:10px;border-radius:8px;margin-bottom:8px;">
           <option value="">选择要添加的组件...</option>
-          \${componentTypes.filter(t => !((${config}).sidebarLayoutConfig?.components?.right || []).includes(t)).map(t => '<option value="' + t + '">' + (componentNames[t] || t) + '</option>').join('')}
+          \${${JSON.stringify(componentTypes)}.filter(t => !((${config}).sidebarLayoutConfig?.components?.right || []).includes(t)).map(t => '<option value="' + t + '">' + (${JSON.stringify(componentNames)}[t] || t) + '</option>').join('')}
         </select>
         <button type="button" class="btn-primary" onclick="addSidebarComponent('right')" style="width:100%;">+ 添加到右侧栏</button>
       </div>
@@ -95,12 +95,12 @@ export function sidebarLayoutModalHtml(config: string): string {
       <h4>抽屉模式组件（移动端）</h4>
       <p style="font-size:12px;margin-bottom:12px;">控制在移动端抽屉菜单中显示的组件</p>
       <div id="sidebar-drawer-container" class="sidebar-components-container" ondragover="handleContainerDragOver(event)" ondrop="handleContainerDrop(event)">
-        \${((${config}).sidebarLayoutConfig?.components?.drawer || []).map((c, idx) => '<div class="sidebar-component-item" draggable="true" data-sidebar="drawer" data-type="' + c + '" data-index="' + idx + '" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event)" ondragenter="handleDragEnter(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)"><span class="drag-handle">⋮⋮</span><span>' + (componentNames[c] || c) + '</span><button type="button" class="btn-danger btn-sm" onclick="removeSidebarComponent(\\"' + c + '\\", \\"drawer\\")">移除</button></div>').join('') || '<div class="empty-state">暂无组件</div>'}
+        \${((${config}).sidebarLayoutConfig?.components?.drawer || []).map((c, idx) => '<div class="sidebar-component-item" draggable="true" data-sidebar="drawer" data-type="' + c + '" data-index="' + idx + '" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event)" ondragenter="handleDragEnter(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)"><span class="drag-handle">⋮⋮</span><span>' + (${JSON.stringify(componentNames)}[c] || c) + '</span><button type="button" class="btn-danger btn-sm" onclick="removeSidebarComponent(\\"' + c + '\\", \\"drawer\\")">移除</button></div>').join('') || '<div class="empty-state">暂无组件</div>'}
       </div>
       <div style="margin-top:12px;">
         <select id="modal-sidebar-add-drawer" style="width:100%;padding:10px;border-radius:8px;margin-bottom:8px;">
           <option value="">选择要添加的组件...</option>
-          \${componentTypes.filter(t => !((${config}).sidebarLayoutConfig?.components?.drawer || []).includes(t)).map(t => '<option value="' + t + '">' + (componentNames[t] || t) + '</option>').join('')}
+          \${${JSON.stringify(componentTypes)}.filter(t => !((${config}).sidebarLayoutConfig?.components?.drawer || []).includes(t)).map(t => '<option value="' + t + '">' + (${JSON.stringify(componentNames)}[t] || t) + '</option>').join('')}
         </select>
         <button type="button" class="btn-primary" onclick="addSidebarComponent('drawer')" style="width:100%;">+ 添加到抽屉模式</button>
       </div>

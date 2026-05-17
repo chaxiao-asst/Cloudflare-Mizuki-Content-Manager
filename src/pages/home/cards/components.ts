@@ -1,4 +1,4 @@
-export const CARD_ID = 'components';
+export const CARD_ID = 'categories';
 
 export function cardHtml(): string {
   return `<div class="config-card" onclick="openModal('categories')">
