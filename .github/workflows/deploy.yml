@@ -22,6 +22,9 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -34,50 +37,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Deploy to Cloudflare Workers (initial)
+      - name: Set secrets
+        run: |
+          ENV=${{ github.event.inputs.environment || 'production' }}
+          echo "${{ secrets.GH_TOKEN }}"              | npx wrangler secret put GH_TOKEN -e $ENV
+          echo "${{ secrets.GH_REPO_OWNER }}"         | npx wrangler secret put GH_REPO_OWNER -e $ENV
+          echo "${{ secrets.GH_REPO_NAME }}"          | npx wrangler secret put GH_REPO_NAME -e $ENV
+          echo "${{ secrets.CONTENT_REPO_OWNER || '' }}" | npx wrangler secret put CONTENT_REPO_OWNER -e $ENV
+          echo "${{ secrets.CONTENT_REPO_NAME || '' }}"  | npx wrangler secret put CONTENT_REPO_NAME -e $ENV
+          echo "${{ secrets.ENABLE_CONTENT_SYNC || 'false' }}" | npx wrangler secret put ENABLE_CONTENT_SYNC -e $ENV
+
+      - name: Deploy to Cloudflare Workers
         run: npx wrangler deploy -e ${{ github.event.inputs.environment || 'production' }}
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Set GitHub Token secret
-        run: echo "${{ secrets.GH_TOKEN }}" | npx wrangler versions secret put GH_TOKEN -e ${{ github.event.inputs.environment || 'production' }}
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Set GitHub Repo Owner secret
-        run: echo "${{ secrets.GH_REPO_OWNER }}" | npx wrangler versions secret put GH_REPO_OWNER -e ${{ github.event.inputs.environment || 'production' }}
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Set GitHub Repo Name secret
-        run: echo "${{ secrets.GH_REPO_NAME }}" | npx wrangler versions secret put GH_REPO_NAME -e ${{ github.event.inputs.environment || 'production' }}
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Set Content Repo Owner secret
-        run: echo "${{ secrets.CONTENT_REPO_OWNER || '' }}" | npx wrangler versions secret put CONTENT_REPO_OWNER -e ${{ github.event.inputs.environment || 'production' }}
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Set Content Repo Name secret
-        run: echo "${{ secrets.CONTENT_REPO_NAME || '' }}" | npx wrangler versions secret put CONTENT_REPO_NAME -e ${{ github.event.inputs.environment || 'production' }}
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Set Enable Content Sync secret
-        run: echo "${{ secrets.ENABLE_CONTENT_SYNC || 'false' }}" | npx wrangler versions secret put ENABLE_CONTENT_SYNC -e ${{ github.event.inputs.environment || 'production' }}
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Deploy to Cloudflare Workers (final)
-        run: npx wrangler deploy -e ${{ github.event.inputs.environment || 'production' }}
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
