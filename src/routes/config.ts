@@ -55,7 +55,6 @@ const GET_SECTIONS: [string, string][] = [
   ['expressiveCodeConfig', 'expressiveCodeConfig'],
   ['shareConfig', 'shareConfig'],
   ['licenseConfig', 'licenseConfig'],
-  ['toc', 'toc'],
   ['commentConfig', 'commentConfig'],
 ];
 
@@ -120,7 +119,7 @@ export function createConfigRouter(githubClient: GitHubClient) {
         fullscreenWallpaper, navBarLinks, footer, anime, sidebarLayoutConfig,
         profileConfig, announcementConfig, musicPlayerConfig, sakuraConfig,
         pioConfig, umamiConfig, showLastModified, expressiveCodeConfig,
-        shareConfig, licenseConfig, toc, commentConfig, ...siteConfigData
+        shareConfig, licenseConfig, commentConfig, ...siteConfigData
       } = config;
 
       const file = await githubClient.getFile('src/config.ts');
@@ -157,7 +156,6 @@ export function createConfigRouter(githubClient: GitHubClient) {
         ['expressiveCodeConfig', 'expressiveCodeConfig', 'Record<string, unknown>', false],
         ['shareConfig', 'shareConfig', 'ShareConfig', false],
         ['licenseConfig', 'licenseConfig', 'LicenseConfig', false],
-        ['toc', 'toc', 'TocConfig', false],
         ['commentConfig', 'commentConfig', 'CommentConfig', false],
       ];
 
