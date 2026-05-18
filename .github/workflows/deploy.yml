@@ -10,9 +10,10 @@ on:
       environment:
         description: 'Deployment environment'
         required: true
-        default: 'production'
+        default: 'default'
         type: choice
         options:
+          - default
           - production
           - staging
 
@@ -39,13 +40,28 @@ jobs:
 
       - name: Set secrets
         run: |
-          ENV=${{ github.event.inputs.environment || 'production' }}
-          echo "${{ secrets.GH_TOKEN }}"              | npx wrangler secret put GH_TOKEN -e $ENV
-          echo "${{ secrets.GH_REPO_OWNER }}"         | npx wrangler secret put GH_REPO_OWNER -e $ENV
-          echo "${{ secrets.GH_REPO_NAME }}"          | npx wrangler secret put GH_REPO_NAME -e $ENV
-          echo "${{ secrets.CONTENT_REPO_OWNER || '' }}" | npx wrangler secret put CONTENT_REPO_OWNER -e $ENV
-          echo "${{ secrets.CONTENT_REPO_NAME || '' }}"  | npx wrangler secret put CONTENT_REPO_NAME -e $ENV
-          echo "${{ secrets.ENABLE_CONTENT_SYNC || 'false' }}" | npx wrangler secret put ENABLE_CONTENT_SYNC -e $ENV
+          ENV="${{ github.event.inputs.environment || 'default' }}"
+          if [ "$ENV" = "default" ]; then
+            echo "${{ secrets.GH_TOKEN }}"              | npx wrangler secret put GH_TOKEN
+            echo "${{ secrets.GH_REPO_OWNER }}"         | npx wrangler secret put GH_REPO_OWNER
+            echo "${{ secrets.GH_REPO_NAME }}"          | npx wrangler secret put GH_REPO_NAME
+            echo "${{ secrets.CONTENT_REPO_OWNER || '' }}" | npx wrangler secret put CONTENT_REPO_OWNER
+            echo "${{ secrets.CONTENT_REPO_NAME || '' }}"  | npx wrangler secret put CONTENT_REPO_NAME
+            echo "${{ secrets.ENABLE_CONTENT_SYNC || 'false' }}" | npx wrangler secret put ENABLE_CONTENT_SYNC
+          else
+            echo "${{ secrets.GH_TOKEN }}"              | npx wrangler secret put GH_TOKEN -e "$ENV"
+            echo "${{ secrets.GH_REPO_OWNER }}"         | npx wrangler secret put GH_REPO_OWNER -e "$ENV"
+            echo "${{ secrets.GH_REPO_NAME }}"          | npx wrangler secret put GH_REPO_NAME -e "$ENV"
+            echo "${{ secrets.CONTENT_REPO_OWNER || '' }}" | npx wrangler secret put CONTENT_REPO_OWNER -e "$ENV"
+            echo "${{ secrets.CONTENT_REPO_NAME || '' }}"  | npx wrangler secret put CONTENT_REPO_NAME -e "$ENV"
+            echo "${{ secrets.ENABLE_CONTENT_SYNC || 'false' }}" | npx wrangler secret put ENABLE_CONTENT_SYNC -e "$ENV"
+          fi
 
       - name: Deploy to Cloudflare Workers
-        run: npx wrangler deploy -e ${{ github.event.inputs.environment || 'production' }}
+        run: |
+          ENV="${{ github.event.inputs.environment || 'default' }}"
+          if [ "$ENV" = "default" ]; then
+            npx wrangler deploy
+          else
+            npx wrangler deploy -e "$ENV"
+          fi
