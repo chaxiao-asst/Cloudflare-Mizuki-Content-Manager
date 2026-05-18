@@ -387,6 +387,15 @@ GH_REPO_NAME = "your-blog-repo"
 
 ---
 
+## 致谢
+
+本项目基于以下优秀项目构建，特别感谢：
+
+- **Mizuki-Content-Manager** — [https://github.com/DoublePigeon/Mizuki-Content-Manager](https://github.com/DoublePigeon/Mizuki-Content-Manager) 🌸
+- **Mizuki** — [https://github.com/LyraVoid/Mizuki](https://github.com/LyraVoid/Mizuki)
+
+---
+
 ## 许可证
 
 MIT License
