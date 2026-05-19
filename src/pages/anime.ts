@@ -51,7 +51,7 @@ export const animePage = `
         <div class="form-group"><label>开始观看日期</label><input type="month" name="startDate" id="animeStartDate"></div>
         <div class="form-group"><label>完成日期</label><input type="month" name="endDate" id="animeEndDate"></div>
       </div>
-      <div class="form-group"><label>类型标签</label><input type="text" name="genre" id="animeGenre" placeholder="用逗号分隔，如: 日常, 治愈, 校园"></div>
+      <div class="form-group"><label>类型标签</label><textarea name="genre" id="animeGenre" placeholder="每行一个标签" rows="2"></textarea></div>
       <div class="form-group"><label>简介</label><textarea name="description" id="animeDescription" placeholder="番剧简介..." rows="3"></textarea></div>
       <button type="submit" class="btn btn-primary">保存番剧</button>
       <button type="button" class="btn btn-success" onclick="clearAnimeForm(); closeAnimeModal();">取消</button>
@@ -255,7 +255,6 @@ function closeAnimeDetailModal() {
 
 document.getElementById('animeForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const genreText = document.getElementById('animeGenre').value;
   const data = {
     title: document.getElementById('animeTitle').value,
     cover: document.getElementById('animeCover').value,
@@ -269,7 +268,7 @@ document.getElementById('animeForm').addEventListener('submit', async function(e
     totalEpisodes: parseInt(document.getElementById('animeTotalEpisodes').value) || 0,
     startDate: document.getElementById('animeStartDate').value,
     endDate: document.getElementById('animeEndDate').value || null,
-    genre: genreText.split(',').map(function(t) { return t.trim(); }).filter(function(x) { return x; }),
+    genre: document.getElementById('animeGenre').value.split('\\n').map(function(t) { return t.trim(); }).filter(function(x) { return x; }),
     description: document.getElementById('animeDescription').value
   };
   
@@ -322,7 +321,7 @@ async function editAnime(title) {
   document.getElementById('animeTotalEpisodes').value = data.totalEpisodes || '';
   document.getElementById('animeStartDate').value = data.startDate || '';
   document.getElementById('animeEndDate').value = data.endDate || '';
-  document.getElementById('animeGenre').value = (data.genre || []).join(', ');
+  document.getElementById('animeGenre').value = (data.genre || []).join('\\n');
   document.getElementById('animeDescription').value = data.description || '';
   document.getElementById('animeModal').classList.add('active');
 }
